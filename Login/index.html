@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WonderFly ✈︎ | Login</title>
+    <meta name="description" content="Faça login na sua conta WonderFly para explorar culturas autênticas."/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css" /> <!-- Seu CSS principal -->
+    <link rel="stylesheet" href="./login.css" /> <!-- CSS específico do login -->
+</head>
+<body>
+    <div class="login-container">
+        <header class="login-header">
+            <a class="logo" href="#"></i> <span>WonderFly</span> </a>
+        </header>
+        <div class="login-box">
+            <h2>Garanta sua reserva! Faça login e sua próxima viagem está a um passo.</h2>
+            <form class="login-form">
+                <div class="input-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" placeholder="Sua senha" required>
+                    <a href="#" class="forgot-password">Esqueceu a senha?</a>
+                </div>
+                <button type="submit" class="btn primary lg full-width">Entrar</button>
+            </form>
+            <p class="signup-link">Não tem uma conta? <a href="#">Cadastre-se</a></p>
+            <div class="divider"><span>ou</span></div>
+            <button class="btn ghost lg full-width social-login"><i class="ri-google-fill"></i> Entrar com Google</button>
+            <button class="btn ghost lg full-width social-login"><i class="ri-facebook-fill"></i> Entrar com Facebook</button>
+        </div>
+    </div>
+    <style>
+        /* login.css */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(90deg, #3f5efb, #A5ADD9); /* O mesmo gradiente do seu header */
+}
+
+.login-container {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+    padding: 30px;
+    text-align: center;
+}
+
+.login-header {
+    margin-bottom: 30px;
+}
+
+.login-header .logo {
+    color: #000; /* Preto para contrastar com o fundo branco do container */
+    font-size: 1.8rem;
+    justify-content: center;
+}
+
+.login-header .logo i {
+    color: #ff5a5f; /* Cor de destaque para o ícone */
+}
+
+.login-box h2 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    color: #222;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #A5ADD9; /* Cor do gradiente para o foco */
+    box-shadow: 0 0 0 3px rgba(165, 173, 217, 0.3);
+}
+
+.forgot-password {
+    display: block;
+    text-align: right;
+    font-size: 0.9rem;
+    color: #A5ADD9;
+    margin-top: 8px;
+    transition: color 0.3s;
+}
+
+.forgot-password:hover {
+    color: #3f5efb;
+}
+
+.btn.full-width {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.signup-link {
+    margin-top: 25px;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.signup-link a {
+    color: #A5ADD9;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.signup-link a:hover {
+    color: #3f5efb;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 30px 0;
+    color: #aaa;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #eee;
+}
+
+.divider:not(:empty)::before {
+    margin-right: .25em;
+}
+
+.divider:not(:empty)::after {
+    margin-left: .25em;
+}
+
+.social-login {
+    margin-top: 10px;
+    background-color: #f1f1f1;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.social-login:hover {
+    background-color: #e0e0e0;
+    border-color: #c0c0c0;
+}
+
+.social-login i {
+    margin-right: 8px;
+    font-size: 1.1rem;
+}
+
+    </style>
+</body>
+</html>

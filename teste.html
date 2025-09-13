@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós - EdenAero</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">EdenAero</div>
+            <div class="search-bar">
+                <input type="text" placeholder="Pesquisar">
+                <button type="submit">🔍</button>
+            </div>
+            <nav class="user-nav">
+                <a href="#">👤 Login</a>
+                <a href="#">🛒 Carrinho</a>
+            </nav>
+        </div>
+        <nav class="main-nav">
+            <a href="catalogo.html" class="nav-item">Catálogo</a>
+            <a href="sobre.html" class="nav-item active">Sobre</a>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="about-section">
+                <h1>Sobre Nós</h1>
+                <div class="about-image">
+                    <img src="https://via.placeholder.com/800x400?text=Estufa+de+Plantas+Carnívoras" alt="Estufa de Plantas Carnívoras">
+                </div>
+
+                <div class="about-text-columns">
+                    <div class="column">
+                        <h2>Nossa História</h2>
+                        <p>Fundada em 2020 por entusiastas de plantas carnívoras, a EdenAero nasceu da paixão por espécies exóticas e fascinantes. Começamos como um pequeno cultivo caseiro e, desde então, temos crescido para nos tornar uma fonte confiável das mais saudáveis e impressionantes plantas carnívoras do Brasil.</p>
+                    </div>
+                    <div class="column">
+                        <h2>Nossa Missão</h2>
+                        <p>Capacitar colecionadores, desde iniciantes a experientes, com plantas de qualidade superior e informações precisas. Promovemos a apreciação pela botânica e incentivamos práticas de cultivo sustentáveis, contribuindo para a conservação dessas espécies únicas.</p>
+                    </div>
+                </div>
+
+                <div class="why-choose-us">
+                    <h2>Por Que Escolher a EdenAero?</h2>
+                    <ul>
+                        <li>Grande Variedade de Espécies</li>
+                        <li>Plantas Saudáveis e Aclimatadas</li>
+                        <li>Envio Seguro para Todo Brasil</li>
+                        <li>Suporte Especializado</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="logo">EdenAero</div>
+            <nav class="footer-nav">
+                <a href="#">Contatos</a>
+                <a href="#">Sobre</a>
+                <a href="#">Política</a>
+            </nav>
+            <p class="copyright">© 2023 EdenAero - Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    <style>
+        /* Variáveis de Cores */
+:root {
+    --primary-dark: #2A423C; /* Verde escuro principal */
+    --secondary-dark: #3F5E54; /* Verde escuro secundário */
+    --accent-light: #A8C9A3; /* Verde claro de destaque */
+    --text-light: #E0E0E0; /* Texto claro */
+    --button-bg: #5D8E6F; /* Verde para botões */
+    --button-hover: #73A889; /* Verde mais claro para hover */
+}
+
+/* Reset Básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 0;
+}
+
+/* Header */
+.header {
+    background-color: var(--secondary-dark);
+    padding: 10px 0;
+    border-bottom: 2px solid var(--primary-dark);
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--accent-light);
+}
+
+.header .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #4C6F63;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.header .search-bar input {
+    border: none;
+    padding: 8px 10px;
+    background-color: transparent;
+    color: var(--text-light);
+    outline: none;
+    width: 200px;
+}
+
+.header .search-bar button {
+    background-color: var(--button-bg);
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    color: var(--text-light);
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.header .search-bar button:hover {
+    background-color: var(--button-hover);
+}
+
+.header .user-nav a {
+    color: var(--text-light);
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 0.95em;
+    transition: color 0.3s ease;
+}
+
+.header .user-nav a:hover {
+    color: var(--accent-light);
+}
+
+.main-nav {
+    background-color: var(--primary-dark);
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 10px; /* Espaço entre a barra de pesquisa/login e a navegação principal */
+}
+
+.main-nav .nav-item {
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 8px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.main-nav .nav-item:hover,
+.main-nav .nav-item.active {
+    background-color: var(--button-bg);
+    color: white;
+}
+
+/* Main Content - Sobre Nós */
+.main-content {
+    padding: 30px 0;
+}
+
+.about-section {
+    background-color: var(--secondary-dark);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.about-section h1 {
+    font-size: 2.5em;
+    color: var(--accent-light);
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--accent-light);
+    padding-bottom: 10px;
+}
+
+.about-image {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.about-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.about-text-columns {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 40px;
+    flex-wrap: wrap; /* Permite que as colunas quebrem em telas menores */
+}
+
+.about-text-columns .column {
+    flex: 1;
+    min-width: 300px; /* Garante que as colunas não fiquem muito estreitas */
+}
+
+.about-text-columns h2 {
+    font-size: 1.8em;
+    color: var(--accent-light);
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--accent-light);
+    padding-bottom: 5px;
+}
+
+.about-text-columns p {
+    font-size: 1.1em;
+    color: var(--text-light);
+    line-height: 1.7;
+}
+
+.why-choose-us {
+    margin-top: 30px;
+}
+
+.why-choose-us h2 {
+    font-size: 1.8em;
+    color: var(--accent-light);
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--accent-light);
+    padding-bottom: 5px;
+}
+
+.why-choose-us ul {
+    list-style: none; /* Remove os marcadores padrão */
+    padding-left: 0;
+}
+
+.why-choose-us ul li {
+    background-color: var(--primary-dark);
+    margin-bottom: 10px;
+    padding: 12px 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    font-size: 1.1em;
+    color: var(--text-light);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.why-choose-us ul li::before {
+    content: "🌿"; /* Adiciona um ícone de folha */
+    margin-right: 10px;
+    font-size: 1.2em;
+    color: var(--accent-light);
+}
+
+
+/* Footer */
+.footer {
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    padding: 20px 0;
+    text-align: center;
+    border-top: 2px solid var(--secondary-dark);
+    margin-top: 40px;
+}
+
+.footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--accent-light);
+    margin-bottom: 15px;
+}
+
+.footer-nav {
+    margin-bottom: 15px;
+}
+
+.footer-nav a {
+    color: var(--text-light);
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 0.9em;
+    transition: color 0.3s ease;
+}
+
+.footer-nav a:hover {
+    color: var(--accent-light);
+}
+
+.footer .copyright {
+    font-size: 0.8em;
+    color: #999;
+}
+
+/* Responsividade Básica */
+@media (max-width: 768px) {
+    .header .container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .header .search-bar {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .header .search-bar input {
+        width: calc(100% - 60px); /* Ajusta a largura do input */
+    }
+
+    .main-nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .main-nav .nav-item {
+        margin: 5px;
+    }
+
+    .about-text-columns {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .header .logo {
+        font-size: 1.5em;
+    }
+
+    .header .user-nav a {
+        margin-left: 10px;
+    }
+
+    .about-section h1 {
+        font-size: 2em;
+    }
+
+    .about-text-columns h2,
+    .why-choose-us h2 {
+        font-size: 1.5em;
+    }
+
+    .about-text-columns p,
+    .why-choose-us ul li {
+        font-size: 1em;
+    }
+}
+    </style>
+</body>
+</html>

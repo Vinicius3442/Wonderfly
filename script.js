@@ -1,57 +1,74 @@
-// Mobile menu
-const burger = document.getElementById('burger');
-const nav = document.getElementById('nav');
-burger?.addEventListener('click', () => nav.classList.toggle('open'));
+document.addEventListener('DOMContentLoaded', () => {
+    // Ano atual para o footer
+    const yearSpan = document.getElementById('year');
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+    }
 
-// Carousel
-const track = document.querySelector('.carousel-track');
-const prev = document.querySelector('.carousel .prev');
-const next = document.querySelector('.carousel .next');
-let index = 0;
-function updateCarousel(){
-  const slides = document.querySelectorAll('.slide');
-  const width = slides[0].clientWidth;
-  track.style.transform = `translateX(${-index * (width + 12)}px)`;
-}
-next?.addEventListener('click', ()=>{ index = Math.min(index + 1, document.querySelectorAll('.slide').length - 1); updateCarousel(); });
-prev?.addEventListener('click', ()=>{ index = Math.max(index - 1, 0); updateCarousel(); });
-window.addEventListener('resize', updateCarousel);
-updateCarousel();
+    // Lógica para o menu hamburguer (se você tiver)
+    const burger = document.getElementById('burger');
+    const nav = document.getElementById('nav');
+    if (burger && nav) {
+        burger.addEventListener('click', () => {
+            nav.classList.toggle('active'); // Adicione uma classe 'active' para exibir o menu mobile
+        });
+    }
 
-// Newsletter
-document.getElementById('newsletter')?.addEventListener('submit', (e)=>{
-  e.preventDefault();
-  alert('Valeu! Você receberá nossas melhores ofertas e dicas 💌');
-  e.target.reset();
+    // Lógica para o Quiz Modal
+    const btnOpenQuiz = document.getElementById('btn-open-quiz');
+    const closeQuiz = document.getElementById('close-quiz');
+    const quizModal = document.getElementById('quiz');
+    const quizForm = document.getElementById('quiz-form');
+    const quizResult = document.getElementById('quiz-result');
+
+    if (btnOpenQuiz && closeQuiz && quizModal && quizForm && quizResult) {
+        btnOpenQuiz.addEventListener('click', () => {
+            quizModal.classList.add('show');
+        });
+
+        closeQuiz.addEventListener('click', () => {
+            quizModal.classList.remove('show');
+            quizResult.setAttribute('hidden', ''); // Esconde o resultado ao fechar
+            quizForm.reset(); // Reseta o formulário
+        });
+
+        // Fechar o modal clicando fora do conteúdo (opcional)
+        quizModal.addEventListener('click', (e) => {
+            if (e.target === quizModal) {
+                quizModal.classList.remove('show');
+                quizResult.setAttribute('hidden', '');
+                quizForm.reset();
+            }
+        });
+
+        // Lógica de submissão do formulário do quiz
+        quizForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(quizForm);
+            const tema = formData.get('tema');
+            const orcamento = formData.get('orcamento');
+            const estilo = formData.get('estilo');
+
+            let suggestion = '';
+
+            // Lógica de sugestão (simplificada para demonstração)
+            if (tema === 'gastronomia' && orcamento === 'medio') {
+                suggestion = 'Para você, o ideal é uma aventura gastronômica no Vietnã! Hanói te espera com sua street food incrível.';
+            } else if (tema === 'natureza' && estilo === 'mochilao') {
+                suggestion = 'Que tal explorar as trilhas e vulcões da Indonésia? A ilha de Java é perfeita para mochileiros aventureiros.';
+            } else if (tema === 'festivais' && orcamento === 'alto') {
+                suggestion = 'A Índia durante o festival Holi seria uma experiência inesquecível e cheia de cores para você!';
+            } else if (tema === 'historia' && orcamento === 'baixo') {
+                suggestion = 'Mergulhe na história milenar do Egito, explorando pirâmides e templos com um orçamento mais acessível.';
+            } else if (tema === 'comunidades' && estilo === 'conforto') {
+                suggestion = 'Conecte-se com as culturas autênticas da Etiópia, com roteiros que proporcionam conforto e imersão cultural.';
+            } else {
+                suggestion = 'Temos muitas opções incríveis! Entre em contato para montarmos seu roteiro ideal.';
+            }
+
+            quizResult.innerHTML = `<p>${suggestion}</p><a href="#" class="btn primary mt-3">Ver pacotes sugeridos</a>`;
+            quizResult.removeAttribute('hidden');
+        });
+    }
 });
-
-// Quiz
-const modal = document.getElementById('quiz');
-const btnOpenQuiz = document.getElementById('btn-open-quiz');
-const btnCloseQuiz = document.getElementById('close-quiz');
-const result = document.getElementById('quiz-result');
-
-btnOpenQuiz?.addEventListener('click', ()=> modal.style.display = 'flex');
-btnCloseQuiz?.addEventListener('click', ()=> modal.style.display = 'none');
-modal?.addEventListener('click', (e)=>{ if(e.target === modal) modal.style.display = 'none'; });
-
-document.getElementById('quiz-form')?.addEventListener('submit', (e)=>{
-  e.preventDefault();
-  const data = Object.fromEntries(new FormData(e.target));
-  const sugestoes = {
-    gastronomia: 'Hanói (Vietnã) — tour street food + aula de culinária.',
-    natureza: 'Ilha de Java (Indonésia) — trilhas nos vulcões Bromo e Ijen.',
-    festivais: 'Chiang Mai (Tailândia) — Songkran com curadoria WonderFly.',
-    historia: 'Isfahan & Yazd (Irã) — arquitetura persa e bazares históricos.',
-    comunidades: 'Vale do Omo (Etiópia) — imersão em comunidades locais.'
-  };
-  const preco = { baixo: 'até R$ 4 mil', medio: 'entre R$ 4–7 mil', alto: 'acima de R$ 7 mil' };
-  result.innerHTML = `
-    <strong>Sua vibe:</strong> ${data.tema} • <strong>Orçamento:</strong> ${preco[data.orcamento]} • <strong>Estilo:</strong> ${data.estilo}<br><br>
-    <strong>Sugestão:</strong> ${sugestoes[data.tema]}
-  `;
-  result.hidden = false;
-});
-
-// Copy year
-document.getElementById('year').textContent = new Date().getFullYear();
