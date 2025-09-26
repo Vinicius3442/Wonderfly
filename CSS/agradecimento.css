@@ -1,0 +1,169 @@
+.thank-you-page-container {
+    max-width: 800px;
+    margin: 80px auto;
+    padding: 0 8%;
+    text-align: center;
+}
+
+.thank-you-content {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.success-icon {
+    font-size: 5rem;
+    color: #28a745; /* Verde de sucesso */
+    margin-bottom: 25px;
+    animation: bounceIn 0.8s ease-out;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.1); opacity: 1; }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+.thank-you-content h1 {
+    font-size: 2.8rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.main-message {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 35px;
+    line-height: 1.6;
+    max-width: 600px;
+}
+
+.details-box {
+    background: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 40px;
+    width: 100%;
+    text-align: left;
+}
+
+.details-box h2 {
+    font-size: 1.4rem;
+    color: #3f5efb; /* Cor primária da WonderFly */
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.details-box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.details-box ul li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+.details-box ul li i {
+    font-size: 1.5rem;
+    color: #3f5efb;
+    margin-right: 15px;
+    flex-shrink: 0; /* Impede o ícone de encolher */
+    padding-top: 2px;
+}
+
+.secondary-message {
+    font-size: 1.1rem;
+    color: #777;
+    margin-bottom: 40px;
+    font-style: italic;
+}
+
+.thank-you-ctas {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.thank-you-ctas .btn {
+    padding: 15px 28px;
+    font-size: 1.05rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .thank-you-page-container {
+        margin: 50px auto;
+    }
+    .thank-you-content {
+        padding: 30px;
+    }
+    .success-icon {
+        font-size: 4rem;
+    }
+    .thank-you-content h1 {
+        font-size: 2.2rem;
+    }
+    .main-message {
+        font-size: 1rem;
+    }
+    .details-box {
+        padding: 20px;
+    }
+    .details-box h2 {
+        font-size: 1.2rem;
+    }
+    .details-box ul li {
+        font-size: 0.95rem;
+    }
+    .details-box ul li i {
+        font-size: 1.3rem;
+    }
+    .thank-you-ctas {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .thank-you-ctas .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .thank-you-content {
+        padding: 20px;
+    }
+    .success-icon {
+        font-size: 3.5rem;
+    }
+    .thank-you-content h1 {
+        font-size: 1.8rem;
+    }
+    .main-message {
+        font-size: 0.95rem;
+    }
+    .secondary-message {
+        font-size: 1rem;
+    }
+    .details-box {
+        padding: 15px;
+    }
+    .details-box h2 {
+        font-size: 1.1rem;
+    }
+}
