@@ -3,8 +3,8 @@
     text-align: center;
     color: #fff;
     padding: 100px 20px;
-    background: linear-gradient(rgba(63, 94, 251, 0.8), rgba(165, 173, 217, 0.8)), url('https://images.unsplash.com/photo-1501785888041-af3ba6f60060?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
-    background-attachment: fixed; /* Efeito parallax */
+    background: linear-gradient(rgba(0, 0, 0, 0.664), rgba(0, 0, 0, 0.726)), url('https://www.segueviagem.com.br/wp-content/uploads/2021/01/Aviao-shutterstock_146314307.jpg') center/cover no-repeat;
+    background-attachment: fixed;
 }
 
 .hero-blog-content {
@@ -22,7 +22,6 @@
     line-height: 1.8;
 }
 
-/* Posts do Blog */
 .blog-posts {
     padding-top: 60px;
 }
@@ -58,7 +57,7 @@
 }
 
 .blog-post .badge {
-    background: #ff5a5f;
+    background: #f07913;
     padding: 6px 12px;
     border-radius: 6px;
     font-size: 0.8rem;
@@ -92,12 +91,12 @@
 
 .blog-post .post-meta i {
     margin-right: 5px;
-    color: #ff5a5f;
+    color: #f07913;
 }
 
 .blog-post .link {
     font-weight: 600;
-    color: #ff5a5f;
+    color: #f07913;
     display: inline-flex;
     align-items: center;
     gap: 5px;

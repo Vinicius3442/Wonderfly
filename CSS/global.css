@@ -7,7 +7,7 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   line-height: 1.6;
   color: #222;
   background-color: #fff;
@@ -40,12 +40,14 @@ button {
   animation: blink 1s infinite;
 }
 @keyframes blink {
-  50% { opacity: 0; }
+  50% {
+    opacity: 0;
+  }
 }
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,7 +67,7 @@ button {
   justify-content: space-between;
   align-items: center;
   padding: 16px 8%;
-  background: linear-gradient(90deg, #0B598B, #167CBF); /* COR ALTERADA */
+  background: linear-gradient(90deg, #0b598b, #167cbf);
   color: #fff;
   position: sticky;
   top: 0;
@@ -113,11 +115,11 @@ button {
   gap: 6px;
 }
 .btn.primary {
-  background: #0B5A8C; /* COR ALTERADA */
+  background: #0b5a8c; /* COR ALTERADA */
   color: #fff;
 }
 .btn.primary:hover {
-  background: #167CBF; /* COR ALTERADA */
+  background: #167cbf; /* COR ALTERADA */
 }
 .btn.secondary {
   background: #f1f1f1;
@@ -136,7 +138,7 @@ button {
   color: #fff;
 }
 .btn.ghost:hover {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
 }
 .btn.lg {
   padding: 14px 26px;
@@ -153,7 +155,8 @@ button {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600") center/cover no-repeat;
+  background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600")
+    center/cover no-repeat;
   z-index: -1;
   filter: brightness(0.5);
 }
@@ -162,7 +165,7 @@ button {
   margin-bottom: 12px;
 }
 .hero h1 span {
-  color: #FFCF9D; /* COR ALTERADA */
+  color: #ffcf9d; /* COR ALTERADA */
 }
 .hero p {
   max-width: 600px;
@@ -198,7 +201,7 @@ button {
 }
 .section-head .link {
   font-size: 0.9rem;
-  color: #F07913; /* COR ALTERADA */
+  color: #f07913; /* COR ALTERADA */
 }
 
 /* Cards de destinos */
@@ -211,7 +214,7 @@ button {
   background: #fff;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
 }
@@ -256,8 +259,8 @@ button {
   transition: 0.3s;
 }
 .chip:hover {
-  border-color: #F07913; /* COR ALTERADA */
-  color: #F07913; /* COR ALTERADA */
+  border-color: #f07913; /* COR ALTERADA */
+  color: #f07913; /* COR ALTERADA */
 }
 
 /* Carousel */
@@ -281,13 +284,13 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: end;
-  box-shadow: inset 0 -80px 40px rgba(0,0,0,0.4);
+  box-shadow: inset 0 -80px 40px rgba(0, 0, 0, 0.4);
 }
 .slide h3 {
   font-size: 1rem;
 }
 .badge {
-  background: #F07913; /* COR ALTERADA */
+  background: #f07913; /* COR ALTERADA */
   padding: 4px 10px;
   border-radius: 6px;
   font-size: 0.75rem;
@@ -303,8 +306,12 @@ button {
   padding: 8px;
   font-size: 1.4rem;
 }
-.carousel-btn.prev { left: 10px; }
-.carousel-btn.next { right: 10px; }
+.carousel-btn.prev {
+  left: 10px;
+}
+.carousel-btn.next {
+  right: 10px;
+}
 
 /* Trust cards */
 .trust-cards .trust-grid {
@@ -317,11 +324,11 @@ button {
   background: #fff;
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
 }
 .trust-card i {
   font-size: 2rem;
-  color: #F07913; /* COR ALTERADA */
+  color: #f07913; /* COR ALTERADA */
   margin-bottom: 12px;
 }
 
@@ -349,7 +356,7 @@ button {
 
 /* Newsletter / PROMO BANNER */
 .cta-newsletter {
-  background: #F07913; /* COR ALTERADA */
+  background: #f07913; /* COR ALTERADA */
   color: #fff;
   text-align: center;
   padding: 60px 20px;
@@ -376,7 +383,7 @@ button {
 
 /* Footer */
 .footer {
-  background: #0B5A8C; /* COR ALTERADA */
+  background: #000000;
   color: #ddd;
   padding: 60px 8% 20px;
 }
@@ -417,9 +424,22 @@ button {
 .copy {
   text-align: center;
   font-size: 0.85rem;
-  border-top: 1px solid #337aa5; /* COR ALTERADA */
+  border-top: 1px solid #ffffff;
   padding-top: 12px;
-  color: #ccc; /* COR ALTERADA */
+  color: #ccc;
+}
+#mapaAgencias {
+  height: 450px;
+  width: 100%;
+  border-radius: 12px;
+  z-index: 1;
+}
+/* Estilo que destaca o filtro selecionado */
+.chip.active {
+  background-color: #f07913;
+  color: #fff;
+  border-color: #f07913;
+  font-weight: 600;
 }
 
 /* Responsivo */

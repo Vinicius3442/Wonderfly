@@ -2,10 +2,9 @@
     position: relative;
     text-align: center;
     color: #fff;
-    padding: 80px 20px; /* Reduzindo o padding para não ser tão alto quanto o hero principal */
-    background: linear-gradient(rgba(63, 94, 251, 0.8), rgba(252, 70, 107, 0.8)), url('https://images.unsplash.com/photo-1518655299066-6b7139265917?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
-    /* Usei uma imagem mais genérica de viagens para o hero de contato */
-    filter: brightness(0.9); /* Um pouco mais claro que o hero principal para diferenciar */
+    padding: 80px 20px;
+    background: linear-gradient(rgba(0, 0, 0, 0.664), rgba(0, 0, 0, 0.726)), url('https://amanha.com.br/images/u/171/Executivo-estendendo-a-mao-com-funcionarios-desfocados-ao-fundo.jpg') center/cover no-repeat;
+    filter: brightness(0.9);
 }
 
 .hero-contact-content {
@@ -24,7 +23,6 @@
     font-size: 1.1rem;
 }
 
-/* Contact Details Section */
 .contact-details {
     padding-top: 60px;
     padding-bottom: 60px;
@@ -49,7 +47,7 @@
 
 .contact-card i {
     font-size: 2.2rem;
-    color: #3f5efb; /* Cor primária do seu gradiente */
+    color: #167cbf;
     margin-bottom: 15px;
 }
 
@@ -66,13 +64,13 @@
 }
 
 .contact-card .link {
-    color: #fc466b; /* Cor secundária do seu gradiente */
+    color: #f07913; /* Cor secundária do seu gradiente */
     font-weight: 600;
     transition: color 0.3s;
 }
 
 .contact-card .link:hover {
-    color: #a5add9; /* Uma cor intermediária do seu gradiente */
+    color: #0b598b; /* Uma cor intermediária do seu gradiente */
 }
 
 /* Contact Form Section */

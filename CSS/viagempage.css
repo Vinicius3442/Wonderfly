@@ -13,7 +13,7 @@
 }
 
 .trip-hero-content .badge {
-    background: #ff5a5f;
+    background: #f07913;
     padding: 6px 12px;
     border-radius: 6px;
     font-size: 0.8rem;
@@ -136,7 +136,7 @@
 }
 
 .not-included li i.ri-close-line {
-    color: #dc3545;
+    color: #f07913;
     font-size: 1.1rem;
 }
 
@@ -244,7 +244,7 @@
 .booking-box .price span {
     font-size: 1.8rem;
     font-weight: 700;
-    color: #ff5a5f;
+    color: #f07913;
 }
 
 .booking-box form label {
@@ -271,7 +271,7 @@
 .booking-box form select:focus,
 .booking-box form textarea:focus {
     outline: none;
-    border-color: #ff5a5f;
+    border-color: #f07913;
     box-shadow: 0 0 0 3px rgba(255, 90, 95, 0.2);
 }
 
@@ -288,7 +288,7 @@
 }
 
 .booking-box .small-text a {
-    color: #ff5a5f;
+    color: #f07913;
     font-weight: 500;
 }
 
