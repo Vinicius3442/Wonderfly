@@ -171,19 +171,11 @@
             text-decoration: underline;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                max-width: 450px;
-            }
-
-            .image-section {
-                display: none; /* Oculta a imagem em telas menores para focar no formulário */
-            }
-
-            .form-section {
-                padding: 30px 25px;
-            }
+        .orange{
+            color: rgb(240, 121, 19) !important;
+        }
+        .blue{
+            color: rgb(22, 123, 191) !important;
         }
     </style>
 </head>
@@ -194,8 +186,8 @@
         </div>
         <div class="form-section">
             <div class="logo">
-                <img src="https://wonderfly.io/favicon.ico" alt="WonderFly Logo"> <!-- Substitua pelo favicon real -->
-                <span>WonderFly</span>
+                <img src="../../images/logo.png" alt="WonderFly Logo"> <!-- Substitua pelo favicon real -->
+                <span class="blue">Wonder</span><span class="orange">Fly</span>
             </div>
             <h1>Crie sua conta</h1>
             <p class="description">Junte-se a nós e comece a planejar sua próxima grande aventura!</p>
