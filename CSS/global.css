@@ -73,6 +73,23 @@ button {
   top: 0;
   z-index: 1000;
 }
+.logo img {
+  height: 32px;
+}
+.blue{
+  color: rgb(22, 123, 191);
+}
+.orange{
+  color: rgb(240, 121, 19);
+}
+.footer-logo{
+    display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.4rem;
+  gap: 6px;
+  color: rgb(22, 123, 191);
+}
 .header .logo {
   display: flex;
   align-items: center;
@@ -419,7 +436,8 @@ button {
 }
 .footer .payments img {
   height: 26px;
-  margin-right: 8px;
+  margin-right: 12px;
+  display: inline-block;
 }
 .copy {
   text-align: center;
