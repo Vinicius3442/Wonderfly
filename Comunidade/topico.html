@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WonderFly - Comunidade</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <title>WonderFly - Tópico</title> <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display.swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
@@ -13,8 +12,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     
     <link rel="stylesheet" href="../CSS/global.css">
-    <link rel="stylesheet" href="../CSS/comunidade.css"> 
-</head>
+    <link rel="stylesheet" href="../CSS/comunidade.css">
+    <link rel="stylesheet" href="../CSS/topico.css"> </head>
 <body>
 
     <header class="header" id="main-header">
@@ -37,28 +36,28 @@
     </header>
 
     <main>
-        <section class="community-header">
-            <div class="community-header-content">
-                <h1>Comunidade WonderFly</h1>
-                <p>Compartilhe dicas, encontre companhias e tire suas dúvidas sobre viagens.</p>
-                <button class="btn primary lg" id="start-thread-btn">
-                    <i class="ri-add-line"></i> Criar Novo Tópico
-                </button>
-            </div>
-        </section>
-
-        <section class="section community-content">
-            <div class="board-filter" id="board-filter-chips">
-                <button class="chip active" data-board="all">Todos</button>
-                <button class="chip" data-board="dicas">Dicas</button>
-                <button class="chip" data-board="roteiros">Roteiros</button>
-                <button class="chip" data-board="companhia">Companhia</button>
-                <button class="chip" data-board="fotografia">Fotografia</button>
-                <button class="chip" data-board="perrengues">Perrengues</button>
+        <section class="section topic-content">
+            <div class="topic-breadcrumb">
+                <a href="./comunidade.html"><i class="ri-arrow-left-s-line"></i> Voltar para a Comunidade</a>
             </div>
 
-            <div class="thread-list" id="thread-list-container">
+            <div id="original-post-container">
                 </div>
+
+            <div class="replies-section">
+                <h2 id="reply-count">Respostas (0)</h2>
+
+                <form class="reply-form" id="reply-form">
+                    <h3>Deixar uma Resposta</h3>
+                    <div class="form-group">
+                        <textarea id="reply-message" rows="5" placeholder="Digite sua mensagem aqui..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn primary">Publicar Resposta</button>
+                </form>
+
+                <div class="replies-list" id="replies-list-container">
+                    </div>
+            </div>
         </section>
     </main>
 
@@ -105,45 +104,8 @@
         </div>
     </footer>
 
-    <div class="modal" id="new-thread-modal">
-        <div class="modal-content">
-            <button class="modal-close" id="modal-close-btn">&times;</button>
-            <h2>Criar Novo Tópico</h2>
-            
-            <form id="new-thread-form">
-                <div class="form-group">
-                    <label for="thread-board">Categoria</label>
-                    <select id="thread-board" required>
-                        <option value="dicas">Dicas</option>
-                        <option value="roteiros">Roteiros</option>
-                        <option value="companhia">Companhia</option>
-                        <option value="fotografia">Fotografia</option>
-                        <option value="perrengues">Perrengues</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="thread-subject">Assunto</label>
-                    <input type="text" id="thread-subject" required placeholder="Ex: Melhor chip de internet na Europa?">
-                </div>
-                
-                <div class="form-group">
-                    <label for="thread-message">Mensagem</label>
-                    <textarea id="thread-message" rows="5" placeholder="Descreva sua dúvida ou compartilhe sua dica..."></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="thread-image">Foto (Opcional)</label>
-                    <input type="file" id="thread-image" accept="image/*">
-                </div>
-                
-                <button type="submit" class="btn primary full-width">Publicar Tópico</button>
-            </form>
-        </div>
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     
-    <script src="../JS/comunidade.js"></script>
+    <script src="../JS/topico.js"></script>
 </body>
 </html>

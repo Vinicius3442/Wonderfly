@@ -1,0 +1,212 @@
+/* =============================================
+   ARQUIVO: comunidade.css
+   Estilos para o fórum da comunidade.
+   ============================================= */
+
+/* --- Header da Comunidade --- */
+.community-header {
+    padding: 80px 8% 60px;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.5)), 
+                url('https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?q=80&w=1770') center/cover no-repeat;
+    color: #fff;
+    text-align: center;
+}
+
+.community-header-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.community-header h1 {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+}
+.community-header p {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    opacity: 0.9;
+}
+
+/* --- Filtro de Categorias (Chips) --- */
+.board-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+/* Reutiliza o .chip do global.css */
+.chip {
+    cursor: pointer;
+}
+.chip.active {
+    background-color: #f07913;
+    color: #fff;
+    border-color: #f07913;
+    font-weight: 600;
+}
+
+/* --- Lista de Tópicos --- */
+.thread-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.thread-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.thread-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.thread-image {
+    height: 180px;
+    width: 100%;
+    background-color: #f0f0f0;
+}
+.thread-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thread-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.thread-board-badge {
+    background-color: #0b598b; /* Azul do tema */
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    align-self: flex-start;
+    text-transform: capitalize;
+}
+
+/* Cores diferentes para categorias */
+[data-board="dicas"] .thread-board-badge { background-color: #0b598b; }
+[data-board="roteiros"] .thread-board-badge { background-color: #28a745; }
+[data-board="companhia"] .thread-board-badge { background-color: #17a2b8; }
+[data-board="fotografia"] .thread-board-badge { background-color: #6f42c1; }
+[data-board="perrengues"] .thread-board-badge { background-color: #dc3545; }
+
+
+.thread-content h3 {
+    font-size: 1.25rem;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+}
+
+.thread-message {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    /* Limita o texto */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+
+.thread-stats {
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: auto; /* Empurra para o fim do card */
+    padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.thread-stats span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.thread-card .btn {
+    margin-top: 15px;
+    align-self: flex-start;
+}
+
+/* --- Estilos do Modal (Copiado/Adaptado do perfil.css) --- */
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+    align-items: center; 
+    justify-content: center;
+}
+.modal.show { display: flex; }
+.modal-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 550px; /* Um pouco maior */
+    position: relative;
+    animation: slideDown 0.3s ease-out;
+}
+@keyframes slideDown {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #aaa;
+    font-size: 2rem;
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.modal-close:hover { color: #333; }
+.modal-content h2 { margin-top: 0; margin-bottom: 20px; }
+
+/* Formulário do Modal */
+#new-thread-form .form-group { margin-bottom: 20px; }
+#new-thread-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+#new-thread-form input[type="text"],
+#new-thread-form input[type="file"],
+#new-thread-form textarea,
+#new-thread-form select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+.btn.full-width {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+}
