@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WonderFly - Encontre sua Próxima Aventura</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
-    
-    <!-- Leaflet CSS para o mapa -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    <link rel="stylesheet" href="../CSS/global.css">
-    <link rel="stylesheet" href="../CSS/home_viagem.css"> 
-</head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
 
+    <!-- Leaflet CSS para o mapa -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="../CSS/global.css" />
+    <link rel="stylesheet" href="../CSS/home_viagem.css" />
+  </head>
+  <body>
     <div class="topbar">
       <p>
         <span class="blink">●</span> Até 25% OFF nas experiências de verão — use
@@ -25,223 +38,395 @@
     </div>
 
     <header class="header" id="main-header">
-        <a href="../index.html" class="logo">
-            <img src="../images/white_logo.png" alt="WonderFly Logo">
-            <span>WonderFly</span>
-        </a>
-        <nav class="nav">
-            <a href="#" class="active">Destinos</a>
-            <a href="../Comunidade/home_comunidade.html">Comunidade</a>
-            <a href="../Blog/blog_home.html">Blog</a>
-            <a href="../Contato/contato.html">Contato</a>
-        </nav>
-        <div class="header-cta">
-            <a href="../Login/login.html" class="btn ghost">Fazer Login</a>
-            <a href="#all-destination-cards"><button class="btn primary">Reserve Agora</button></a> <!-- Updated link -->
-        </div>
-        <button class="burger" id="burger-menu">
-            <i class="fa-solid fa-bars"></i>
-        </button>
+      <a href="../index.html" class="logo">
+        <img src="../images/white_logo.png" alt="WonderFly Logo" />
+        <span>WonderFly</span>
+      </a>
+      <nav class="nav">
+        <a href="#" class="active">Destinos</a>
+        <a href="../Comunidade/home_comunidade.html">Comunidade</a>
+        <a href="../Blog/blog_home.html">Blog</a>
+        <a href="../Contato/contato.html">Contato</a>
+      </nav>
+      <div class="header-cta">
+        <a href="../Login/login.html" class="btn ghost">Fazer Login</a>
+        <a href="#all-destination-cards"
+          ><button class="btn primary">Reserve Agora</button></a
+        >
+        <!-- Updated link -->
+      </div>
+      <button class="burger" id="burger-menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
     </header>
 
     <main>
-        <section class="hero-viagem">
-            <div class="hero-viagem-content">
-                <h1>Descubra Experiências Inesquecíveis</h1>
-                <p>Encontre sua próxima aventura cultural, gastronômica ou de natureza.</p>
-                <div class="search-container">
-                    <select id="continent-filter">
-                        <option value="all">Todos os Continentes</option>
-                        <option value="america-sul">América do Sul</option>
-                        <option value="america-norte">América do Norte</option>
-                        <option value="europa">Europa</option>
-                        <option value="asia">Ásia</option>
-                        <option value="africa">África</option>
-                        <option value="oceania">Oceania</option>
-                    </select>
-                    <input type="text" id="search-input" placeholder="Pesquisar destino, tema ou palavras-chave...">
-                    <button class="btn primary" id="search-button"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
-                </div>
-            </div>
-        </section>
+      <section class="hero-viagem">
+        <div class="hero-viagem-content">
+          <h1>Descubra Experiências Inesquecíveis</h1>
+          <p>
+            Encontre sua próxima aventura cultural, gastronômica ou de natureza.
+          </p>
+          <div class="search-container">
+            <select id="continent-filter">
+              <option value="all">Todos os Continentes</option>
+              <option value="america-sul">América do Sul</option>
+              <option value="america-norte">América do Norte</option>
+              <option value="europa">Europa</option>
+              <option value="asia">Ásia</option>
+              <option value="africa">África</option>
+              <option value="oceania">Oceania</option>
+            </select>
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Pesquisar destino, tema ou palavras-chave..."
+            />
+            <button class="btn primary" id="search-button">
+              <i class="fa-solid fa-magnifying-glass"></i> Buscar
+            </button>
+          </div>
+        </div>
+      </section>
 
-        <!-- A seção de "Destaque" pode ser apenas um título sem um contêiner de cards separado -->
-        <section class="section" id="destaque-section">
-            <div class="section-head">
-                <h2>Roteiros em Destaque</h2>
-                <!-- Removido o link "Ver todos" ou ajustado para a nova estrutura se necessário -->
-                <a href="#all-destination-cards" class="link" id="ver-todos-link">Ver todos &rarr;</a>
-            </div>
-            <!-- Os cards de destaque agora estarão no mesmo contêiner que os outros -->
-        </section>
+      <section class="section alt">
+        <div class="section-head">
+          <h2>Explore por Tema</h2>
+          <span>Escolha o que mais te inspira e encontre o roteiro ideal.</span>
+          <a
+            href="#all-destination-cards"
+            class="link"
+            id="ver-todos-link"
+            style="color: rgb(255, 103, 1)"
+            >Ver todos &rarr;</a
+          >
+        </div>
+        <div class="themes" id="theme-chips-container">
+          <button class="chip active" data-filter="all">Todos</button>
+          <button class="chip" data-filter="aventura">Aventura</button>
+          <button class="chip" data-filter="relaxamento">Relaxamento</button>
+          <button class="chip" data-filter="historia">História</button>
+          <button class="chip" data-filter="gastronomia">Gastronomia</button>
+          <button class="chip" data-filter="natureza">Natureza Selvagem</button>
+          <button class="chip" data-filter="cultura">Imersão Cultural</button>
+        </div>
 
-        <section class="section alt">
-            <div class="section-head">
-                <h2>Explore por Tema</h2>
-                <span>Escolha o que mais te inspira e encontre o roteiro ideal.</span>
+        <!-- UM ÚNICO CONTÊINER PARA TODOS OS CARDS -->
+        <div class="grid cards" id="all-destination-cards">
+          <div
+            class="card"
+            data-continent="america-sul"
+            data-category="aventura historia"
+            data-keywords="peru incas machu picchu andes cusco trilha montanha cultura américa do sul"
+          >
+            <div
+              class="card-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1547432098-90050d246603?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+              "
+            ></div>
+            <div class="card-body">
+              <h3>Trilhas dos Incas - Peru</h3>
+              <p>
+                Aventure-se pelos Andes, descubra Machu Picchu e a cultura Inca.
+              </p>
+              <div class="meta">
+                <span><i class="fa-solid fa-clock"></i> 8 dias</span>
+                <span>a partir de R$ 4.100</span>
+              </div>
+              <a href="./viagens/peru.html" class="btn secondary"
+                >Ver detalhes</a
+              >
             </div>
-            <div class="themes" id="theme-chips-container">
-                <button class="chip active" data-filter="all">Todos</button>
-                <button class="chip" data-filter="aventura">Aventura</button>
-                <button class="chip" data-filter="relaxamento">Relaxamento</button>
-                <button class="chip" data-filter="historia">História</button>
-                <button class="chip" data-filter="gastronomia">Gastronomia</button>
-                <button class="chip" data-filter="natureza">Natureza Selvagem</button>
-                <button class="chip" data-filter="cultura">Imersão Cultural</button>
+          </div>
+          <div
+            class="card"
+            data-continent="europa"
+            data-category="gastronomia cultura"
+            data-keywords="italia toscana vinho massas gastronomia vilarejos roma veneza culinaria europa"
+          >
+            <div
+              class="card-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1605634685511-042858564244?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+              "
+            ></div>
+            <div class="card-body">
+              <h3>Sabores da Itália Rural</h3>
+              <p>
+                Deguste vinhos na Toscana, aprenda a fazer massas em vilarejos.
+              </p>
+              <div class="meta">
+                <span><i class="fa-solid fa-clock"></i> 6 dias</span>
+                <span>a partir de R$ 3.800</span>
+              </div>
+              <a href="./viagens/italia.html" class="btn secondary"
+                >Ver detalhes</a
+              >
             </div>
+          </div>
+          <div
+            class="card"
+            data-continent="asia"
+            data-category="cultura relaxamento"
+            data-keywords="tailandia templos bangkok ayutthaya praias espiritualidade zen ásia"
+          >
+            <div
+              class="card-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1579895066373-9cf653b62f44?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+              "
+            ></div>
+            <div class="card-body">
+              <h3>Templos Místicos da Tailândia</h3>
+              <p>
+                Descubra a espiritualidade de Bangkok e os templos antigos de
+                Ayutthaya.
+              </p>
+              <div class="meta">
+                <span><i class="fa-solid fa-clock"></i> 7 dias</span>
+                <span>a partir de R$ 2.900</span>
+              </div>
+              <a href="./viagens/tailandia.html" class="btn secondary"
+                >Ver detalhes</a
+              >
+            </div>
+          </div>
+          <div
+            class="card"
+            data-continent="europa"
+            data-category="natureza aventura"
+            data-keywords="islandia aurora boreal geleiras vulcoes paisagens fria europa"
+          >
+            <div
+              class="card-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1549414902-ce46c31a7f05?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+              "
+            ></div>
+            <div class="card-body">
+              <h3>Aurora Boreal na Islândia</h3>
+              <p>
+                Caça à aurora, geleiras e paisagens vulcânicas espetaculares.
+              </p>
+              <div class="meta">
+                <span><i class="fa-solid fa-clock"></i> 5 dias</span>
+                <span>a partir de R$ 6.500</span>
+              </div>
+              <a href="./viagens/islandia.html" class="btn secondary"
+                >Ver detalhes</a
+              >
+            </div>
+          </div>
+          <div
+            class="card"
+            data-continent="america-sul"
+            data-category="aventura natureza"
+            data-keywords="patagonia argentina chile trekking glaciares montanhas lagos frio américa do sul"
+          >
+            <div
+              class="card-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1510414842594-a61c69b5ae74?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+              "
+            ></div>
+            <div class="card-body">
+              <h3>Patagônia Selvagem - Argentina</h3>
+              <p>Trekking por glaciares, montanhas e lagos cristalinos.</p>
+              <div class="meta">
+                <span><i class="fa-solid fa-clock"></i> 10 dias</span>
+                <span>a partir de R$ 5.200</span>
+              </div>
+              <a href="./viagens/patagonia.html" class="btn secondary"
+                >Ver detalhes</a
+              >
+            </div>
+          </div>
+          <div
+            class="card"
+            data-continent="asia"
+            data-category="relaxamento cultura"
+            data-keywords="japao zen templos jardins tokyo kyoto spiritualidade ásia"
+          >
+            <div
+              class="card-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1596204738521-482f349c2525?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+              "
+            ></div>
+            <div class="card-body">
+              <h3>Retiro Zen no Japão</h3>
+              <p>
+                Paz e tranquilidade em templos antigos e jardins exuberantes.
+              </p>
+              <div class="meta">
+                <span><i class="fa-solid fa-clock"></i> 7 dias</span>
+                <span>a partir de R$ 4.500</span>
+              </div>
+              <a href="./viagens/japao.html" class="btn secondary"
+                >Ver detalhes</a
+              >
+            </div>
+          </div>
+          <div
+            class="card"
+            data-continent="europa"
+            data-category="historia cultura"
+            data-keywords="grecia atenas ilhas ciclades historia mitologia partnenon europa"
+          >
+            <div
+              class="card-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1542491173-9844616239bc?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+              "
+            ></div>
+            <div class="card-body">
+              <h3>Grécia Antiga e Ilhas</h3>
+              <p>Caminhe por Atenas histórica e relaxe nas ilhas Cíclades.</p>
+              <div class="meta">
+                <span><i class="fa-solid fa-clock"></i> 9 dias</span>
+                <span>a partir de R$ 5.800</span>
+              </div>
+              <a href="./viagens/grecia.html" class="btn secondary"
+                >Ver detalhes</a
+              >
+            </div>
+          </div>
+          <div
+            class="card"
+            data-continent="america-norte"
+            data-category="gastronomia cultura"
+            data-keywords="mexico cidade culinaria tacos gastronomia azteca maya américa do norte"
+          >
+            <div
+              class="card-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1590987588380-45e0321c1723?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+              "
+            ></div>
+            <div class="card-body">
+              <h3>Tour Culinário na Cidade do México</h3>
+              <p>
+                Descubra os sabores vibrantes da culinária mexicana tradicional.
+              </p>
+              <div class="meta">
+                <span><i class="fa-solid fa-clock"></i> 4 dias</span>
+                <span>a partir de R$ 1.900</span>
+              </div>
+              <a href="./viagens/mexico.html" class="btn secondary"
+                >Ver detalhes</a
+              >
+            </div>
+          </div>
+          <div
+            class="card"
+            data-continent="africa"
+            data-category="natureza aventura"
+            data-keywords="quenia safari vida selvagem masai mara africa"
+          >
+            <div
+              class="card-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1628173434199-52e92c2b794f?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+              "
+            ></div>
+            <div class="card-body">
+              <h3>Safari Fotográfico no Quênia</h3>
+              <p>
+                Aproxime-se da vida selvagem africana e capture momentos únicos.
+              </p>
+              <div class="meta">
+                <span><i class="fa-solid fa-clock"></i> 7 dias</span>
+                <span>a partir de R$ 8.900</span>
+              </div>
+              <a href="./viagens/quenia.html" class="btn secondary"
+                >Ver detalhes</a
+              >
+            </div>
+          </div>
+          <div
+            class="card"
+            data-continent="asia"
+            data-category="relaxamento"
+            data-keywords="maldivas praias luxo mergulho resorts asia"
+          >
+            <div
+              class="card-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1522811467776-3532f815d74c?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+              "
+            ></div>
+            <div class="card-body">
+              <h3>Praias Paradisíacas das Maldivas</h3>
+              <p>
+                Relaxe em resorts de luxo sobre a água e mergulhe em corais.
+              </p>
+              <div class="meta">
+                <span><i class="fa-solid fa-clock"></i> 5 dias</span>
+                <span>a partir de R$ 7.500</span>
+              </div>
+              <a href="./viagens/maldivas.html" class="btn secondary"
+                >Ver detalhes</a
+              >
+            </div>
+          </div>
+          <div
+            class="card"
+            data-continent="asia"
+            data-category="historia cultura"
+            data-keywords="irã persia teerã isfahan shiraz historia cultura mesquitas templos asia"
+          >
+            <div
+              class="card-img"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1600&auto=format&fit=crop');
+              "
+            ></div>
+            <div class="card-body">
+              <h3>Patrimônios no Irã</h3>
+              <p>
+                Uma jornada imersiva pelas antigas civilizações e a rica cultura
+                persa.
+              </p>
+              <div class="meta">
+                <span><i class="fa-solid fa-clock"></i> 10 dias</span>
+                <span>a partir de R$ 6.450</span>
+              </div>
+              <a href="./viagens/iran.html" class="btn secondary"
+                >Ver detalhes</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
 
-            <!-- UM ÚNICO CONTÊINER PARA TODOS OS CARDS -->
-            <div class="grid cards" id="all-destination-cards">
-                <!-- Card 1: Peru - América do Sul, Aventura, História -->
-                <div class="card" data-continent="america-sul" data-category="aventura historia" data-keywords="peru incas machu picchu andes cusco trilha montanha cultura américa do sul">
-                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1547432098-90050d246603?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
-                    <div class="card-body">
-                        <h3>Trilhas dos Incas - Peru</h3>
-                        <p>Aventure-se pelos Andes, descubra Machu Picchu e a cultura Inca.</p>
-                        <div class="meta">
-                            <span><i class="fa-solid fa-clock"></i> 8 dias</span>
-                            <span>a partir de R$ 4.100</span>
-                        </div>
-                        <button class="btn secondary">Ver detalhes</button>
-                    </div>
-                </div>
-                <!-- Card 2: Itália - Europa, Gastronomia, Cultura -->
-                <div class="card" data-continent="europa" data-category="gastronomia cultura" data-keywords="italia toscana vinho massas gastronomia vilarejos roma veneza culinaria europa">
-                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1605634685511-042858564244?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
-                    <div class="card-body">
-                        <h3>Sabores da Itália Rural</h3>
-                        <p>Deguste vinhos na Toscana, aprenda a fazer massas em vilarejos.</p>
-                        <div class="meta">
-                            <span><i class="fa-solid fa-clock"></i> 6 dias</span>
-                            <span>a partir de R$ 3.800</span>
-                        </div>
-                        <button class="btn secondary">Ver detalhes</button>
-                    </div>
-                </div>
-                <!-- Card 3: Tailândia - Ásia, Cultura, Relaxamento -->
-                <div class="card" data-continent="asia" data-category="cultura relaxamento" data-keywords="tailandia templos bangkok ayutthaya praias espiritualidade zen ásia">
-                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1579895066373-9cf653b62f44?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
-                    <div class="card-body">
-                        <h3>Templos Místicos da Tailândia</h3>
-                        <p>Descubra a espiritualidade de Bangkok e os templos antigos de Ayutthaya.</p>
-                        <div class="meta">
-                            <span><i class="fa-solid fa-clock"></i> 7 dias</span>
-                            <span>a partir de R$ 2.900</span>
-                        </div>
-                        <button class="btn secondary">Ver detalhes</button>
-                    </div>
-                </div>
-                <!-- Card 4: Islândia - Europa, Natureza, Aventura -->
-                <div class="card" data-continent="europa" data-category="natureza aventura" data-keywords="islandia aurora boreal geleiras vulcoes paisagens fria europa">
-                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1549414902-ce46c31a7f05?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
-                    <div class="card-body">
-                        <h3>Aurora Boreal na Islândia</h3>
-                        <p>Caça à aurora, geleiras e paisagens vulcânicas espetaculares.</p>
-                        <div class="meta">
-                            <span><i class="fa-solid fa-clock"></i> 5 dias</span>
-                            <span>a partir de R$ 6.500</span>
-                        </div>
-                        <button class="btn secondary">Ver detalhes</button>
-                    </div>
-                </div>
-                <!-- Card 5: Patagônia - América do Sul, Aventura, Natureza -->
-                <div class="card" data-continent="america-sul" data-category="aventura natureza" data-keywords="patagonia argentina chile trekking glaciares montanhas lagos frio américa do sul">
-                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1510414842594-a61c69b5ae74?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
-                    <div class="card-body">
-                        <h3>Patagônia Selvagem - Argentina</h3>
-                        <p>Trekking por glaciares, montanhas e lagos cristalinos.</p>
-                        <div class="meta">
-                            <span><i class="fa-solid fa-clock"></i> 10 dias</span>
-                            <span>a partir de R$ 5.200</span>
-                        </div>
-                        <button class="btn secondary">Ver detalhes</button>
-                    </div>
-                </div>
-                <!-- Card 6: Japão - Ásia, Relaxamento, Cultura -->
-                <div class="card" data-continent="asia" data-category="relaxamento cultura" data-keywords="japao zen templos jardins tokyo kyoto spiritualidade ásia">
-                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1596204738521-482f349c2525?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
-                    <div class="card-body">
-                        <h3>Retiro Zen no Japão</h3>
-                        <p>Paz e tranquilidade em templos antigos e jardins exuberantes.</p>
-                        <div class="meta">
-                            <span><i class="fa-solid fa-clock"></i> 7 dias</span>
-                            <span>a partir de R$ 4.500</span>
-                        </div>
-                        <button class="btn secondary">Ver detalhes</button>
-                    </div>
-                </div>
-                <!-- Card 7: Grécia - Europa, História, Cultura -->
-                <div class="card" data-continent="europa" data-category="historia cultura" data-keywords="grecia atenas ilhas ciclades historia mitologia partnenon europa">
-                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1542491173-9844616239bc?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
-                    <div class="card-body">
-                        <h3>Grécia Antiga e Ilhas</h3>
-                        <p>Caminhe por Atenas histórica e relaxe nas ilhas Cíclades.</p>
-                        <div class="meta">
-                            <span><i class="fa-solid fa-clock"></i> 9 dias</span>
-                            <span>a partir de R$ 5.800</span>
-                        </div>
-                        <button class="btn secondary">Ver detalhes</button>
-                    </div>
-                </div>
-                <!-- Card 8: Cidade do México - América do Norte, Gastronomia, Cultura -->
-                <div class="card" data-continent="america-norte" data-category="gastronomia cultura" data-keywords="mexico cidade culinaria tacos gastronomia azteca maya américa do norte">
-                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1590987588380-45e0321c1723?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
-                    <div class="card-body">
-                        <h3>Tour Culinário na Cidade do México</h3>
-                        <p>Descubra os sabores vibrantes da culinária mexicana tradicional.</p>
-                        <div class="meta">
-                            <span><i class="fa-solid fa-clock"></i> 4 dias</span>
-                            <span>a partir de R$ 1.900</span>
-                        </div>
-                        <button class="btn secondary">Ver detalhes</button>
-                    </div>
-                </div>
-                 <!-- Card 9: Quênia - África, Natureza, Aventura -->
-                <div class="card" data-continent="africa" data-category="natureza aventura" data-keywords="quenia safari vida selvagem masai mara africa">
-                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1628173434199-52e92c2b794f?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
-                    <div class="card-body">
-                        <h3>Safari Fotográfico no Quênia</h3>
-                        <p>Aproxime-se da vida selvagem africana e capture momentos únicos.</p>
-                        <div class="meta">
-                            <span><i class="fa-solid fa-clock"></i> 7 dias</span>
-                            <span>a partir de R$ 8.900</span>
-                        </div>
-                        <button class="btn secondary">Ver detalhes</button>
-                    </div>
-                </div>
-                <!-- Card 10: Maldivas - Ásia, Relaxamento -->
-                <div class="card" data-continent="asia" data-category="relaxamento" data-keywords="maldivas praias luxo mergulho resorts asia">
-                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1522811467776-3532f815d74c?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
-                    <div class="card-body">
-                        <h3>Praias Paradisíacas das Maldivas</h3>
-                        <p>Relaxe em resorts de luxo sobre a água e mergulhe em corais.</p>
-                        <div class="meta">
-                            <span><i class="fa-solid fa-clock"></i> 5 dias</span>
-                            <span>a partir de R$ 7.500</span>
-                        </div>
-                        <button class="btn secondary">Ver detalhes</button>
-                    </div>
-                </div>
-            </div>
-        </section>
+      <section class="section">
+        <div class="section-head">
+          <h2>Onde no Mapa?</h2>
+          <span
+            >Encontre seus destinos favoritos ou descubra novas aventuras
+            globalmente.</span
+          >
+        </div>
+        <div id="mapaDestinos"></div>
+      </section>
 
-        <section class="section">
-            <div class="section-head">
-                <h2>Onde no Mapa?</h2>
-                <span>Encontre seus destinos favoritos ou descubra novas aventuras globalmente.</span>
-            </div>
-            <div id="mapaDestinos"></div>
-        </section>
-
-        <section class="cta-newsletter">
-            <h3>Comece a planejar sua viagem dos sonhos!</h3>
-            <p>Assine a newsletter e receba inspirações, roteiros e ofertas exclusivas.</p>
-            <form class="newsletter" id="newsletter-form">
-                <input type="email" id="newsletter-email" placeholder="Seu melhor e-mail">
-                <button type="submit" class="btn white">Quero receber!</button>
-            </form>
-            <p id="newsletter-message" class="newsletter-message"></p>
-        </section>
+      <section class="cta-newsletter">
+        <h3>Comece a planejar sua viagem dos sonhos!</h3>
+        <p>
+          Assine a newsletter e receba inspirações, roteiros e ofertas
+          exclusivas.
+        </p>
+        <form class="newsletter" id="newsletter-form">
+          <input
+            type="email"
+            id="newsletter-email"
+            placeholder="Seu melhor e-mail"
+          />
+          <button type="submit" class="btn white">Quero receber!</button>
+        </form>
+        <p id="newsletter-message" class="newsletter-message"></p>
+      </section>
     </main>
 
     <!-- Back to Top Button -->
@@ -249,8 +434,67 @@
       <i class="ri-arrow-up-line"></i>
     </button>
 
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <a href="#" class="logo footer-logo">
+            <img src="./images/logo.png" alt="" />
+            <span class="blue">Wonder</span><span class="orange">Fly</span>
+          </a>
+          <p>
+            Explorar culturas, conectar pessoas e transformar olhares. Este é o
+            nosso plano de voo.
+          </p>
+          <div class="social">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4>Sobre nós</h4>
+          <ul>
+            <li><a href="./Blog/blog_home.html">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Atendimento</h4>
+          <ul>
+            <li><a href="#">ola@wonderfly.com</a></li>
+            <li><a href="#">(11) 98888-9999</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Pagamento</h4>
+          <div class="payments">
+            <img
+              src="https://img.icons8.com/color/48/000000/visa.png"
+              alt="Visa"
+            />
+            <img
+              src="https://img.icons8.com/color/48/000000/mastercard.png"
+              alt="Mastercard"
+            />
+            <img
+              src="https://img.icons8.com/color/48/000000/pix.png"
+              alt="Pix"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        &copy; 2025 WonderFly Viagens Ltda. Todos os direitos reservados.
+      </div>
+    </footer>
+
     <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
     <script src="../JS/home_viagem.js"></script>
-</body>
+  </body>
 </html>

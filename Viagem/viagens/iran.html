@@ -5,63 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WonderFly ✈︎ | Patrimônios no Irã</title>
     <meta name="description" content="Descubra a história milenar do Irã com a WonderFly. Explore antigas cidades, mesquitas deslumbrantes e mercados vibrantes." />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    
     <link rel="stylesheet" href="../../CSS/global.css" />
     <link rel="stylesheet" href="../../CSS/viagempage.css" />
 </head>
 <body>
-    <!-- Top bar promo -->
     <div class="topbar">
         <p><span class="blink">●</span> Até 25% OFF nas experiências de verão — use o cupom <strong>WONDER25</strong></p>
     </div>
 
-    <!-- Header -->
-    <header class="header">
-        <a class="logo" href="#"><span>WonderFly</span></a>
+    <header class="header" id="main-header">
+        <a href="../../index.html" class="logo">
+            <img src="../../images/white_logo.png" alt="WonderFly Logo">
+            <span>WonderFly</span>
+        </a>
         <nav class="nav" id="nav">
-            <a href="#destinos">Destinos</a>
-            <a href="#experiencias">Experiências</a>
-            <a href="#comunidade">Comunidade</a>
-            <a href="#blog">Blog</a>
-            <a href="#contato">Contato</a>
+            <a href="../home_viagem.html">Destinos</a>
+            <a href="#">Experiências</a>
+            <a href="#">Comunidade</a>
+            <a href="#">Blog</a>
+            <a href="#">Contato</a>
         </nav>
         <div class="header-cta">
             <button class="btn ghost" id="btn-open-quiz"><i class="ri-compass-3-line"></i> Descubra seu destino</button>
-            <a class="btn primary" href="#reserve">Reserve Agora</a>
-            <button class="burger" id="burger" aria-label="menu"><i class="ri-menu-line"></i></button>
+            <a class="btn primary" href="#reserva-form">Reserve Agora</a>
+            <button class="burger" id="burger" aria-label="Abrir menu"><i class="ri-menu-line"></i></button>
         </div>
     </header>
 
-    <!-- Trip Hero Section -->
     <section class="trip-hero">
         <div class="trip-hero-content">
             <span class="badge">História & Arte</span>
             <h1>Patrimônios no Irã</h1>
             <p>Uma jornada imersiva pelas antigas civilizações e a rica cultura persa.</p>
-            <div class="trip-meta">
-                <span><i class="ri-time-line"></i> 10 dias</span>
-                <span><i class="ri-wallet-3-line"></i> a partir de R$ 6.450</span>
-                <span><i class="ri-map-pin-line"></i> Teerã, Isfahan, Shiraz</span>
-            </div>
+            
+            <ul class="trip-meta">
+                <li><i class="ri-time-line"></i> 10 dias</li>
+                <li><i class="ri-wallet-3-line"></i> a partir de R$ 6.450</li>
+                <li><i class="ri-map-pin-line"></i> Teerã, Isfahan, Shiraz</li>
+            </ul>
             <a class="btn primary lg" href="#reserva-form"><i class="ri-check-line"></i> Reservar Agora</a>
         </div>
+        
         <div class="trip-hero-gallery">
-            <div class="main-image" style="background-image:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1600&auto=format&fit=crop');"></div>
+            <figure class="main-image">
+                <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1600&auto=format&fit=crop" alt="Mesquita Sheikh Lotfollah em Isfahan, Irã">
+            </figure>
             <div class="thumbnail-images">
-                <div class="thumbnail" style="background-image:url('https://images.unsplash.com/photo-1628173570377-16d1a123f044?q=80&w=800&auto=format&fit=crop');"></div>
-                <div class="thumbnail" style="background-image:url('https://images.unsplash.com/photo-1549723000-a3e90b8f041b?q=80&w=800&auto=format&fit=crop');"></div>
-                <div class="thumbnail" style="background-image:url('https://images.unsplash.com/photo-1620986799042-bb62804d9e18?q=80&w=800&auto=format&fit=crop');"></div>
+                <figure class="thumbnail">
+                    <img src="https://images.unsplash.com/photo-1628173570377-16d1a123f044?q=80&w=800&auto=format&fit=crop" alt="Detalhe de azulejos persas">
+                </figure>
+                <figure class="thumbnail">
+                    <img src="https://images.unsplash.com/photo-1549723000-a3e90b8f041b?q=80&w=800&auto=format&fit=crop" alt="Mercado (Bazar) em Teerã">
+                </figure>
+                <figure class="thumbnail">
+                    <img src="https://images.unsplash.com/photo-1620986799042-bb62804d9e18?q=80&w=800&auto=format&fit=crop" alt="Persepolis, ruínas antigas">
+                </figure>
             </div>
         </div>
     </section>
 
-    <!-- Trip Details Section -->
-    <section class="section trip-details">
+    <section class="section trip-details" id="trip-details-content">
         <div class="details-grid">
-            <div class="main-content">
+            <main class="main-content">
                 <h2>Sobre esta viagem</h2>
                 <p>Prepare-se para uma viagem inesquecível ao coração da antiga Pérsia, onde a história ganha vida em cada esquina. Nosso roteiro "Patrimônios no Irã" foi cuidadosamente elaborado para você explorar cidades lendárias, maravilhas arquitetônicas e a hospitalidade calorosa do povo iraniano. De mercados vibrantes a mesquitas adornadas e jardins serenos, cada momento é uma imersão profunda em uma cultura rica e milenar.</p>
                 <p>Nossos guias locais experientes o levarão por Persepolis, a magnífica capital do Império Aquemênida, os coloridos bazares de Isfahan e os mausoléus poéticos de Shiraz. Viva experiências autênticas, como saborear a culinária persa em restaurantes tradicionais e interagir com artesãos locais. Uma aventura que promete transformar sua visão de mundo e criar memórias duradouras.</p>
@@ -92,52 +105,34 @@
 
                 <div class="itinerary">
                     <h3>Itinerário detalhado</h3>
-                    <div class="day">
-                        <h4>Dia 1: Chegada em Teerã</h4>
-                        <p>Bem-vindo ao Irã! Chegada ao Aeroporto Internacional Imam Khomeini (IKA), recepção e traslado ao hotel. Resto do dia livre para descanso e adaptação. Jantar de boas-vindas com o grupo.</p>
-                    </div>
-                    <div class="day">
-                        <h4>Dia 2: Teerã – Capital cultural</h4>
-                        <p>Explore o Palácio Golestan (Patrimônio Mundial da UNESCO), o Museu Nacional e o Grande Bazar de Teerã. À noite, jantar e experiência em uma casa de chá tradicional.</p>
-                    </div>
-                    <div class="day">
-                        <h4>Dia 3: Voo para Isfahan – A joia persa</h4>
-                        <p>Voo doméstico para Isfahan. Visita à Praça Naqsh-e Jahan (Patrimônio Mundial da UNESCO), Mesquita Shah, Mesquita Sheikh Lotfollah e Palácio Ali Qapu.</p>
-                    </div>
-                    <div class="day">
-                        <h4>Dia 4: Isfahan – Pontes históricas e jardins</h4>
-                        <p>Passeio pelas pontes históricas de Khaju e Si-o-se Pol. Visita ao Bairro Armênio de Jolfa e à Catedral de Vank. Noite livre para explorar a cidade.</p>
-                    </div>
-                    <div class="day">
-                        <h4>Dia 5: Isfahan para Yazd – Cidade do deserto</h4>
-                        <p>Viagem terrestre para Yazd. Visita ao Templo do Fogo Zoroastrista e as Torres do Silêncio. Caminhada pelas ruas de adobe da Cidade Velha.</p>
-                    </div>
-                    <div class="day">
-                        <h4>Dia 6: Yazd – Maravilhas do deserto</h4>
-                        <p>Visita ao Jardim Dowlat Abad com sua torre de vento e a Mesquita Jameh. Explore o complexo de Amir Chakhmaq. Pôr do sol no deserto.</p>
-                    </div>
-                    <div class="day">
-                        <h4>Dia 7: Viagem para Shiraz – Cidade dos poetas</h4>
-                        <p>Viagem para Shiraz, com parada em Pasargada (túmulo de Ciro, o Grande). Chegada em Shiraz, check-in e tempo livre.</p>
-                    </div>
-                    <div class="day">
-                        <h4>Dia 8: Shiraz – Pérolas da antiga Pérsia</h4>
-                        <p>Passeio por Persepolis (Patrimônio Mundial da UNESCO) e Naqsh-e Rustam. Visita ao Jardim de Eram e ao Túmulo de Hafez.</p>
-                    </div>
-                    <div class="day">
-                        <h4>Dia 9: Shiraz – Mesquitas e mercados</h4>
-                        <p>Visita à Mesquita Nasir al-Mulk (Mesquita Rosa) e ao Jardim Narenjestan. Tempo para compras no Bazar Vakil e visita à Cidadela de Karim Khan. Jantar de despedida.</p>
-                    </div>
-                    <div class="day">
-                        <h4>Dia 10: Partida de Shiraz</h4>
-                        <p>Após o café da manhã, traslado ao Aeroporto Internacional de Shiraz (SYZ) para seu voo de retorno.</p>
-                    </div>
+                    <ol class="itinerary-list">
+                        <li class="day">
+                            <h4>Dia 1: Chegada em Teerã</h4>
+                            <p>Bem-vindo ao Irã! Chegada ao Aeroporto Internacional Imam Khomeini (IKA), recepção e traslado ao hotel. Resto do dia livre para descanso e adaptação. Jantar de boas-vindas com o grupo.</p>
+                        </li>
+                        <li class="day">
+                            <h4>Dia 2: Teerã – Capital cultural</h4>
+                            <p>Explore o Palácio Golestan (Patrimônio Mundial da UNESCO), o Museu Nacional e o Grande Bazar de Teerã. À noite, jantar e experiência em uma casa de chá tradicional.</p>
+                        </li>
+                        <li class="day">
+                            <h4>Dia 3: Voo para Isfahan – A joia persa</h4>
+                            <p>Voo doméstico para Isfahan. Visita à Praça Naqsh-e Jahan (Patrimônio Mundial da UNESCO), Mesquita Shah, Mesquita Sheikh Lotfollah e Palácio Ali Qapu.</p>
+                        </li>
+                        <li class="day">
+                            <h4>Dia 9: Shiraz – Mesquitas e mercados</h4>
+                            <p>Visita à Mesquita Nasir al-Mulk (Mesquita Rosa) e ao Jardim Narenjestan. Tempo para compras no Bazar Vakil e visita à Cidadela de Karim Khan. Jantar de despedida.</p>
+                        </li>
+                        <li class="day">
+                            <h4>Dia 10: Partida de Shiraz</h4>
+                            <p>Após o café da manhã, traslado ao Aeroporto Internacional de Shiraz (SYZ) para seu voo de retorno.</p>
+                        </li>
+                    </ol>
                 </div>
 
                 <div class="accommodation">
                     <h3>Hospedagem selecionada</h3>
                     <div class="hotel-card">
-                        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbf6db?q=80&w=800&auto=format&fit=crop" alt="Hotel em Isfahan">
+                        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbf6db?q=80&w=800&auto=format&fit=crop" alt="Pátio interno do Hotel Saraye Ameriha em Kashan">
                         <div class="hotel-info">
                             <h4>Hotel Saraye Ameriha, Kashan (ou similar)</h4>
                             <p>Um hotel boutique luxuoso em uma casa histórica restaurada, oferecendo uma experiência autêntica com todo o conforto. Quartos elegantes e pátios tranquilos.</p>
@@ -149,7 +144,7 @@
                         </div>
                     </div>
                     <div class="hotel-card">
-                        <img src="https://images.unsplash.com/photo-1590449171730-8041c3e38714?q=80&w=800&auto=format&fit=crop" alt="Hotel em Teerã">
+                        <img src="https://images.unsplash.com/photo-1590449171730-8041c3e38714?q=80&w=800&auto=format&fit=crop" alt="Fachada do Espinas Palace Hotel em Teerã">
                         <div class="hotel-info">
                             <h4>Espinas Palace Hotel, Teerã (ou similar)</h4>
                             <p>Um dos hotéis mais prestigiados de Teerã, combinando elegância moderna com toques persas. Oferece vistas panorâmicas da cidade.</p>
@@ -165,10 +160,19 @@
                 <div class="location">
                     <h3>Localização no mapa</h3>
                     <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4187650.049449292!2d47.67500595301844!3d32.42046892556276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ef7e06b39bf099d%3A0xc3f8e58315555139!2sIr%C3%A3!5e0!3m2!1spt-BR!2sbr!1m4!1m3!1d13149479.916719548!2d-60.01633513726543!3d-24.08868662499173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1701389230537!5m2!1spt-BR!2sbr" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d414990.8732738361!2d51.02611842426868!3d35.7073212882898!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8e00491ff3dcd9%3A0xD94545E3F3105E1A!2sTeer%C3%A3%2C%20Ir%C3%A3!5e0!3m2!1spt-BR!2sbr!4v1678886543210!5m2!1spt-BR!2sbr" 
+                            width="100%" 
+                            height="450" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Mapa mostrando a região da viagem, com foco em Teerã">
+                        </iframe>
                     </div>
                 </div>
-            </div>
+            </main>
 
             <aside class="sidebar">
                 <div class="booking-box" id="reserva-form">
@@ -181,7 +185,7 @@
                         <label for="num-viajantes">Número de viajantes</label>
                         <select id="num-viajantes" name="num-viajantes" required>
                             <option value="1">1 viajante</option>
-                            <option value="2">2 viajantes</option>
+                            <option value="2" selected>2 viajantes</option>
                             <option value="3">3 viajantes</option>
                             <option value="4">4+ viajantes</option>
                         </select>
@@ -208,7 +212,6 @@
         </div>
     </section>
 
-    <!-- Call to action for other trips -->
     <section class="section alt related-trips">
         <div class="section-head">
             <h2>Outras experiências que você pode gostar</h2>
@@ -216,7 +219,9 @@
         </div>
         <div class="grid cards">
             <article class="card">
-                <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1549692520-acc6669e2f0c?q=80&w=1600&auto=format&fit=crop');"></div>
+                <figure class="card-img">
+                    <img src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?q=80&w=1600&auto=format&fit=crop" alt="Templos de Angkor Wat no Camboja">
+                </figure>
                 <div class="card-body">
                     <h3>Templos do Camboja</h3>
                     <p>Angkor Wat ao nascer do sol + imersão gastronômica em Siem Reap.</p>
@@ -228,7 +233,9 @@
                 </div>
             </article>
             <article class="card">
-                <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1523805009345-7448845a9e53?q=80&w=1600&auto=format&fit=crop');"></div>
+                <figure class="card-img">
+                    <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?q=80&w=1600&auto=format&fit=crop" alt="Mercado (medina) em Marrakech, Marrocos">
+                </figure>
                 <div class="card-body">
                     <h3>Marrocos Essencial</h3>
                     <p>7 dias por Marrakech, deserto de Agafay e médinas históricas.</p>
@@ -240,7 +247,9 @@
                 </div>
             </article>
             <article class="card">
-                <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1562072541-1c30c51b3e9a?q=80&w=1600&auto=format&fit=crop');"></div>
+                <figure class="card-img">
+                    <img src="https://images.unsplash.com/photo-1562072541-1c30c51b3e9a?q=80&w=1600&auto=format&fit=crop" alt="Pessoas celebrando o festival Holi na Índia com pós coloridos">
+                </figure>
                 <div class="card-body">
                     <h3>Holi na Índia</h3>
                     <p>Participe do festival das cores com curadoria segura e respeitosa.</p>
@@ -254,7 +263,6 @@
         </div>
     </section>
 
-    <!-- Newsletter -->
     <section class="cta-newsletter">
         <div class="cta-inner">
             <h3>Ganhe R$ 200 de desconto no 1º pacote</h3>
@@ -266,88 +274,48 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer" id="contato">
+    <footer class="footer">
         <div class="footer-grid">
             <div>
-                <a class="logo footer-logo" href="#"><i class="ri-flight-takeoff-fill"></i><span>WonderFly</span></a>
+                <a href="#" class="logo footer-logo">
+                    <img src="../../images/logo.png" alt="WonderFly Logo">
+                    <span class="blue">Wonder</span><span class="orange">Fly</span>
+                </a>
                 <p>Explorar culturas, conectar pessoas e transformar olhares. Este é o nosso plano de voo.</p>
                 <div class="social">
-                    <a href="#"><i class="ri-instagram-line"></i></a>
-                    <a href="#"><i class="ri-tiktok-line"></i></a>
-                    <a href="#"><i class="ri-youtube-line"></i></a>
-                    <a href="#"><i class="ri-whatsapp-line"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
                 </div>
             </div>
             <div>
-                <h4>WonderFly</h4>
+                <h4>Sobre nós</h4>
                 <ul>
-                    <li><a href="#sobre">Sobre nós</a></li>
-                    <li><a href="#blog">Blog</a></li>
-                    <li><a href="#carreiras">Carreiras</a></li>
-                    <li><a href="#imprensa">Imprensa</a></li>
+                    <li><a href="./Blog/blog_home.html">Blog</a></li>
                 </ul>
             </div>
             <div>
                 <h4>Atendimento</h4>
                 <ul>
-                    <li><a href="#faq">FAQ</a></li>
-                    <li><a href="mailto:oi@wonderfly.com">oi@wonderfly.com</a></li>
-                    <li><a href="tel:+5511999999999">(11) 99999-9999</a></li>
-                    <li>Segunda à Sábado: 08h às 21h</li>
+                    <li><a href="#">ola@wonderfly.com</a></li>
+                    <li><a href="#">(11) 98888-9999</a></li>
+                    <li><a href="#">FAQ</a></li>
                 </ul>
             </div>
             <div>
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="#termos">Termos de uso</a></li>
-                    <li><a href="#privacidade">Política de privacidade</a></li>
-                </ul>
+                <h4>Pagamento</h4>
                 <div class="payments">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa" />
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Mastercard-logo.png" alt="Mastercard" />
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/PIX_Logo.svg" alt="Pix" />
+                     <img src="https://img.icons8.com/color/48/000000/visa.png" alt="Visa">
+                     <img src="https://img.icons8.com/color/48/000000/mastercard.png" alt="Mastercard">
+                     <img src="https://img.icons8.com/color/48/000000/pix.png" alt="Pix">
                 </div>
             </div>
         </div>
-        <div class="copy">© <span id="year"></span> WonderFly. Todos os direitos reservados.</div>
+        <div class="copy">
+            © 2025 WonderFly Viagens Ltda. Todos os direitos reservados.
+        </div>
     </footer>
 
-    <!-- Quiz Modal (mantido do seu site) -->
-    <div class="modal" id="quiz">
-        <div class="modal-content">
-            <button class="modal-close" id="close-quiz"><i class="ri-close-line"></i></button>
-            <h3>Qual destino combina com você?</h3>
-            <form id="quiz-form">
-                <label>Preferência principal
-                    <select name="tema" required>
-                        <option value="gastronomia">Gastronomia</option>
-                        <option value="natureza">Natureza</option>
-                        <option value="festivais">Festivais</option>
-                        <option value="historia">História & Arte</option>
-                        <option value="comunidades">Comunidades</option>
-                    </select>
-                </label>
-                <label>Orçamento aproximado
-                    <select name="orcamento" required>
-                        <option value="baixo">Até R$ 4 mil</option>
-                        <option value="medio">R$ 4–7 mil</option>
-                        <option value="alto">Acima de R$ 7 mil</option>
-                    </select>
-                </label>
-                <label>Estilo de viagem
-                    <select name="estilo" required>
-                        <option value="mochilao">Mochilão leve</option>
-                        <option value="conforto">Conforto</option>
-                        <option value="luxo">Luxo</option>
-                    </select>
-                </label>
-                <button class="btn primary" type="submit">Ver sugestão</button>
-            </form>
-            <div class="quiz-result" id="quiz-result" hidden></div>
-        </div>
-    </div>
-
-    <script src="./script.js"></script>
-</body>
+    </body>
 </html>

@@ -1,0 +1,266 @@
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column; /* Changed to column to stack header, container, footer */
+  justify-content: center; /* Adjust as needed with header/footer */
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(
+    to right,
+    #4a90e2,
+    #7a63ff
+  );
+  color: #333;
+}
+
+.header {
+  width: 100%; /* Make header span full width */
+  position: relative; /* Change from sticky if it interferes with overall layout on login page */
+  top: 0;
+  z-index: 1000;
+  background: linear-gradient(90deg, #0b598b, #167cbf); /* Keep original header background */
+  color: #fff;
+}
+
+/* Main container for the login form */
+.container {
+  display: flex;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-width: 1000px; /* Added max-width for better control on larger screens */
+  width: 90%; /* Responsive width */
+  margin: 40px auto; /* Added margin to separate from header/footer */
+  min-height: 600px; /* Ensured a reasonable minimum height */
+}
+
+.image-section {
+  flex: 1;
+  background-image: url("https://img.freepik.com/fotos-gratis/turismo-feminino-na-varanda-por-tras_23-2147981904.jpg?semt=ais_hybrid&w=740&q=80");
+  background-size: cover;
+  background-position: center;
+  min-height: 450px;
+}
+
+.form-section {
+  flex: 1;
+  padding: 40px; /* Increased padding slightly for better spacing */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Specific styling for the logo within the form section to differentiate from header logo */
+.form-section .logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.form-section .logo img {
+  width: 35px; /* Slightly larger for clarity */
+  margin-right: 10px;
+}
+
+.form-section .logo .azul {
+  color: rgb(22, 123, 191); /* Ensure these colors are applied */
+}
+
+.form-section .logo .laranja {
+  color: rgb(240, 121, 19); /* Ensure these colors are applied */
+}
+
+
+h1 {
+  font-size: 2em; /* Slightly larger heading for prominence */
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: 600;
+}
+
+p.description {
+  font-size: 1em;
+  color: #666;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9em;
+  color: #555;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-group input[type="email"],
+.form-group input[type="text"],
+.form-group input[type="password"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.9em;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input[type="email"]:focus,
+.form-group input[type="text"]:focus,
+.form-group input[type="password"]:focus {
+  border-color: #4a90e2;
+  outline: none;
+  background-color: #fff;
+}
+
+.form-group .hint {
+  font-size: 0.75em;
+  color: #888;
+  margin-top: 5px;
+}
+
+/* Adjusted button styles for consistency and clarity */
+button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  background-color: #0b5a8c; /* Primary brand color from global.css */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 25px;
+}
+
+button[type="submit"]:hover {
+  background-color: #167cbf; /* Darker shade of primary color */
+}
+
+.top-right-nav {
+  text-align: right; /* Aligned to top-right visually */
+  margin-bottom: 20px; /* Space before form */
+  font-size: 0.9em;
+  color: #666;
+}
+
+.top-right-nav a {
+  color: #4a90e2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.top-right-nav a:hover {
+  text-decoration: underline;
+}
+
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 30px 0;
+  color: #aaa;
+  font-size: 0.8em;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #eee;
+}
+
+.divider:not(:empty)::before {
+  margin-right: 0.5em;
+}
+
+.divider:not(:empty)::after {
+  margin-left: 0.5em;
+}
+
+.social-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.social-button:hover {
+  background-color: #e0e0e0;
+  border-color: #ccc;
+}
+
+.social-button img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.laranja {
+  color: rgb(240, 121, 19) !important;
+}
+.azul {
+  color: rgb(22, 123, 191) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    max-width: 90%;
+    margin: 20px auto; /* Adjust margin for smaller screens */
+    height: auto; /* Allow height to adjust */
+  }
+
+  .image-section {
+    display: none; /* Oculta a imagem em telas menores para focar no formulário */
+  }
+
+  .form-section {
+    padding: 30px 25px;
+  }
+
+  .header .nav {
+    display: none; /* Hide main nav on smaller screens, as handled by global.css */
+  }
+  .burger {
+    display: block; /* Show burger menu */
+  }
+}
+@media (max-width: 480px) {
+  .form-section {
+    padding: 20px; /* Further reduce padding on very small screens */
+  }
+  h1 {
+    font-size: 1.5em;
+  }
+  p.description {
+    font-size: 0.9em;
+  }
+}
+
+/* Ensure the footer is at the bottom */
+.footer {
+  width: 100%;
+  margin-top: auto; /* Pushes the footer to the bottom if body is flex-column */
+}
