@@ -11,7 +11,8 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
     
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
     <link rel="stylesheet" href="../CSS/global.css">
     <link rel="stylesheet" href="../CSS/perfil.css"> 
 </head>
@@ -41,10 +42,12 @@
             <div class="profile-banner">
                 </div>
             <div class="profile-info">
-                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fDE?q=80&w=1780" alt="Avatar do Usuário" class="profile-avatar">
-                <h1 class="profile-name">Nome do Usuário</h1>
-                <p class="profile-bio">Aventureiro, fotógrafo e explorador de culturas. Junte-se a mim!</p>
-            </div>
+    <img src="../images/profile/avatar-default.jpg" alt="Avatar do Usuário" class="profile-avatar" id="profile-avatar">
+    <h1 class="profile-name" id="profile-name">Nome do Usuário</h1>
+    <p class="profile-bio" id="profile-bio">Clique em "Editar Perfil" para adicionar sua bio!</p>
+<button class="btn primary small" id="edit-profile-btn">
+    <i class="ri-pencil-line"></i> Editar Perfil
+</button>
         </section>
 
         <section class="section profile-content">
@@ -142,10 +145,75 @@
     </main>
 
     <footer class="footer">
-        </footer>
-
+        <div class="footer-grid">
+            <div>
+                <a href="#" class="logo footer-logo">
+                    <img src="./images/logo.png" alt="">
+                    <span class="blue">Wonder</span><span class="orange">Fly</span>
+                </a>
+                <p>Explorar culturas, conectar pessoas e transformar olhares. Este é o nosso plano de voo.</p>
+                <div class="social">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Sobre nós</h4>
+                <ul>
+                    <li><a href="./Blog/blog_home.html">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Atendimento</h4>
+                <ul>
+                    <li><a href="#">ola@wonderfly.com</a></li>
+                    <li><a href="#">(11) 98888-9999</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Pagamento</h4>
+                <div class="payments">
+                     <img src="https://img.icons8.com/color/48/000000/visa.png" alt="Visa">
+                     <img src="https://img.icons8.com/color/48/000000/mastercard.png" alt="Mastercard">
+                     <img src="https://img.icons8.com/color/48/000000/pix.png" alt="Pix">
+                </div>
+            </div>
+        </div>
+        <div class="copy">
+            &copy; 2025 WonderFly Viagens Ltda. Todos os direitos reservados.
+        </div>
+    </footer>
+    <div class="modal" id="profile-edit-modal">
+    <div class="modal-content">
+        <button class="modal-close" id="modal-close-btn">&times;</button>
+        <h2>Editar Perfil</h2>
+        
+        <form id="profile-edit-form">
+            <div class="form-group">
+                <label for="edit-avatar">Foto de Perfil</label>
+                <input type="file" id="edit-avatar" accept="image/*">
+                <small>Deixe em branco para manter a atual.</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="edit-name">Nome</label>
+                <input type="text" id="edit-name" required placeholder="Seu nome completo">
+            </div>
+            
+            <div class="form-group">
+                <label for="edit-bio">Sua Bio</label>
+                <textarea id="edit-bio" rows="4" placeholder="Fale um pouco sobre você..."></textarea>
+            </div>
+            
+            <button type="submit" class="btn primary full-width">Salvar Alterações</button>
+        </form>
+    </div>
+</div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <script src="../JS/perfil.js"></script>
 </body>
 </html>

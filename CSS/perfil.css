@@ -157,23 +157,6 @@
     font-size: 0.85rem;
 }
 
-/* --- Seção de Momentos (Mapa e Galeria) --- */
-.moments-container {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr; /* Mapa maior, galeria menor */
-    gap: 30px;
-}
-
-#moments-map {
-    height: 450px;
-    width: 100%;
-    border-radius: 12px;
-    border: 1px solid #ddd;
-    background: #f9f9f9;
-    z-index: 1;
-    cursor: pointer;
-}
-
 .moments-map-area p {
     font-size: 0.9rem;
     color: #555;
@@ -229,6 +212,124 @@
     gap: 10px;
     margin-top: 10px;
 }
+#edit-profile-btn {
+    margin-top: 15px;
+}
+
+/* Estilos do Modal */
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+    
+    /* Para centralizar com Flex */
+    align-items: center; 
+    justify-content: center;
+}
+
+.modal.show {
+    display: flex; /* Mostra o modal */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #aaa;
+    font-size: 2rem;
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.modal-close:hover { 
+    color: #333; 
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* Estilos do Formulário do Modal */
+#profile-edit-form .form-group {
+    margin-bottom: 20px;
+}
+#profile-edit-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+#profile-edit-form input[type="text"],
+#profile-edit-form input[type="file"],
+#profile-edit-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+#profile-edit-form small {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 5px;
+}
+.btn.full-width {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+}
+.moments-container {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr; /* Mapa maior, galeria menor */
+    gap: 30px;
+}
+
+#moments-map {
+    height: 450px;
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+    z-index: 1;
+    cursor: crosshair; /* Mude o cursor para indicar "clicável" */
+}
+
+/* Estilo para o pin temporário (arrastável) */
+.leaflet-marker-icon.leaflet-draggable-marker {
+    filter: hue-rotate(150deg) brightness(1.2); /* Deixa o pin azulado/diferente */
+    cursor: move;
+}
 
 /* Galeria de Momentos */
 .moments-gallery-area {
@@ -250,12 +351,69 @@
     border: 1px solid #eee;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     overflow: hidden;
+    display: flex; /* Mude para flex para melhor alinhamento */
 }
 
 .moment-card img {
-    width: 100%;
-    height: 180px;
+    width: 100px; /* Largura fixa para a imagem */
+    height: 100px;
     object-fit: cover;
+    flex-shrink: 0;
+}
+
+.moment-card-content {
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.moment-card-content p {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin: 0 0 5px 0;
+}
+.moment-card-content small {
+    font-size: 0.8rem;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+/* Ações do Card */
+.moment-card-actions {
+    margin-top: auto; /* Empurra para baixo */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-view-map, .btn-delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.btn-view-map {
+    color: #0b598b; /* Azul do tema */
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.btn-view-map:hover {
+    background-color: #f0f8ff;
+}
+
+.btn-delete {
+    color: #c9302c; /* Vermelho perigo */
+    font-size: 1.1rem; /* Aumenta só o ícone */
+}
+.btn-delete:hover {
+    background-color: #fff0f0;
 }
 
 .moment-card p {
