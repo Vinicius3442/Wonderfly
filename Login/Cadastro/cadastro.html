@@ -46,9 +46,20 @@
             </div>
             <h1>Crie sua conta</h1>
             <p class="description">Junte-se a nós e comece a planejar sua próxima grande aventura!</p>
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              const submitBtn = document.querySelector('.form-section button[type="submit"]');
+              if (!submitBtn) return;
+              submitBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Redireciona para a página de login após o envio
+                window.location.href = '../login.html';
+              });
+            });
+            </script>
 
             <form>
-                <div class="form-group">
+                <div class="form-group" >
                     <label for="nomeCompleto">Nome Completo</label>
                     <input type="text" id="nomeCompleto" placeholder="Seu nome">
                 </div>
@@ -135,5 +146,5 @@
         &copy; 2025 WonderFly Viagens Ltda. Todos os direitos reservados.
       </div>
     </footer>
-</body>
+    </body>
 </html>

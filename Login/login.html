@@ -54,7 +54,7 @@
         </p>
 
         <form>
-          <div class="form-group">
+          <div  class="form-group">
             <label for="email">Email</label>
             <input
               type="email"
@@ -151,5 +151,16 @@
         &copy; 2025 WonderFly Viagens Ltda. Todos os direitos reservados.
       </div>
     </footer>
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              const submitBtn = document.querySelector('.form-section button[type="submit"]');
+              if (!submitBtn) return;
+              submitBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Redireciona para a página de login após o envio
+                window.location.href = '../perfil/perfil.html';
+              });
+            });
+            </script>
   </body>
 </html>

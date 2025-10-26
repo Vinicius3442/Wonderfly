@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WonderFly - Meu Perfil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <link rel="stylesheet" href="../CSS/global.css">
+    <link rel="stylesheet" href="../CSS/perfil.css"> 
+</head>
+<body>
+
+    <header class="header" id="main-header">
+        <a href="../index.html" class="logo">
+            <img src="../images/white_logo.png" alt="WonderFly Logo">
+            <span>WonderFly</span>
+        </a>
+        <nav class="nav">
+            <a href="./home_viagem.html">Destinos</a>
+            <a href="#">Comunidade</a>
+            <a href="#">Blog</a>
+            <a href="#">Contato</a>
+        </nav>
+        <div class="header-cta">
+            <a href="#" class="btn primary">Meu Perfil</a>
+        </div>
+        <button class="burger" id="burger-menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </header>
+
+    <main>
+        <section class="profile-header">
+            <div class="profile-banner">
+                </div>
+            <div class="profile-info">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fDE?q=80&w=1780" alt="Avatar do Usuário" class="profile-avatar">
+                <h1 class="profile-name">Nome do Usuário</h1>
+                <p class="profile-bio">Aventureiro, fotógrafo e explorador de culturas. Junte-se a mim!</p>
+            </div>
+        </section>
+
+        <section class="section profile-content">
+            
+            <div class="profile-tabs-nav">
+                <button class="tab-link active" data-tab="viagens">Minhas Viagens</button>
+                <button class="tab-link" data-tab="momentos">Meus Momentos</button>
+            </div>
+
+            <div class="tab-pane active" id="tab-viagens">
+                <div class="profile-tabs-nav secondary-tabs">
+                    <button class="tab-link-secondary active" data-tab="atuais">Próximas</button>
+                    <button class="tab-link-secondary" data-tab="feitas">Já Feitas</button>
+                    <button class="tab-link-secondary" data-tab="desejos">Lista de Desejos</button>
+                </div>
+
+                <div class="tab-pane-secondary active" id="tab-atuais">
+                    <div class="trip-list">
+                        <div class="trip-card">
+                            <img src="https://images.unsplash.com/photo-1549414902-ce46c31a7f05?q=80&w=600" alt="Islândia">
+                            <div class="trip-card-info">
+                                <h3>Aurora Boreal na Islândia</h3>
+                                <p><strong>Data:</strong> 15/12/2025 - 20/12/2025</p>
+                                <span class="badge">Aventura</span>
+                                <a href="#" class="btn secondary small">Ver detalhes</a>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+
+                <div class="tab-pane-secondary" id="tab-feitas">
+                    <div class="trip-list">
+                        <div class="trip-card">
+                            <img src="https://images.unsplash.com/photo-1547432098-90050d246603?q=80&w=600" alt="Peru">
+                            <div class="trip-card-info">
+                                <h3>Trilhas dos Incas - Peru</h3>
+                                <p><strong>Data:</strong> 10/01/2024 - 18/01/2024</p>
+                                <span class="badge">História</span>
+                                <a href="#" class="btn secondary small">Relembrar</a>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+
+                <div class="tab-pane-secondary" id="tab-desejos">
+                    <div class="trip-list">
+                        <div class="trip-card">
+                            <img src="https://images.unsplash.com/photo-1596204738521-482f349c2525?q=80&w=600" alt="Japão">
+                            <div class="trip-card-info">
+                                <h3>Retiro Zen no Japão</h3>
+                                <p>Adicionado em 05/03/2025</p>
+                                <span class="badge">Relaxamento</span>
+                                <a href="#" class="btn primary small">Reservar Agora</a>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="tab-momentos">
+                <div class="moments-container">
+                    <div class="moments-map-area">
+                        <h3>Mapa de Momentos</h3>
+                        <p>Clique no mapa para adicionar um novo momento!</p>
+                        <div id="moments-map"></div>
+                        
+                        <form id="moment-form" class="moment-form hidden">
+                            <h4>Adicionar Novo Momento</h4>
+                            <p>Adicionando momento em <span id="moment-coords"></span></p>
+                            <input type="hidden" id="moment-lat">
+                            <input type="hidden" id="moment-lng">
+                            
+                            <label for="moment-text">Descrição (curta):</label>
+                            <input type="text" id="moment-text" placeholder="Melhor café de Paris!" maxlength="100">
+                            
+                            <label for="moment-photo">Foto:</label>
+                            <input type="file" id="moment-photo" accept="image/*">
+                            
+                            <div class="form-buttons">
+                                <button type="submit" class="btn primary small">Salvar Momento</button>
+                                <button type="button" id="cancel-moment" class="btn secondary small">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="moments-gallery-area">
+                        <h3>Galeria</h3>
+                        <div id="moments-gallery">
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="footer">
+        </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <script src="../JS/perfil.js"></script>
+</body>
+</html>

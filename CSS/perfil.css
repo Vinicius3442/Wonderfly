@@ -1,0 +1,306 @@
+/* =============================================
+   ARQUIVO: perfil.css
+   Estilos para a página de perfil do usuário.
+   ============================================= */
+
+/* --- Header do Perfil --- */
+.profile-header {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 30px;
+}
+
+.profile-banner {
+    height: 250px;
+    background: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1770') center/cover no-repeat;
+    background-color: #f0f0f0; /* Fallback */
+}
+
+.profile-info {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 20px;
+    position: relative;
+    text-align: center;
+}
+
+.profile-avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-top: -80px; /* Puxa o avatar para cima */
+    object-fit: cover;
+}
+
+.profile-name {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-top: 10px;
+    color: #222;
+}
+
+.profile-bio {
+    font-size: 1rem;
+    color: #555;
+    max-width: 500px;
+    margin: 5px auto 0;
+}
+
+/* --- Sistema de Abas --- */
+.profile-tabs-nav {
+    display: flex;
+    gap: 10px;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 25px;
+}
+
+.tab-link, .tab-link-secondary {
+    background: none;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #777;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: 0.3s;
+}
+
+.tab-link:hover, .tab-link-secondary:hover {
+    color: #333;
+}
+
+.tab-link.active, .tab-link-secondary.active {
+    color: #f07913; /* Laranja do global.css */
+    border-bottom-color: #f07913;
+}
+
+.tab-pane, .tab-pane-secondary {
+    display: none; /* Escondido por padrão */
+}
+
+.tab-pane.active, .tab-pane-secondary.active {
+    display: block; /* Visível quando ativo */
+}
+
+/* Abas secundárias (dentro de "Minhas Viagens") */
+.profile-tabs-nav.secondary-tabs {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+.tab-link-secondary {
+    font-size: 1rem;
+    padding: 10px 15px;
+}
+
+/* --- Lista de Viagens --- */
+.trip-list {
+    display: grid;
+    gap: 20px;
+}
+
+.trip-card {
+    display: flex;
+    gap: 20px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    padding: 15px;
+}
+
+.trip-card img {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.trip-card-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.trip-card-info h3 {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.trip-card-info p {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 5px 0 10px;
+}
+
+.trip-card-info .badge {
+    background: #f07913;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    align-self: flex-start;
+}
+
+.trip-card-info .btn {
+    margin-top: auto; /* Alinha o botão na base */
+    align-self: flex-end;
+}
+.btn.small {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+}
+
+/* --- Seção de Momentos (Mapa e Galeria) --- */
+.moments-container {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr; /* Mapa maior, galeria menor */
+    gap: 30px;
+}
+
+#moments-map {
+    height: 450px;
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.moments-map-area p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Formulário de Momento */
+.moment-form {
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.moment-form.hidden {
+    display: none;
+}
+
+.moment-form h4 {
+    margin-top: 0;
+    font-size: 1.3rem;
+}
+.moment-form p {
+    font-size: 0.9rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+.moment-form p span {
+    font-weight: 600;
+    color: #f07913;
+}
+
+.moment-form label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.moment-form input[type="text"],
+.moment-form input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.moment-form .form-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Galeria de Momentos */
+.moments-gallery-area {
+    border-left: 1px solid #eee;
+    padding-left: 30px;
+    max-height: 800px;
+    overflow-y: auto;
+}
+
+#moments-gallery {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.moment-card {
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.moment-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.moment-card p {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 900px) {
+    .moments-container {
+        grid-template-columns: 1fr; /* Empilha o mapa e a galeria */
+    }
+    .moments-gallery-area {
+        border-left: none;
+        padding-left: 0;
+        margin-top: 30px;
+        max-height: 400px; /* Limita a altura no mobile */
+    }
+    #moments-gallery {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+        margin-top: -60px;
+    }
+    .profile-name {
+        font-size: 1.8rem;
+    }
+    .profile-banner {
+        height: 200px;
+    }
+    .trip-card {
+        flex-direction: column;
+    }
+    .trip-card img {
+        width: 100%;
+        height: 150px;
+    }
+    .trip-card-info .btn {
+        align-self: flex-start; /* Botão volta ao normal */
+    }
+}
