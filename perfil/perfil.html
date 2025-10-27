@@ -24,10 +24,10 @@
             <span>WonderFly</span>
         </a>
         <nav class="nav">
-            <a href="./home_viagem.html">Destinos</a>
-            <a href="#">Comunidade</a>
-            <a href="#">Blog</a>
-            <a href="#">Contato</a>
+            <a href="../Viagem/home_viagem.html">Destinos</a>
+            <a href="../Comunidade/home_comunidade.html">Comunidade</a>
+            <a href="../Blog/blog_home.html">Blog</a>
+            <a href="../Contato/contato.html">Contato</a>
         </nav>
         <div class="header-cta">
             <a href="#" class="btn primary">Meu Perfil</a>
@@ -42,12 +42,28 @@
             <div class="profile-banner">
                 </div>
             <div class="profile-info">
-    <img src="../images/profile/avatar-default.jpg" alt="Avatar do Usuário" class="profile-avatar" id="profile-avatar">
-    <h1 class="profile-name" id="profile-name">Nome do Usuário</h1>
-    <p class="profile-bio" id="profile-bio">Clique em "Editar Perfil" para adicionar sua bio!</p>
-<button class="btn primary small" id="edit-profile-btn">
-    <i class="ri-pencil-line"></i> Editar Perfil
-</button>
+                <img src="../images/default.jpg" alt="Avatar do Usuário" class="profile-avatar" id="profile-avatar">
+                <h1 class="profile-name" id="profile-name">Nome do Usuário</h1>
+                <p class="profile-bio" id="profile-bio">Clique em "Editar Perfil" para adicionar sua bio!</p>
+                <button class="btn primary small" id="edit-profile-btn">
+                    <i class="ri-pencil-line"></i> Editar Perfil
+                </button>
+
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">2</span>
+                        <span class="stat-label">Viagens Feitas</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">Países Visitados</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Momentos Criados</span>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section class="section profile-content">
@@ -67,7 +83,7 @@
                 <div class="tab-pane-secondary active" id="tab-atuais">
                     <div class="trip-list">
                         <div class="trip-card">
-                            <img src="https://images.unsplash.com/photo-1549414902-ce46c31a7f05?q=80&w=600" alt="Islândia">
+                            <img src="https://www.criativaturismo.com/wp-content/uploads/2023/07/Aurora-Boreal-5-destinos-mais-procurados.jpg" alt="Islândia">
                             <div class="trip-card-info">
                                 <h3>Aurora Boreal na Islândia</h3>
                                 <p><strong>Data:</strong> 15/12/2025 - 20/12/2025</p>
@@ -75,13 +91,13 @@
                                 <a href="#" class="btn secondary small">Ver detalhes</a>
                             </div>
                         </div>
-                        </div>
+                    </div>
                 </div>
 
                 <div class="tab-pane-secondary" id="tab-feitas">
                     <div class="trip-list">
                         <div class="trip-card">
-                            <img src="https://images.unsplash.com/photo-1547432098-90050d246603?q=80&w=600" alt="Peru">
+                            <img src="https://static.historiadomundo.com.br/2022/11/vista-da-antiga-cidade-inca-machu-picchu-no-peru.jpg" alt="Peru">
                             <div class="trip-card-info">
                                 <h3>Trilhas dos Incas - Peru</h3>
                                 <p><strong>Data:</strong> 10/01/2024 - 18/01/2024</p>
@@ -89,24 +105,51 @@
                                 <a href="#" class="btn secondary small">Relembrar</a>
                             </div>
                         </div>
+                        <div class="trip-card">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwqdSFpDJ_OLf35ZYW944vIZHPOw2DgrKW6w&s" alt="México">
+                            <div class="trip-card-info">
+                                <h3>Tour Culinário no México</h3>
+                                <p><strong>Data:</strong> 22/05/2024 - 26/05/2024</p>
+                                <span class="badge">Gastronomia</span>
+                                <a href="#" class="btn secondary small">Relembrar</a>
+                            </div>
                         </div>
+                    </div>
                 </div>
 
                 <div class="tab-pane-secondary" id="tab-desejos">
                     <div class="trip-list">
                         <div class="trip-card">
-                            <img src="https://images.unsplash.com/photo-1596204738521-482f349c2525?q=80&w=600" alt="Japão">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNPzB4HkpYS052y-rij-4_a6DzIiUwWQckww&s" alt="Japão">
                             <div class="trip-card-info">
                                 <h3>Retiro Zen no Japão</h3>
                                 <p>Adicionado em 05/03/2025</p>
                                 <span class="badge">Relaxamento</span>
-                                <a href="#" class="btn primary small">Reservar Agora</a>
+                                <a href="../Viagem/home_viagem.html" class="btn primary small">Reservar Agora</a>
                             </div>
                         </div>
+                         <div class="trip-card">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoAzmexsoKRjJ0ZCOBMyR6Q9gu6C0gt1kX4A&s" alt="Itália">
+                            <div class="trip-card-info">
+                                <h3>Sabores da Itália Rural</h3>
+                                <p>Adicionado em 02/02/2025</p>
+                                <span class="badge">Gastronomia</span>
+                                <a href="../Viagem/home_viagem.html" class="btn primary small">Reservar Agora</a>
+                            </div>
                         </div>
+                         <div class="trip-card">
+                            <img src="https://foradazonadeconforto.com/wp-content/uploads/2024/06/PXL_20240122_125557516-1024x769.jpg" alt="Quênia">
+                            <div class="trip-card-info">
+                                <h3>Safari Fotográfico no Quênia</h3>
+                                <p>Adicionado em 10/01/2025</p>
+                                <span class="badge">Natureza Selvagem</span>
+                                <a href="../Viagem/home_viagem.html" class="btn primary small">Reservar Agora</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
+            
             <div class="tab-pane" id="tab-momentos">
                 <div class="moments-container">
                     <div class="moments-map-area">
@@ -136,7 +179,12 @@
                     <div class="moments-gallery-area">
                         <h3>Galeria</h3>
                         <div id="moments-gallery">
+                            <div class="moments-gallery-placeholder" id="gallery-placeholder">
+                                <i class="ri-image-add-line"></i>
+                                <p>Você ainda não adicionou momentos.</p>
+                                <small>Clique no mapa para começar!</small>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -148,7 +196,7 @@
         <div class="footer-grid">
             <div>
                 <a href="#" class="logo footer-logo">
-                    <img src="./images/logo.png" alt="">
+                    <img src="../images/logo.png" alt="">
                     <span class="blue">Wonder</span><span class="orange">Fly</span>
                 </a>
                 <p>Explorar culturas, conectar pessoas e transformar olhares. Este é o nosso plano de voo.</p>
@@ -186,32 +234,40 @@
             &copy; 2025 WonderFly Viagens Ltda. Todos os direitos reservados.
         </div>
     </footer>
+    
     <div class="modal" id="profile-edit-modal">
-    <div class="modal-content">
-        <button class="modal-close" id="modal-close-btn">&times;</button>
-        <h2>Editar Perfil</h2>
-        
-        <form id="profile-edit-form">
-            <div class="form-group">
-                <label for="edit-avatar">Foto de Perfil</label>
-                <input type="file" id="edit-avatar" accept="image/*">
-                <small>Deixe em branco para manter a atual.</small>
-            </div>
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close-btn">&times;</button>
+            <h2>Editar Perfil</h2>
             
-            <div class="form-group">
-                <label for="edit-name">Nome</label>
-                <input type="text" id="edit-name" required placeholder="Seu nome completo">
-            </div>
-            
-            <div class="form-group">
-                <label for="edit-bio">Sua Bio</label>
-                <textarea id="edit-bio" rows="4" placeholder="Fale um pouco sobre você..."></textarea>
-            </div>
-            
-            <button type="submit" class="btn primary full-width">Salvar Alterações</button>
-        </form>
+            <form id="profile-edit-form">
+                <div class="form-group">
+                    <label for="edit-avatar">Foto de Perfil</label>
+                    <input type="file" id="edit-avatar" accept="image/*">
+                    <small>Deixe em branco para manter a atual.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-banner">Foto do Banner</label>
+                    <input type="file" id="edit-banner" accept="image/*">
+                    <small>Deixe em branco para manter a atual.</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-name">Nome</label>
+                    <input type="text" id="edit-name" required placeholder="Seu nome completo">
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-bio">Sua Bio</label>
+                    <textarea id="edit-bio" rows="4" placeholder="Fale um pouco sobre você..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn primary full-width">Salvar Alterações</button>
+            </form>
+        </div>
     </div>
-</div>
+    
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <script src="../JS/perfil.js"></script>

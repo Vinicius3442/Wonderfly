@@ -1,6 +1,7 @@
 /* =============================================
    ARQUIVO: perfil.css
    Estilos para a página de perfil do usuário.
+   (VERSÃO APRIMORADA)
    ============================================= */
 
 /* --- Header do Perfil --- */
@@ -8,6 +9,7 @@
     background: #fff;
     border-bottom: 1px solid #eee;
     margin-bottom: 30px;
+    padding-bottom: 20px; /* Adiciona espaço para as stats */
 }
 
 .profile-banner {
@@ -19,7 +21,7 @@
 .profile-info {
     max-width: 900px;
     margin: 0 auto;
-    padding: 0 20px 20px;
+    padding: 0 20px 0; /* Remove padding inferior */
     position: relative;
     text-align: center;
 }
@@ -47,6 +49,38 @@
     max-width: 500px;
     margin: 5px auto 0;
 }
+
+#edit-profile-btn {
+    margin-top: 15px;
+}
+
+/* NOVO: Seção de Estatísticas */
+.profile-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 25px;
+    padding: 20px 0;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #f07913;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #777;
+}
+
 
 /* --- Sistema de Abas --- */
 .profile-tabs-nav {
@@ -95,35 +129,48 @@
     padding: 10px 15px;
 }
 
-/* --- Lista de Viagens --- */
+/* --- Lista de Viagens (MUDANÇA: AGORA EM GRID) --- */
 .trip-list {
     display: grid;
-    gap: 20px;
+    /* Define colunas responsivas:
+       - Tenta encaixar cartões de 280px
+       - Se não couber, eles ocupam 1fr (espaço total)
+    */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
 }
 
+/* --- Cartão de Viagem (MUDANÇA: ESTILO "CARD") --- */
 .trip-card {
     display: flex;
-    gap: 20px;
+    flex-direction: column; /* Imagem no topo, texto embaixo */
     background: #fff;
     border: 1px solid #eee;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    padding: 15px;
+    /* padding: 15px; */ /* Removido - padding agora no info */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.trip-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
 .trip-card img {
-    width: 150px;
-    height: 100px;
+    width: 100%;
+    height: 200px; /* Altura fixa para a imagem */
     object-fit: cover;
-    border-radius: 8px;
+    /* border-radius: 8px; */ /* Removido - só topo arredondado */
     flex-shrink: 0;
 }
 
 .trip-card-info {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    flex-grow: 1; /* Faz o card crescer para preencher espaço */
+    padding: 20px;
 }
 
 .trip-card-info h3 {
@@ -135,6 +182,7 @@
     font-size: 0.9rem;
     color: #555;
     margin: 5px 0 10px;
+    flex-grow: 1; /* Empurra o badge e botão para baixo */
 }
 
 .trip-card-info .badge {
@@ -144,19 +192,20 @@
     border-radius: 20px;
     font-size: 0.75rem;
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 15px; /* Aumenta margem */
     align-self: flex-start;
 }
 
 .trip-card-info .btn {
     margin-top: auto; /* Alinha o botão na base */
-    align-self: flex-end;
+    align-self: flex-start; /* Alinha botão à esquerda */
 }
 .btn.small {
     padding: 6px 14px;
     font-size: 0.85rem;
 }
 
+/* --- Seção de Momentos --- */
 .moments-map-area p {
     font-size: 0.9rem;
     color: #555;
@@ -212,11 +261,8 @@
     gap: 10px;
     margin-top: 10px;
 }
-#edit-profile-btn {
-    margin-top: 15px;
-}
 
-/* Estilos do Modal */
+/* --- Estilos do Modal (Sem Mudanças) --- */
 .modal {
     display: none; /* Escondido por padrão */
     position: fixed;
@@ -309,6 +355,8 @@
     padding: 12px;
     font-size: 1rem;
 }
+
+/* --- Container de Momentos --- */
 .moments-container {
     display: grid;
     grid-template-columns: 1.5fr 1fr; /* Mapa maior, galeria menor */
@@ -345,6 +393,34 @@
     gap: 15px;
 }
 
+/* NOVO: Placeholder da Galeria */
+.moments-gallery-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    border: 2px dashed #eee;
+    border-radius: 12px;
+    color: #aaa;
+    min-height: 200px;
+}
+.moments-gallery-placeholder i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+.moments-gallery-placeholder p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #888;
+    margin: 0;
+}
+.moments-gallery-placeholder small {
+    font-size: 0.9rem;
+}
+
+/* Cartão de Momento (Já salvo) */
 .moment-card {
     background: #fff;
     border-radius: 8px;
@@ -416,12 +492,6 @@
     background-color: #fff0f0;
 }
 
-.moment-card p {
-    padding: 10px 15px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    margin: 0;
-}
 
 /* --- Responsividade --- */
 @media (max-width: 900px) {
@@ -435,7 +505,8 @@
         max-height: 400px; /* Limita a altura no mobile */
     }
     #moments-gallery {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        /* Muda para 2 colunas se houver espaço */
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
 }
 
@@ -451,14 +522,12 @@
     .profile-banner {
         height: 200px;
     }
-    .trip-card {
-        flex-direction: column;
+    .profile-stats {
+        gap: 15px;
+        padding: 15px 10px;
+        flex-wrap: wrap; /* Permite que as stats quebrem a linha */
     }
-    .trip-card img {
-        width: 100%;
-        height: 150px;
-    }
-    .trip-card-info .btn {
-        align-self: flex-start; /* Botão volta ao normal */
-    }
+    
+    /* Na versão mobile, os cartões de viagem já são 1 coluna
+       graças ao 'auto-fit', então não precisamos mexer neles. */
 }

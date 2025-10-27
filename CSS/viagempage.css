@@ -393,7 +393,658 @@ html {
     line-height: 1.5;
     margin: 0;
 }
+/* =============================================
+   viagempage.css (ATUALIZADO)
+   ============================================= */
 
+/* --- HERO SECTION --- */
+.trip-hero {
+  position: relative;
+  width: 100%;
+  min-height: 80vh; /* Ajuste a altura conforme necessário */
+  display: flex;
+  flex-direction: column; /* Em mobile, conteúdo acima da galeria */
+  align-items: center;
+  justify-content: center;
+  padding: 120px 8% 40px; /* Padding para evitar o header fixo */
+  background-color: var(--color-dark-blue); /* Fundo escuro para a seção */
+  color: #fff;
+  gap: 40px; /* Espaço entre o conteúdo e a galeria */
+}
+
+/* Conteúdo da esquerda (título, meta, etc.) */
+.trip-hero-content {
+  max-width: 600px; /* Limita a largura do texto */
+  text-align: center;
+  z-index: 10; /* Garante que o texto esteja acima da galeria */
+}
+
+.trip-hero-content .badge {
+  display: inline-block;
+  background-color: var(--color-primary); /* Laranja da WonderFly */
+  color: #fff;
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.trip-hero-content h1 {
+  font-size: 3.2rem;
+  margin-bottom: 15px;
+  line-height: 1.2;
+}
+
+.trip-hero-content p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  opacity: 0.9;
+}
+
+.trip-meta {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* Quebra para próxima linha em telas pequenas */
+  gap: 20px 30px; /* Espaço entre os itens */
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.trip-meta li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.trip-meta li i {
+  font-size: 1.2rem;
+  color: var(--color-primary); /* Ícones laranjas */
+}
+
+/* Botão "Reservar Agora" no Hero */
+.trip-hero-content .btn.lg {
+  padding: 15px 30px;
+  font-size: 1.1rem;
+}
+
+/* --- Trip Hero Gallery --- */
+.trip-hero-gallery {
+  width: 100%;
+  max-width: 1200px; /* Limita a largura máxima da galeria */
+  display: grid;
+  grid-template-columns: 1fr; /* Em mobile, uma coluna */
+  gap: 15px;
+  z-index: 5; /* Pode estar um pouco abaixo do conteúdo, mas acima do fundo */
+}
+
+.trip-hero-gallery .main-image {
+  position: relative;
+  width: 100%;
+  height: 450px; /* Altura fixa para a imagem principal */
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow-medium); /* Sombra para profundidade */
+}
+
+.trip-hero-gallery .main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Recorta a imagem para preencher e manter proporção */
+  display: block;
+}
+
+.trip-hero-gallery .thumbnail-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Miniaturas responsivas */
+  gap: 10px;
+}
+
+.trip-hero-gallery .thumbnail {
+  width: 100%;
+  height: 80px; /* Altura fixa para as miniaturas */
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent; /* Borda para o efeito de ativo */
+  transition: border-color 0.2s ease-in-out;
+}
+
+.trip-hero-gallery .thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Recorta a imagem para preencher */
+  display: block;
+}
+
+/* Efeito hover nas miniaturas */
+.trip-hero-gallery .thumbnail:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* (Opcional) Estilo para a miniatura "ativa" se você adicionar JS para isso */
+/* .trip-hero-gallery .thumbnail.active {
+  border-color: var(--color-primary);
+} */
+
+/* --- Media Queries para Telas Maiores --- */
+@media (min-width: 768px) {
+  .trip-hero {
+    flex-direction: row; /* Em desktop, conteúdo e galeria lado a lado */
+    justify-content: space-between;
+    align-items: flex-start; /* Alinha o conteúdo ao topo */
+    text-align: left;
+    padding-top: 150px; /* Mais padding no topo para o header */
+    min-height: 90vh; /* Mais alto em desktop */
+  }
+
+  .trip-hero-content {
+    max-width: 45%; /* Ocupa menos da metade da largura */
+    text-align: left;
+  }
+
+  .trip-meta {
+    justify-content: flex-start; /* Alinha os meta itens à esquerda */
+  }
+
+  .trip-hero-content h1 {
+      font-size: 3.8rem; /* Título maior em desktop */
+  }
+
+  .trip-hero-gallery {
+    /* Em desktop, a galeria ocupa a outra parte da largura */
+    width: 50%; 
+    grid-template-columns: 1fr; /* Mantém uma coluna para a principal e miniaturas */
+    align-self: flex-end; /* Alinha a galeria ao final (direita) */
+  }
+
+  .trip-hero-gallery .main-image {
+      height: 550px; /* Imagem principal mais alta */
+  }
+}
+
+@media (min-width: 1024px) {
+  .trip-hero-gallery {
+      /* Em telas ainda maiores, grid de 2 colunas: main image + thumbnails */
+      grid-template-columns: 3fr 1fr; /* Imagem principal maior, miniaturas menores ao lado */
+      gap: 20px;
+  }
+  .trip-hero-gallery .thumbnail-images {
+      grid-template-columns: 1fr; /* Miniaturas em uma única coluna vertical */
+      height: 100%; /* Ocupa a altura total disponível */
+      align-content: start; /* Alinha as miniaturas ao topo */
+  }
+  .trip-hero-gallery .main-image {
+    grid-column: 1 / 2; /* Garante que a imagem principal esteja na primeira coluna */
+    height: 600px; /* Ajusta a altura novamente */
+  }
+  .trip-hero-gallery .thumbnail {
+      height: 120px; /* Miniaturas um pouco maiores */
+  }
+  .trip-hero-content {
+      max-width: 500px;
+      margin-right: 50px; /* Espaço entre o texto e a galeria */
+  }
+  .trip-hero-content h1 {
+      font-size: 4.5rem;
+  }
+}
+
+/* --- TRIP DETAILS SECTION --- */
+.trip-details {
+    padding: 60px 8%;
+    background-color: #f8f8f8; /* Fundo claro para o conteúdo principal */
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Coluna única em mobile */
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (min-width: 992px) {
+    .details-grid {
+        grid-template-columns: 2fr 1fr; /* Duas colunas em desktop: conteúdo e sidebar */
+        gap: 60px;
+    }
+}
+
+.main-content {
+    /* Estilos para o conteúdo principal da viagem */
+    line-height: 1.7;
+}
+
+.main-content h2, .main-content h3 {
+    color: var(--color-dark-blue);
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+
+.main-content h2 {
+    font-size: 2.5rem;
+}
+
+.main-content h3 {
+    font-size: 1.8rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.main-content p {
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.included, .not-included {
+    margin-top: 30px;
+}
+
+.included ul, .not-included ul {
+    list-style: none;
+    padding: 0;
+}
+
+.included li, .not-included li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.included li i {
+    color: #28a745; /* Verde para inclusos */
+    font-size: 1.1rem;
+}
+
+.not-included li i {
+    color: #dc3545; /* Vermelho para não inclusos */
+    font-size: 1.1rem;
+}
+
+.itinerary-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.itinerary-list .day {
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.itinerary-list .day h4 {
+    font-size: 1.3rem;
+    color: var(--color-blue);
+    margin-bottom: 10px;
+}
+
+.itinerary-list .day p {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.accommodation {
+    margin-top: 40px;
+}
+
+.hotel-card {
+    display: flex;
+    flex-direction: column; /* Em mobile, imagem acima do texto */
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.hotel-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.hotel-card .hotel-info {
+    padding: 20px;
+}
+
+.hotel-card h4 {
+    font-size: 1.4rem;
+    color: var(--color-dark-blue);
+    margin-bottom: 10px;
+}
+
+.hotel-card p {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.hotel-card ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+}
+
+.hotel-card ul li {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.hotel-card ul li i {
+    color: var(--color-blue);
+}
+
+/* Estrelas de avaliação */
+.hotel-card ul li .ri-star-fill,
+.hotel-card ul li .ri-star-half-fill {
+    color: #FFD700; /* Dourado */
+}
+
+@media (min-width: 600px) {
+    .hotel-card {
+        flex-direction: row; /* Em telas maiores, imagem ao lado do texto */
+        gap: 20px;
+    }
+    .hotel-card img {
+        width: 40%;
+        min-width: 250px;
+        height: auto;
+    }
+    .hotel-card .hotel-info {
+        flex-grow: 1;
+    }
+}
+
+.location .map-container {
+    width: 100%;
+    height: 400px;
+    background-color: #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* --- SIDEBAR (Booking Box e Promos) --- */
+.sidebar {
+    position: sticky; /* Sidebar fixa ao rolar */
+    top: 100px; /* Distância do topo */
+    align-self: flex-start; /* Alinha ao topo da grid */
+}
+
+.booking-box {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: var(--shadow-medium);
+    margin-bottom: 30px;
+    border: 1px solid #eee;
+}
+
+.booking-box h3 {
+    font-size: 1.8rem;
+    color: var(--color-dark-blue);
+    margin-bottom: 15px;
+}
+
+.booking-box .price {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.booking-box .price span {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-blue);
+}
+
+.booking-box form label {
+    display: block;
+    font-size: 0.95rem;
+    color: #444;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.booking-box form input[type="date"],
+.booking-box form select,
+.booking-box form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.booking-box form textarea {
+    resize: vertical; /* Permite redimensionar verticalmente */
+}
+
+.booking-box form .btn {
+    margin-top: 10px;
+}
+
+.booking-box .small-text {
+    font-size: 0.9rem;
+    color: #777;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.booking-box .small-text a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.booking-box #booking-message {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: 500;
+}
+
+.trust-promo {
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 25px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-light);
+}
+
+.trust-promo i {
+    font-size: 2.2rem;
+    color: var(--color-primary);
+    flex-shrink: 0; /* Impede o ícone de encolher */
+}
+
+.trust-promo h4 {
+    font-size: 1.2rem;
+    color: var(--color-dark-blue);
+    margin-bottom: 5px;
+}
+
+.trust-promo p {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+
+/* --- OUTRAS EXPERIÊNCIAS (Related Trips) --- */
+.related-trips {
+    background-color: var(--color-light-gray);
+    padding: 60px 8%;
+}
+
+.related-trips .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.related-trips .section-head h2 {
+    font-size: 2.5rem;
+    color: var(--color-dark-blue);
+    margin: 0;
+}
+
+.related-trips .section-head .link {
+    color: var(--color-blue);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: color 0.2s;
+}
+
+.related-trips .section-head .link:hover {
+    color: var(--color-primary);
+}
+
+.related-trips .grid.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+/* Reutilizando o estilo de .card da home_viagem.html */
+.related-trips .card {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+    transition: transform 0.3s ease;
+    display: flex; /* Para o layout de coluna */
+    flex-direction: column;
+}
+
+.related-trips .card:hover {
+    transform: translateY(-8px);
+}
+
+.related-trips .card-img {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    display: block;
+}
+
+.related-trips .card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Faz o corpo ocupar o espaço restante */
+}
+
+.related-trips .card-body h3 {
+    font-size: 1.4rem;
+    color: var(--color-dark-blue);
+    margin-bottom: 10px;
+    flex-grow: 1; /* Permite que o título ocupe espaço */
+}
+
+.related-trips .card-body p {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.related-trips .card-body .meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto; /* Empurra para o final */
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.related-trips .card-body .meta i {
+    margin-right: 5px;
+    color: var(--color-blue);
+}
+
+.related-trips .card-body .btn {
+    margin-top: 20px;
+    align-self: flex-start; /* Alinha o botão à esquerda */
+}
+
+/* --- Newsletter CTA --- */
+.cta-newsletter {
+    background: linear-gradient(90deg, var(--color-blue), var(--color-dark-blue));
+    color: #fff;
+    text-align: center;
+    padding: 60px 8%;
+}
+
+.cta-newsletter h3 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.cta-newsletter p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.cta-newsletter .newsletter {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.cta-newsletter .newsletter input {
+    flex-grow: 1;
+    padding: 15px 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    outline: none;
+}
+
+.cta-newsletter .newsletter .btn {
+    white-space: nowrap; /* Impede o botão de quebrar a linha */
+}
+
+@media (max-width: 600px) {
+    .cta-newsletter .newsletter {
+        flex-direction: column;
+    }
+    .cta-newsletter .newsletter input {
+        width: 100%;
+    }
+    .cta-newsletter .newsletter .btn {
+        width: 100%;
+    }
+}
 /* =============================================
    CARDS RELACIONADOS (do global.css)
    - Adicionando CSS para <img> no card-img

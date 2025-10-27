@@ -13,6 +13,8 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
     
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
     <link rel="stylesheet" href="../../CSS/global.css" />
     <link rel="stylesheet" href="../../CSS/viagempage.css" />
 </head>
@@ -28,13 +30,12 @@
         </a>
         <nav class="nav" id="nav">
             <a href="../home_viagem.html">Destinos</a>
-            <a href="#">Experiências</a>
-            <a href="#">Comunidade</a>
-            <a href="#">Blog</a>
-            <a href="#">Contato</a>
+            <a href="../home_comunidade.html">Comunidade</a>
+            <a href="../Blog/blog_home.html">Blog</a>
+            <a href="../Contato/contato.html">Contato</a>
         </nav>
         <div class="header-cta">
-            <button class="btn ghost" id="btn-open-quiz"><i class="ri-compass-3-line"></i> Descubra seu destino</button>
+             <a href="../../Login/login.html" class="btn ghost">Fazer Login</a>
             <a class="btn primary" href="#reserva-form">Reserve Agora</a>
             <button class="burger" id="burger" aria-label="Abrir menu"><i class="ri-menu-line"></i></button>
         </div>
@@ -56,17 +57,20 @@
         
         <div class="trip-hero-gallery">
             <figure class="main-image">
-                <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1600&auto=format&fit=crop" alt="Mesquita Sheikh Lotfollah em Isfahan, Irã">
+                <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1600&auto=format=fit=crop" alt="Mesquita Sheikh Lotfollah em Isfahan, Irã" id="main-gallery-image">
             </figure>
             <div class="thumbnail-images">
                 <figure class="thumbnail">
-                    <img src="https://images.unsplash.com/photo-1628173570377-16d1a123f044?q=80&w=800&auto=format&fit=crop" alt="Detalhe de azulejos persas">
+                    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1600&auto=format=fit=crop" alt="Mesquita Sheikh Lotfollah em Isfahan, Irã">
                 </figure>
                 <figure class="thumbnail">
-                    <img src="https://images.unsplash.com/photo-1549723000-a3e90b8f041b?q=80&w=800&auto=format&fit=crop" alt="Mercado (Bazar) em Teerã">
+                    <img src="https://previews.123rf.com/images/zz3701/zz37012012/zz3701201202849/161303193-arches-of-historic-buildings-with-persian-blue-tiles-on-the-wall-of-shah-mosque-situated-on-the.jpg" alt="Detalhe de azulejos persas">
                 </figure>
                 <figure class="thumbnail">
-                    <img src="https://images.unsplash.com/photo-1620986799042-bb62804d9e18?q=80&w=800&auto=format&fit=crop" alt="Persepolis, ruínas antigas">
+                    <img src="https://thumbs.dreamstime.com/b/bazar-iraniano-famoso-do-mercado-com-frutos-secos-e-doces-no-contador-qom-ir%C3%A3-de-maio-140123745.jpg" alt="Mercado (Bazar) em Teerã">
+                </figure>
+                <figure class="thumbnail">
+                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/fc/08/91/photo0jpg.jpg?w=900&h=500&s=1" alt="Persepolis, ruínas antigas">
                 </figure>
             </div>
         </div>
@@ -77,7 +81,7 @@
             <main class="main-content">
                 <h2>Sobre esta viagem</h2>
                 <p>Prepare-se para uma viagem inesquecível ao coração da antiga Pérsia, onde a história ganha vida em cada esquina. Nosso roteiro "Patrimônios no Irã" foi cuidadosamente elaborado para você explorar cidades lendárias, maravilhas arquitetônicas e a hospitalidade calorosa do povo iraniano. De mercados vibrantes a mesquitas adornadas e jardins serenos, cada momento é uma imersão profunda em uma cultura rica e milenar.</p>
-                <p>Nossos guias locais experientes o levarão por Persepolis, a magnífica capital do Império Aquemênida, os coloridos bazares de Isfahan e os mausoléus poéticos de Shiraz. Viva experiências autênticas, como saborear a culinária persa em restaurantes tradicionais e interagir com artesãos locais. Uma aventura que promete transformar sua visão de mundo e criar memórias duradouras.</p>
+                <p>Nossos guias locais experientes o levarão por Persepolis, a magnífica capital do Império Aquemênida, os coloridos bazares de Isfahan e os mausoléus poéticos de Shiraz. Viva experiências autênticas, como saborear a culinária persa em restaurantes tradicionais e interagir com artesãos locais. Uma aventura que promete transformar sua visão de mundo e criar memorias duradouras.</p>
 
                 <div class="included">
                     <h3>O que está incluso</h3>
@@ -118,6 +122,26 @@
                             <h4>Dia 3: Voo para Isfahan – A joia persa</h4>
                             <p>Voo doméstico para Isfahan. Visita à Praça Naqsh-e Jahan (Patrimônio Mundial da UNESCO), Mesquita Shah, Mesquita Sheikh Lotfollah e Palácio Ali Qapu.</p>
                         </li>
+                         <li class="day">
+                            <h4>Dia 4: Isfahan – Pontes e Bazares</h4>
+                            <p>Caminhe pelas pontes históricas de Khaju e Si-o-Se-Pol. Explore o bairro armênio de Jolfa e a Catedral de Vank. Tarde livre para explorar o Bazar Qeysarieh.</p>
+                        </li>
+                         <li class="day">
+                            <h4>Dia 5: Viagem para Yazd</h4>
+                            <p>Viagem terrestre para Yazd, a cidade de adobe. No caminho, parada em Na'in para ver a antiga mesquita. Check-in no hotel em Yazd e passeio pelo centro histórico.</p>
+                        </li>
+                         <li class="day">
+                            <h4>Dia 6: Yazd – Cidade do Fogo</h4>
+                            <p>Visite as Torres do Silêncio (locais de enterro Zoroastristas), o Templo do Fogo Atash Behram e o complexo Amir Chakhmaq. Aprenda sobre os 'qanats' (sistemas de água).</p>
+                        </li>
+                        <li class="day">
+                            <h4>Dia 7: Rumo a Shiraz – Berço dos Poetas</h4>
+                            <p>Viagem para Shiraz. No caminho, parada em Pasárgada, a tumba de Ciro, o Grande. Chegada em Shiraz ao final da tarde e jantar.</p>
+                        </li>
+                         <li class="day">
+                            <h4>Dia 8: Persepolis e Necrópole</h4>
+                            <p>Excursão de dia inteiro a Persepolis, a capital cerimonial do Império Aquemênida. Visite também Naqsh-e Rustam (Necrópole) com as tumbas dos reis persas.</p>
+                        </li>
                         <li class="day">
                             <h4>Dia 9: Shiraz – Mesquitas e mercados</h4>
                             <p>Visita à Mesquita Nasir al-Mulk (Mesquita Rosa) e ao Jardim Narenjestan. Tempo para compras no Bazar Vakil e visita à Cidadela de Karim Khan. Jantar de despedida.</p>
@@ -132,9 +156,9 @@
                 <div class="accommodation">
                     <h3>Hospedagem selecionada</h3>
                     <div class="hotel-card">
-                        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbf6db?q=80&w=800&auto=format&fit=crop" alt="Pátio interno do Hotel Saraye Ameriha em Kashan">
+                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/05/8d/3b/main-yard-atnight.jpg?w=900&h=500&s=1" alt="Pátio interno do Hotel Saraye Ameriha em Kashan">
                         <div class="hotel-info">
-                            <h4>Hotel Saraye Ameriha, Kashan (ou similar)</h4>
+                            <h4>Hotel Saraye Ameriha, Kashan</h4>
                             <p>Um hotel boutique luxuoso em uma casa histórica restaurada, oferecendo uma experiência autêntica com todo o conforto. Quartos elegantes e pátios tranquilos.</p>
                             <ul>
                                 <li><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i> (5 estrelas)</li>
@@ -144,9 +168,9 @@
                         </div>
                     </div>
                     <div class="hotel-card">
-                        <img src="https://images.unsplash.com/photo-1590449171730-8041c3e38714?q=80&w=800&auto=format&fit=crop" alt="Fachada do Espinas Palace Hotel em Teerã">
+                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/8c/39/cc/uninterrupted-city-view.jpg?w=900&h=500&s=1" alt="Fachada do Espinas Palace Hotel em Teerã">
                         <div class="hotel-info">
-                            <h4>Espinas Palace Hotel, Teerã (ou similar)</h4>
+                            <h4>Espinas Palace Hotel, Teerã</h4>
                             <p>Um dos hotéis mais prestigiados de Teerã, combinando elegância moderna com toques persas. Oferece vistas panorâmicas da cidade.</p>
                             <ul>
                                 <li><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-fill"></i> (4.5 estrelas)</li>
@@ -159,18 +183,7 @@
 
                 <div class="location">
                     <h3>Localização no mapa</h3>
-                    <div class="map-container">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d414990.8732738361!2d51.02611842426868!3d35.7073212882898!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8e00491ff3dcd9%3A0xD94545E3F3105E1A!2sTeer%C3%A3%2C%20Ir%C3%A3!5e0!3m2!1spt-BR!2sbr!4v1678886543210!5m2!1spt-BR!2sbr" 
-                            width="100%" 
-                            height="450" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade"
-                            title="Mapa mostrando a região da viagem, com foco em Teerã">
-                        </iframe>
-                    </div>
+                    <div id="mapaDestinoUnico" class="map-container"></div>
                 </div>
             </main>
 
@@ -178,7 +191,7 @@
                 <div class="booking-box" id="reserva-form">
                     <h3>Reserve sua aventura</h3>
                     <p class="price">A partir de <span>R$ 6.450</span> por pessoa</p>
-                    <form>
+                    <form id="booking-form-page">
                         <label for="data-viagem">Data da viagem</label>
                         <input type="date" id="data-viagem" name="data-viagem" required>
 
@@ -195,7 +208,8 @@
 
                         <button class="btn primary lg full-width" type="submit">Prosseguir para o Pagamento</button>
                     </form>
-                    <p class="small-text">Dúvidas? <a href="#contato">Fale com um especialista</a>.</p>
+                    <p class="small-text" id="booking-message"></p>
+                    <p class="small-text">Dúvidas? <a href="../../Contato/contato.html">Fale com um especialista</a>.</p>
                 </div>
 
                 <div class="trust-promo">
@@ -215,64 +229,102 @@
     <section class="section alt related-trips">
         <div class="section-head">
             <h2>Outras experiências que você pode gostar</h2>
-            <a href="#experiencias" class="link">ver todos</a>
+            <a href="../home_viagem.html" class="link">ver todos</a>
         </div>
+        
         <div class="grid cards">
-            <article class="card">
-                <figure class="card-img">
-                    <img src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?q=80&w=1600&auto=format&fit=crop" alt="Templos de Angkor Wat no Camboja">
-                </figure>
+             <div
+                class="card"
+                data-continent="asia"
+                data-category="cultura relaxamento"
+              >
+                <div
+                  class="card-img"
+                  style="
+                    background-image: url('https://cdn.shopify.com/s/files/1/0646/4035/files/O_Santuario_da_Verdade.jpg?v=1661431711');
+                  "
+                ></div>
                 <div class="card-body">
-                    <h3>Templos do Camboja</h3>
-                    <p>Angkor Wat ao nascer do sol + imersão gastronômica em Siem Reap.</p>
-                    <div class="meta">
-                        <span><i class="ri-time-line"></i> 9 dias</span>
-                        <span><i class="ri-wallet-3-line"></i> a partir de R$ 5.250</span>
-                    </div>
-                    <button class="btn secondary">Ver detalhes</button>
+                  <h3>Templos Místicos da Tailândia</h3>
+                  <p>
+                    Descubra a espiritualidade de Bangkok e os templos antigos de
+                    Ayutthaya.
+                  </p>
+                  <div class="meta">
+                    <span><i class="fa-solid fa-clock"></i> 7 dias</span>
+                    <span>a partir de R$ 2.900</span>
+                  </div>
+                  <a href="../viagens/tailandia.html" class="btn secondary"
+                    >Ver detalhes</a
+                  >
                 </div>
-            </article>
-            <article class="card">
-                <figure class="card-img">
-                    <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?q=80&w=1600&auto=format&fit=crop" alt="Mercado (medina) em Marrakech, Marrocos">
-                </figure>
+              </div>
+              
+              <div
+                class="card"
+                data-continent="europa"
+                data-category="historia cultura"
+              >
+                <div
+                  class="card-img"
+                  style="
+                    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Parthenon_from_west.jpg/330px-Parthenon_from_west.jpg');
+                  "
+                ></div>
                 <div class="card-body">
-                    <h3>Marrocos Essencial</h3>
-                    <p>7 dias por Marrakech, deserto de Agafay e médinas históricas.</p>
-                    <div class="meta">
-                        <span><i class="ri-time-line"></i> 7 dias</span>
-                        <span><i class="ri-wallet-3-line"></i> a partir de R$ 3.990</span>
-                    </div>
-                    <button class="btn secondary">Ver detalhes</button>
+                  <h3>Grécia Antiga e Ilhas</h3>
+                  <p>Caminhe por Atenas histórica e relaxe nas ilhas Cíclades.</p>
+                  <div class="meta">
+                    <span><i class="fa-solid fa-clock"></i> 9 dias</span>
+                    <span>a partir de R$ 5.800</span>
+                  </div>
+                  <a href="../viagens/grecia.html" class="btn secondary"
+                    >Ver detalhes</a
+                  >
                 </div>
-            </article>
-            <article class="card">
-                <figure class="card-img">
-                    <img src="https://images.unsplash.com/photo-1562072541-1c30c51b3e9a?q=80&w=1600&auto=format&fit=crop" alt="Pessoas celebrando o festival Holi na Índia com pós coloridos">
-                </figure>
+              </div>
+              
+            <div
+                class="card"
+                data-continent="america-sul"
+                data-category="aventura historia"
+              >
+                <div
+                  class="card-img"
+                  style="
+                    background-image: url('https://images.unsplash.com/photo-1547432098-90050d246603?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+                  "
+                ></div>
                 <div class="card-body">
-                    <h3>Holi na Índia</h3>
-                    <p>Participe do festival das cores com curadoria segura e respeitosa.</p>
-                    <div class="meta">
-                        <span><i class="ri-time-line"></i> 10 dias</span>
-                        <span><i class="ri-wallet-3-line"></i> a partir de R$ 6.450</span>
-                    </div>
-                    <button class="btn secondary">Ver detalhes</button>
+                  <h3>Trilhas dos Incas - Peru</h3>
+                  <p>
+                    Aventure-se pelos Andes, descubra Machu Picchu e a cultura Inca.
+                  </p>
+                  <div class="meta">
+                    <span><i class="fa-solid fa-clock"></i> 8 dias</span>
+                    <span>a partir de R$ 4.100</span>
+                  </div>
+                  <a href="../viagens/peru.html" class="btn secondary"
+                    >Ver detalhes</a
+                  >
                 </div>
-            </article>
+              </div>
         </div>
     </section>
 
     <section class="cta-newsletter">
-        <div class="cta-inner">
-            <h3>Ganhe R$ 200 de desconto no 1º pacote</h3>
-            <p>Assine a newsletter e receba roteiros, dicas e ofertas exclusivas.</p>
-            <form class="newsletter" id="newsletter">
-                <input type="email" placeholder="Seu e-mail" required />
-                <button class="btn white" type="submit">Quero receber</button>
-            </form>
-        </div>
+        <h3>Ganhe R$ 200 de desconto no 1º pacote</h3>
+        <p>Assine a newsletter e receba roteiros, dicas e ofertas exclusivas.</p>
+        <form class="newsletter" id="newsletter-form-page">
+            <input type="email" id="newsletter-email-page" placeholder="Seu e-mail" required />
+            <button class="btn white" type="submit">Quero receber</button>
+        </form>
+        <p id="newsletter-message-page" class="newsletter-message" style="margin-top: 15px;"></p>
     </section>
+
+    <button id="back-to-top" class="back-to-top">
+      <i class="ri-arrow-up-line"></i>
+    </button>
 
     <footer class="footer">
         <div class="footer-grid">
@@ -292,7 +344,7 @@
             <div>
                 <h4>Sobre nós</h4>
                 <ul>
-                    <li><a href="./Blog/blog_home.html">Blog</a></li>
+                    <li><a href="../../Blog/blog_home.html">Blog</a></li>
                 </ul>
             </div>
             <div>
@@ -316,6 +368,18 @@
             © 2025 WonderFly Viagens Ltda. Todos os direitos reservados.
         </div>
     </footer>
+    <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              const submitBtn = document.querySelector('.form-section button[type="submit"]');
+              if (!submitBtn) return;
+              submitBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = '../Pagamento/pagamento.html';
+              });
+            });
+            </script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="../../JS/viagem_page.js"></script>
 
     </body>
 </html>

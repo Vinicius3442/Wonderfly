@@ -1,147 +1,207 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", () => {
+  // --- LÓGICA DO CARROSSEL INFINITO E FILTROS ---
 
-    // --- SELETORES GLOBAIS ---
-    const carousel = document.querySelector('.carousel');
-    const track = document.querySelector('.carousel-track');
-    const allSlidesOriginal = Array.from(track.children);
-    const nextButton = document.querySelector('.carousel-btn.next');
-    const prevButton = document.querySelector('.carousel-btn.prev');
-    const filterChips = document.querySelectorAll('.themes .chip');
+  const carousel = document.querySelector(".carousel");
+  const track = document.querySelector(".carousel-track");
+  // Guarda a ordem original dos slides para resetar o filtro
+  const originalSlides = Array.from(track.children);
+  const nextButton = document.querySelector(".carousel-btn.next");
+  const prevButton = document.querySelector(".carousel-btn.prev");
+  const chips = document.querySelectorAll(".themes .chip");
 
-    let isTransitioning = false; // Previne cliques múltiplos durante a animação
+  let isMoving = false; // Flag para evitar cliques duplos durante a animação
+  let slideWidth = 0;
+  let slideGap = 0;
 
-    /**
-     * Preenche o carrossel com slides suficientes para criar um loop contínuo.
-     * Ele clona os slides filtrados até que a largura total seja bem maior que a área visível.
-     * @param {string} filter - A categoria para filtrar.
-     */
-    function setupCarousel(filter = 'all') {
-        const filteredSlides = allSlidesOriginal.filter(slide => {
-            return filter === 'all' || slide.dataset.category === filter;
-        });
+  // Função para calcular a largura do slide e o gap
+  function updateCarouselMetrics() {
+    // Pega os slides visíveis ATUALMENTE no DOM
+    const visibleSlides = Array.from(track.children).filter(
+      (s) => s.style.display !== "none"
+    );
 
-        track.innerHTML = ''; // Limpa o carrossel
-
-        if (filteredSlides.length === 0) {
-            nextButton.style.display = 'none';
-            prevButton.style.display = 'none';
-            return;
-        }
-        
-        nextButton.style.display = 'flex';
-        prevButton.style.display = 'flex';
-        
-        // Garante que o carrossel tenha slides suficientes para o efeito de loop
-        const carouselWidth = carousel.offsetWidth;
-        let totalWidth = 0;
-        let i = 0;
-        
-        // Adiciona clones até que a largura total dos slides seja pelo menos 3x a do contêiner
-        while (totalWidth < carouselWidth * 3) {
-            const slide = filteredSlides[i % filteredSlides.length].cloneNode(true);
-            track.appendChild(slide);
-            totalWidth += slide.offsetWidth + 16; // 16 é o 'gap' do CSS
-            i++;
-        }
-        
-        // Posição inicial
-        track.style.transition = 'none';
-        track.style.transform = 'translateX(0px)';
+    if (visibleSlides.length > 0) {
+      // Calcula a largura do primeiro slide visível
+      slideWidth = visibleSlides[0].offsetWidth;
+      // Tenta pegar o 'gap' do CSS, se falhar, usa 16 como padrão
+      slideGap = parseFloat(window.getComputedStyle(track).gap) || 16;
     }
-    
-    /**
-     * Lógica de movimento da "esteira rolante".
-     * @param {string} direction - 'next' ou 'prev'.
-     */
-    function moveCarousel(direction) {
-        if (isTransitioning) return;
-        isTransitioning = true;
-        
-        const slides = Array.from(track.children);
-        const slideWidth = slides[0].getBoundingClientRect().width;
-        const slideGap = 16; // O 'gap' do CSS
+  }
 
-        if (direction === 'next') {
-            // Anima o movimento para a esquerda
-            track.style.transition = 'transform 0.4s';
-            track.style.transform = `translateX(-${slideWidth + slideGap}px)`;
-            
-            // Quando a animação terminar, move o primeiro slide para o final
-            track.addEventListener('transitionend', function onTransitionEnd() {
-                track.removeChild(slides[0]); // Remove o slide que saiu da tela
-                track.style.transition = 'none'; // Desliga a animação
-                track.style.transform = 'translateX(0px)'; // Reseta a posição instantaneamente
-                isTransitioning = false;
-                track.removeEventListener('transitionend', onTransitionEnd); // Limpa o ouvinte
-            });
+  // --- Event Listeners dos Botões do Carrossel ---
 
-        } else if (direction === 'prev') {
-            // Pega o último slide e o coloca no início
-            const lastSlide = slides[slides.length - 1];
-            track.removeChild(lastSlide);
-            track.insertBefore(lastSlide, slides[0]);
-            
-            // Move o carrossel para a posição "negativa" do novo slide, sem animação
-            track.style.transition = 'none';
-            track.style.transform = `translateX(-${slideWidth + slideGap}px)`;
+  nextButton.addEventListener("click", () => {
+    if (isMoving) return;
+    isMoving = true;
 
-            // Força o navegador a aplicar a mudança e então anima para a posição 0
-            setTimeout(() => {
-                track.style.transition = 'transform 0.4s';
-                track.style.transform = 'translateX(0px)';
-            }, 20); // Um pequeno delay para garantir que a transição ocorra
+    // Pega todos os slides visíveis NO MOMENTO
+    let visibleSlides = Array.from(track.children).filter(
+      (s) => s.style.display !== "none"
+    );
 
-            // Libera para o próximo clique após a animação
-            setTimeout(() => {
-                isTransitioning = false;
-            }, 420);
-        }
+    if (visibleSlides.length <= 1) {
+      isMoving = false;
+      return; // Não faz nada se só tiver 1 ou 0 slides
     }
 
+    // Pega o primeiro slide visível
+    const firstVisibleSlide = visibleSlides[0];
 
-    // --- EVENT LISTENERS (OUVINTES DE EVENTOS) ---
+    // Atualiza as métricas para garantir que o 'gap' e 'width' estão corretos
+    updateCarouselMetrics();
 
-    nextButton.addEventListener('click', () => moveCarousel('next'));
-    prevButton.addEventListener('click', () => moveCarousel('prev'));
+    // Aplica a animação de translação
+    track.style.transition = "transform 0.4s ease-in-out";
+    track.style.transform = `translateX(-${slideWidth + slideGap}px)`;
 
-    filterChips.forEach(chip => {
-        chip.addEventListener('click', () => {
-            if (chip.classList.contains('active')) return;
-            document.querySelector('.chip.active').classList.remove('active');
-            chip.classList.add('active');
-            setupCarousel(chip.dataset.filter);
-        });
+    // Quando a animação terminar...
+    track.addEventListener(
+      "transitionend",
+      () => {
+        // ...move o slide que saiu da tela para o final da fila
+        track.appendChild(firstVisibleSlide);
+
+        // ...e reseta a posição do track sem animar
+        track.style.transition = "none";
+        track.style.transform = "translateX(0)";
+
+        // Habilita o clique novamente
+        isMoving = false;
+      },
+      { once: true } // O listener é removido após ser executado
+    );
+  });
+
+  prevButton.addEventListener("click", () => {
+    if (isMoving) return;
+    isMoving = true;
+
+    // Pega todos os slides visíveis NO MOMENTO
+    let visibleSlides = Array.from(track.children).filter(
+      (s) => s.style.display !== "none"
+    );
+
+    if (visibleSlides.length <= 1) {
+      isMoving = false;
+      return; // Não faz nada se só tiver 1 ou 0 slides
+    }
+
+    // Pega o último slide visível
+    const lastVisibleSlide = visibleSlides[visibleSlides.length - 1];
+
+    // Atualiza as métricas
+    updateCarouselMetrics();
+
+    // Move o último slide (que está fora da tela, à direita) para o início
+    track.insertBefore(lastVisibleSlide, track.children[0]);
+
+    // Prepara a transição "de volta"
+    // Move o track para a esquerda (para "esconder" o slide que acabamos de adicionar)
+    track.style.transition = "none";
+    track.style.transform = `translateX(-${slideWidth + slideGap}px)`;
+
+    // Força o navegador a aplicar o transform (reflow)
+    // Sem isso, a animação não funciona
+    setTimeout(() => {
+      // Agora, anima de volta para a posição 0, "revelando" o novo slide
+      track.style.transition = "transform 0.4s ease-in-out";
+      track.style.transform = "translateX(0)";
+    }, 10); // Um pequeno delay é o suficiente
+
+    // Quando a animação terminar, permite o clique novamente
+    track.addEventListener(
+      "transitionend",
+      () => {
+        isMoving = false;
+      },
+      { once: true }
+    );
+  });
+
+  // --- Event Listeners dos Filtros (Chips) ---
+
+  chips.forEach((chip) => {
+    chip.addEventListener("click", (e) => {
+      // 1. Atualiza o estado "active" do chip
+      chips.forEach((c) => c.classList.remove("active"));
+      e.currentTarget.classList.add("active");
+
+      const filter = e.currentTarget.dataset.filter;
+
+      // 2. Mostra/Esconde os slides (usando a lista original)
+      originalSlides.forEach((slide) => {
+        const category = slide.dataset.category;
+
+        if (filter === "all" || filter === category) {
+          slide.style.display = "flex";
+        } else {
+          slide.style.display = "none";
+        }
+      });
+
+      // 3. CRÍTICO: Re-ordena os slides no DOM para o estado original
+      // Isso reseta o carrossel após as movimentações (appendChild/insertBefore)
+      originalSlides.forEach((slide) => track.appendChild(slide));
+
+      // 4. Reseta a posição do carrossel
+      track.style.transition = "none";
+      track.style.transform = "translateX(0)";
+
+      // 5. Atualiza a largura do slide
+      updateCarouselMetrics();
     });
+  });
 
+  // --- Inicialização do Carrossel ---
 
-    // --- INICIALIZAÇÃO ---
-    setupCarousel('all');
-    window.addEventListener('resize', () => setupCarousel(document.querySelector('.chip.active').dataset.filter));
+  // Chama a função uma vez no início para configurar
+  updateCarouselMetrics();
 
+  // Atualiza as métricas se a janela for redimensionada
+  window.addEventListener("resize", updateCarouselMetrics);
 
-    // --- FUNCIONALIDADE DO MAPA (sem alterações) ---
-    try {
-        const centroMapa = [-23.5505, -46.6333];
-        const mapa = L.map('mapaAgencias').setView(centroMapa, 11);
+  // --- LÓGICA DO MAPA LEAFLET ---
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(mapa);
+  // Verifica se o elemento do mapa existe na página
+  if (document.getElementById("mapaAgencias")) {
+    // 1. Inicializa o mapa: Coordenadas de SP, zoom 10
+    // (Ajustei o zoom inicial para 10 para caber melhor os 3 pontos)
+    const map = L.map("mapaAgencias").setView([-23.2098, -45.2133], 8);
 
-        const agencias = [
-            { nome: 'Agência Paulista', lat: -23.5613, lon: -46.6565 },
-            { nome: 'Agência Faria Lima', lat: -23.5781, lon: -46.6912 },
-            { nome: 'Agência Tatuapé', lat: -23.5413, lon: -46.5794 },
-            { nome: 'Agência Morumbi', lat: -23.6022, lon: -46.7041 },
-            { nome: 'Agência Santana', lat: -23.5019, lon: -46.626 }
-        ];
+    // 2. Adiciona o "chão" do mapa (tile layer) do OpenStreetMap
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map);
 
-        agencias.forEach(agencia => {
-            L.marker([agencia.lat, agencia.lon])
-             .addTo(mapa)
-             .bindPopup(`<b>WonderFly ${agencia.nome}</b>`);
-        });
-    } catch (e) {
-        console.error("Erro ao inicializar o mapa:", e);
-    }
+    // 3. Define os locais das suas agências (locais de exemplo)
+    const agencias = [
+      {
+        lat: -23.5489, // São Paulo (próx. à Sé)
+        lng: -46.6388,
+        nome: "<strong>WonderFly - São Paulo</strong><br>Av. Paulista, 1000",
+      },
+      {
+        lat: -22.9068, // Rio de Janeiro (Centro)
+        lng: -43.1729,
+        nome: "<strong>WonderFly - Rio de Janeiro</strong><br>Av. Rio Branco, 150",
+      },
+      {
+        lat: -23.1791, // São José dos Campos (Bônus)
+        lng: -45.8872,
+        nome: "<strong>WonderFly - Vale do Paraíba</strong><br>Rua das Palmeiras, 50",
+      },
+    ];
+    
+    // 4. Adiciona um marcador (pin) para cada agência no mapa
+    agencias.forEach((agencia) => {
+      L.marker([agencia.lat, agencia.lng])
+        .addTo(map)
+        .bindPopup(agencia.nome); // Adiciona o pop-up com o nome
+    });
+      
+    // (Opcional) Ajusta o mapa para mostrar todos os marcadores
+    const group = new L.featureGroup(agencias.map(a => L.marker([a.lat, a.lng])));
+    map.fitBounds(group.getBounds().pad(0.5)); // .pad(0.5) dá uma margem
+  }
 });

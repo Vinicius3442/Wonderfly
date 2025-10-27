@@ -1,12 +1,11 @@
 /* =============================================
    ARQUIVO: perfil.js
-   Lógica para a página de perfil (Abas e Mapa APRIMORADOS).
+   Lógica para a página de perfil (Abas, Mapa e Edição de Banner).
    ============================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
 
     /* --- LÓGICA DAS ABAS (PRINCIPAL E SECUNDÁRIA) --- */
-    // (Esta parte permanece a mesma)
     function setupTabs(navSelector, paneSelector, activeClass) {
         const tabLinks = document.querySelectorAll(navSelector);
         const tabPanes = document.querySelectorAll(paneSelector);
@@ -14,14 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
         tabLinks.forEach(link => {
             link.addEventListener('click', () => {
                 const tabId = link.dataset.tab;
-
-                // 1. Desativa todos os links e painéis
                 tabLinks.forEach(item => item.classList.remove(activeClass));
                 tabPanes.forEach(pane => pane.classList.remove(activeClass));
-
-                // 2. Ativa o link clicado e o painel correspondente
                 link.classList.add(activeClass);
-                // CORREÇÃO: Adicionamos 'tab-' na frente do tabId
                 document.getElementById('tab-' + tabId).classList.add(activeClass);
             });
         });
@@ -31,12 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
     /* =============================================
-       LÓGICA DO MAPA DE MOMENTOS (APRIMORADA)
+       LÓGICA DO MAPA DE MOMENTOS
+       (Esta seção inteira não mudou)
        ============================================= */
     
     const mapElement = document.getElementById('moments-map');
     if (mapElement) {
-        // --- Seletores ---
         const momentForm = document.getElementById('moment-form');
         const cancelBtn = document.getElementById('cancel-moment');
         const gallery = document.getElementById('moments-gallery');
@@ -45,18 +39,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const lngInput = document.getElementById('moment-lng');
         const textInput = document.getElementById('moment-text');
         const photoInput = document.getElementById('moment-photo');
+        const galleryPlaceholder = document.getElementById('gallery-placeholder'); // Placeholder
 
-        // --- Variáveis de Estado ---
-        let allMoments = []; // "Banco de dados" dos momentos
-        let tempMarker = null; // Marcador temporário
+        let allMoments = []; 
+        let tempMarker = null; 
 
-        // 1. Inicializa o mapa
         const map = L.map('moments-map').setView([20, 0], 2);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
-        // 2. Ação ao clicar no mapa (APRIMORADO)
         map.on('click', (e) => {
             const lat = e.latlng.lat;
             const lng = e.latlng.lng;
@@ -72,63 +64,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
             tempMarker.bindPopup("<b>Novo Momento</b><br>Arraste para ajustar a localização.").openPopup();
 
-            // Atualiza o formulário quando o pin é arrastado
             tempMarker.on('dragend', (e) => {
                 const newLat = e.target.getLatLng().lat;
                 const newLng = e.target.getLatLng().lng;
-                
-                // Chama a nova função de busca de endereço
                 fetchAddress(newLat, newLng); 
             });
 
-            // Chama a nova função de busca de endereço
             fetchAddress(lat, lng); 
             momentForm.classList.remove('hidden');
         });
         
-        // 3. Função helper para atualizar o formulário (MODIFICADA)
-        // Agora ela aceita um 'address'
         function updateFormCoords(lat, lng, address) {
-            // Se o endereço existir, mostre-o. Senão, volte para as coordenadas.
             const displayText = address || `Lat: ${lat.toFixed(4)}, Lng: ${lng.toFixed(4)}`;
-            
             coordsSpan.textContent = displayText;
             latInput.value = lat;
             lngInput.value = lng;
         }
 
-        // 4. NOVA FUNÇÃO: Buscar o endereço (Reverse Geocoding)
         async function fetchAddress(lat, lng) {
-            // Mostra um feedback imediato de carregamento
             coordsSpan.textContent = 'Buscando endereço...';
-
             try {
-                // A 'async/await' torna o código mais limpo
                 const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}&accept-language=pt-BR`);
-                
                 if (!response.ok) {
                     throw new Error('API de geocodificação falhou');
                 }
-                
                 const data = await response.json();
-                
-                // O 'display_name' é o endereço completo (ex: "Rua, Bairro, Cidade, País")
                 if (data && data.display_name) {
-                    // Trunca o endereço se for muito longo
                     const shortAddress = data.display_name.length > 60 ? data.display_name.substring(0, 60) + '...' : data.display_name;
                     updateFormCoords(lat, lng, shortAddress);
                 } else {
-                    // Se a API não achar (ex: no meio do oceano)
                     updateFormCoords(lat, lng, "Local desconhecido");
                 }
-
             } catch (error) {
                 console.error('Erro ao buscar endereço:', error);
-                // Se a API falhar, mostra as coordenadas como fallback
                 updateFormCoords(lat, lng, null); 
             }
         }
-        // 3. Ação ao CANCELAR o formulário
+        
         cancelBtn.addEventListener('click', () => {
             resetFormAndTempMarker();
         });
@@ -141,20 +113,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 tempMarker = null;
             }
         }
+        
+        // Função para checar se a galeria está vazia
+        function checkGalleryEmpty() {
+            if (allMoments.length === 0) {
+                galleryPlaceholder.style.display = 'flex';
+            } else {
+                galleryPlaceholder.style.display = 'none';
+            }
+        }
 
-        // 4. Ação ao ENVIAR o formulário (APRIMORADO)
         momentForm.addEventListener('submit', (e) => {
             e.preventDefault();
-
             const text = textInput.value;
             const photoFile = photoInput.files[0];
             const lat = latInput.value;
             const lng = lngInput.value;
             const date = new Date().toLocaleDateString('pt-BR');
-            const momentId = 'moment-' + Date.now(); // ID único
+            const momentId = 'moment-' + Date.now(); 
 
-            if (!text || !photoFile) {
-                alert('Por favor, preencha a descrição e escolha uma foto.');
+            if (!text.trim() || !photoFile) {
+                Swal.fire('Ops!', 'Por favor, preencha a descrição e escolha uma foto.', 'warning');
                 return;
             }
 
@@ -162,7 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
             reader.onload = function(event) {
                 const photoUrl = event.target.result;
 
-                // A. Adiciona o Marcador PERMANENTE no mapa
                 const popupContent = `
                     <div class="moment-popup">
                         <img src="${photoUrl}" alt="${text}" style="width:100%; height:auto; border-radius: 5px;">
@@ -172,10 +150,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const permanentMarker = L.marker([lat, lng]).addTo(map)
                     .bindPopup(popupContent, { minWidth: 150 });
 
-                // B. Adiciona o Card na Galeria (APRIMORADO)
                 const cardElement = document.createElement('div');
                 cardElement.className = 'moment-card';
-                cardElement.dataset.id = momentId; // Guarda o ID no elemento
+                cardElement.dataset.id = momentId; 
                 cardElement.innerHTML = `
                     <img src="${photoUrl}" alt="${text}">
                     <div class="moment-card-content">
@@ -187,9 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                 `;
-                gallery.prepend(cardElement); // Adiciona no início da lista
+                gallery.prepend(cardElement); 
 
-                // C. Salva no nosso "banco de dados"
                 allMoments.push({
                     id: momentId,
                     marker: permanentMarker,
@@ -198,57 +174,47 @@ document.addEventListener('DOMContentLoaded', () => {
                     lng: lng
                 });
 
-                // D. Limpa o formulário e o pin temporário
                 resetFormAndTempMarker();
+                checkGalleryEmpty(); // Verifica a galeria
             };
             
             reader.readAsDataURL(photoFile);
         });
 
-        // 5. APRIMORAMENTO 2 & 3: Ações da Galeria (Ver no Mapa / Excluir)
-        // Usamos "event delegation" para escutar cliques nos botões
         gallery.addEventListener('click', (e) => {
-            // Encontra o botão ou o card que foi clicado
             const viewBtn = e.target.closest('.btn-view-map');
             const deleteBtn = e.target.closest('.btn-delete');
             const card = e.target.closest('.moment-card');
             
-            if (!card) return; // Sai se o clique não foi em um card
+            if (!card) return; 
             
             const momentId = card.dataset.id;
             const moment = allMoments.find(m => m.id === momentId);
             if (!moment) return;
 
-            // Ação: VER NO MAPA
             if (viewBtn) {
-                map.flyTo([moment.lat, moment.lng], 15); // Zoom 15 (cidade)
+                map.flyTo([moment.lat, moment.lng], 15); 
                 moment.marker.openPopup();
             }
 
-            // Ação: EXCLUIR
             if (deleteBtn) {
                 Swal.fire({
                     title: 'Tem certeza?',
                     text: "Você não poderá reverter esta ação!",
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonColor: '#f07913', // Cor laranja do seu tema
-                    cancelButtonColor: '#6c757d',  // Cinza
+                    confirmButtonColor: '#f07913', 
+                    cancelButtonColor: '#6c757d',  
                     confirmButtonText: 'Sim, excluir!',
                     cancelButtonText: 'Cancelar'
                 }).then((result) => {
-                    // Isso é executado DEPOIS que o usuário clica
                     if (result.isConfirmed) {
-                        // --- O usuário clicou em "Sim, excluir!" ---
-                        
-                        // Remove do mapa
                         moment.marker.remove();
-                        // Remove da galeria
                         moment.card.remove();
-                        // Remove do "banco de dados"
                         allMoments = allMoments.filter(m => m.id !== momentId);
+                        
+                        checkGalleryEmpty(); // Verifica a galeria
 
-                        // Opcional: Mostrar um alerta de sucesso
                         Swal.fire(
                             'Excluído!',
                             'Seu momento foi removido.',
@@ -257,11 +223,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             }
-            
         });
         
+        checkGalleryEmpty(); // Verifica ao carregar a página
+        
     } // fim do if(mapElement)
+
+
+    /* =============================================
+       LÓGICA DE EDIÇÃO DO PERFIL (ATUALIZADA)
+       ============================================= */
+
+    // --- Seletores dos Elementos do Perfil ---
     const avatarImg = document.getElementById('profile-avatar');
+    const bannerEl = document.querySelector('.profile-banner'); // NOVO
     const nameEl = document.getElementById('profile-name');
     const bioEl = document.getElementById('profile-bio');
     
@@ -275,23 +250,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const editNameInput = document.getElementById('edit-name');
     const editBioInput = document.getElementById('edit-bio');
     const editAvatarInput = document.getElementById('edit-avatar');
+    const editBannerInput = document.getElementById('edit-banner'); // NOVO
 
     // 1. FUNÇÃO: Carregar dados do localStorage
     function loadProfileData() {
         const savedName = localStorage.getItem('profileName');
         const savedBio = localStorage.getItem('profileBio');
-        const savedAvatar = localStorage.getItem('profileAvatar'); // (Salvo como texto Base64)
+        const savedAvatar = localStorage.getItem('profileAvatar');
+        const savedBanner = localStorage.getItem('profileBanner'); // NOVO
 
         if (savedName) {
             nameEl.textContent = savedName;
-            editNameInput.value = savedName; // Pré-preenche o formulário
+            editNameInput.value = savedName; 
         }
         if (savedBio) {
             bioEl.textContent = savedBio;
-            editBioInput.value = savedBio; // Pré-preenche o formulário
+            editBioInput.value = savedBio; 
         }
         if (savedAvatar) {
             avatarImg.src = savedAvatar;
+        }
+        if (savedBanner) { // NOVO
+            // Aplicamos como imagem de fundo
+            bannerEl.style.backgroundImage = `url(${savedBanner})`;
         }
     }
 
@@ -303,49 +284,75 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.remove('show');
     }
 
-    // 3. FUNÇÃO: Salvar Dados
-    editForm.addEventListener('submit', (e) => {
+    // 3. FUNÇÃO HELPER: Ler arquivo como Base64 (Retorna uma Promise)
+    // Isso nos permite ler múltiplos arquivos de forma limpa
+    function readFileAsBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = (event) => resolve(event.target.result); // Resolve com a string Base64
+            reader.onerror = (error) => reject(error);
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // 4. FUNÇÃO: Salvar Dados (Refatorada com async/await)
+    editForm.addEventListener('submit', async (e) => { // A função agora é 'async'
         e.preventDefault();
 
-        // Salva Nome e Bio (são simples)
+        // --- Salva Nome e Bio (são simples) ---
         const newName = editNameInput.value;
         const newBio = editBioInput.value;
-
         localStorage.setItem('profileName', newName);
         localStorage.setItem('profileBio', newBio);
-
         nameEl.textContent = newName;
         bioEl.textContent = newBio;
 
-        // Salva a Foto (requer FileReader)
+        // --- Salva Imagens (com Promises) ---
         const avatarFile = editAvatarInput.files[0];
-        
-        if (avatarFile) {
-            // Se um arquivo foi selecionado, converte para Base64
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const base64String = event.target.result;
-                localStorage.setItem('profileAvatar', base64String);
-                avatarImg.src = base64String;
-                
-                // Fecha o modal DEPOIS que a imagem for lida
-                closeModal(); 
-            };
-            reader.readAsDataURL(avatarFile);
-        } else {
-            // Se nenhum arquivo foi selecionado, apenas fecha o modal
-            closeModal();
-        }
+        const bannerFile = editBannerInput.files[0];
 
-        Swal.fire({
-            title: 'Sucesso!',
-            text: 'Seu perfil foi atualizado.',
-            icon: 'success',
-            confirmButtonColor: '#f07913'
-        });
+        try {
+            // Cria "promessas" de leitura para os arquivos, se eles existirem
+            const avatarPromise = avatarFile ? readFileAsBase64(avatarFile) : Promise.resolve(null);
+            const bannerPromise = bannerFile ? readFileAsBase64(bannerFile) : Promise.resolve(null);
+            
+            // Espera as duas leituras terminarem
+            const [avatarBase64, bannerBase64] = await Promise.all([avatarPromise, bannerPromise]);
+
+            // Se a leitura do avatar terminou, salva e atualiza
+            if (avatarBase64) {
+                localStorage.setItem('profileAvatar', avatarBase64);
+                avatarImg.src = avatarBase64;
+            }
+
+            // Se a leitura do banner terminou, salva e atualiza
+            if (bannerBase64) {
+                localStorage.setItem('profileBanner', bannerBase64);
+                bannerEl.style.backgroundImage = `url(${bannerBase64})`;
+            }
+
+            // Fecha o modal e mostra sucesso DEPOIS que tudo terminou
+            closeModal();
+            Swal.fire({
+                title: 'Sucesso!',
+                text: 'Seu perfil foi atualizado.',
+                icon: 'success',
+                confirmButtonColor: '#f07913'
+            });
+
+        } catch (error) {
+            // Se der erro em UMA das leituras, avisa o usuário
+            console.error("Erro ao ler arquivos:", error);
+            Swal.fire({
+                title: 'Erro!',
+                text: 'Houve um problema ao carregar sua imagem.',
+                icon: 'error',
+                confirmButtonColor: '#f07913'
+            });
+        }
     });
 
-    // 4. Conecta os Event Listeners (Gatilhos)
+    // 5. Conecta os Event Listeners (Gatilhos)
     editBtn.addEventListener('click', openModal);
     closeBtn.addEventListener('click', closeModal);
     
@@ -356,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 5. EXECUÇÃO: Carrega os dados assim que a página abre
+    // 6. EXECUÇÃO: Carrega os dados assim que a página abre
     loadProfileData();
 
-})
+});
