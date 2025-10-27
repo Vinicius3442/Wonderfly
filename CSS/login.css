@@ -1,40 +1,40 @@
+/* =============================================
+   ARQUIVO: login.css
+   Estilos para Login/Cadastro (CORRIGIDO)
+   ============================================= */
+
 body {
   font-family: "Poppins", sans-serif;
   margin: 0;
   padding: 0;
   display: flex;
-  flex-direction: column; /* Changed to column to stack header, container, footer */
-  justify-content: center; /* Adjust as needed with header/footer */
-  align-items: center;
+  flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(
-    to right,
-    #4a90e2,
-    #7a63ff
-  );
+  /* MUDANÇA: Fundo gradiente removido. Usando a cor .section.alt do global.css */
+  background-color: #afc9d8;
   color: #333;
 }
 
+/* MUDANÇA:
+   A maior parte dos estilos do .header foi removida.
+   Deixamos SÓ o 'position: relative' para que ele NÃO seja 'sticky'
+   nesta página, como ele é no global.css.
+*/
 .header {
-  width: 100%; /* Make header span full width */
-  position: relative; /* Change from sticky if it interferes with overall layout on login page */
-  top: 0;
-  z-index: 1000;
-  background: linear-gradient(90deg, #0b598b, #167cbf); /* Keep original header background */
-  color: #fff;
+  position: relative;
 }
 
-/* Main container for the login form */
+/* Container principal do formulário (sem grandes mudanças) */
 .container {
   display: flex;
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  max-width: 1000px; /* Added max-width for better control on larger screens */
-  width: 90%; /* Responsive width */
-  margin: 40px auto; /* Added margin to separate from header/footer */
-  min-height: 600px; /* Ensured a reasonable minimum height */
+  max-width: 1000px;
+  width: 90%;
+  margin: 40px auto; /* Margem para respirar do header/footer */
+  min-height: 600px;
 }
 
 .image-section {
@@ -47,35 +47,41 @@ body {
 
 .form-section {
   flex: 1;
-  padding: 40px; /* Increased padding slightly for better spacing */
+  padding: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-/* Specific styling for the logo within the form section to differentiate from header logo */
 .form-section .logo {
   display: flex;
   align-items: center;
   margin-bottom: 25px;
+  
+  /* MUDANÇA: Alinhando com a identidade visual do header */
+  font-weight: 700;
+  font-size: 1.4rem; /* Mesmo tamanho do header */
+  gap: 6px;          /* Mesmo espaçamento do header */
 }
 
 .form-section .logo img {
-  width: 35px; /* Slightly larger for clarity */
-  margin-right: 10px;
+  /* MUDANÇA: Alinhando com a identidade visual do header */
+  height: 32px; /* Mesmo tamanho do header */
+  width: auto;  /* Deixa a largura ser automática */
+  /* margin-right foi removido, 'gap' agora cuida disso */
 }
 
 .form-section .logo .azul {
-  color: rgb(22, 123, 191); /* Ensure these colors are applied */
+  color: rgb(22, 123, 191);
 }
 
 .form-section .logo .laranja {
-  color: rgb(240, 121, 19); /* Ensure these colors are applied */
+  color: rgb(240, 121, 19);
 }
 
 
 h1 {
-  font-size: 2em; /* Slightly larger heading for prominence */
+  font-size: 2em;
   margin-bottom: 10px;
   color: #333;
   font-weight: 600;
@@ -113,10 +119,11 @@ p.description {
   transition: border-color 0.3s ease;
 }
 
+/* MUDANÇA: Cor do foco para o azul da marca */
 .form-group input[type="email"]:focus,
 .form-group input[type="text"]:focus,
 .form-group input[type="password"]:focus {
-  border-color: #4a90e2;
+  border-color: #0b5a8c;
   outline: none;
   background-color: #fff;
 }
@@ -127,11 +134,11 @@ p.description {
   margin-top: 5px;
 }
 
-/* Adjusted button styles for consistency and clarity */
+/* Botão de submit (já estava com a cor certa) */
 button[type="submit"] {
   width: 100%;
   padding: 14px;
-  background-color: #0b5a8c; /* Primary brand color from global.css */
+  background-color: #0b5a8c; /* Cor primária da marca */
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -143,27 +150,29 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #167cbf; /* Darker shade of primary color */
+  background-color: #167cbf; /* Cor hover da marca */
 }
 
+/* Link "Não tem conta?" */
 .top-right-nav {
-  text-align: right; /* Aligned to top-right visually */
-  margin-bottom: 20px; /* Space before form */
+  text-align: center;
+  margin-bottom: 20px;
   font-size: 0.9em;
   color: #666;
 }
 
+/* MUDANÇA: Cor do link para o laranja da marca */
 .top-right-nav a {
-  color: #4a90e2;
+  color: #f07913;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .top-right-nav a:hover {
   text-decoration: underline;
 }
 
-
+/* Divisor "ou" */
 .divider {
   display: flex;
   align-items: center;
@@ -188,6 +197,7 @@ button[type="submit"]:hover {
   margin-left: 0.5em;
 }
 
+/* Botões sociais */
 .social-button {
   display: flex;
   align-items: center;
@@ -216,6 +226,33 @@ button[type="submit"]:hover {
   margin-right: 10px;
 }
 
+/* NOVO: Estilo para links do Checkbox (página de cadastro) */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 20px;
+}
+.checkbox-group label {
+    line-height: 1.4;
+}
+.checkbox-group input {
+    flex-shrink: 0;
+}
+/* MUDANÇA: Cor dos links de Termos de Uso */
+.checkbox-group a {
+    color: #0b5a8c;
+    font-weight: 600;
+    text-decoration: none;
+}
+.checkbox-group a:hover {
+    text-decoration: underline;
+}
+
+
+/* Spans de cor (sem mudança) */
 .laranja {
   color: rgb(240, 121, 19) !important;
 }
@@ -223,33 +260,26 @@ button[type="submit"]:hover {
   color: rgb(22, 123, 191) !important;
 }
 
-/* Responsive adjustments */
+/* Responsividade (sem mudança) */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
     max-width: 90%;
-    margin: 20px auto; /* Adjust margin for smaller screens */
-    height: auto; /* Allow height to adjust */
+    margin: 20px auto; 
+    height: auto; 
   }
 
   .image-section {
-    display: none; /* Oculta a imagem em telas menores para focar no formulário */
+    display: none;
   }
 
   .form-section {
     padding: 30px 25px;
   }
-
-  .header .nav {
-    display: none; /* Hide main nav on smaller screens, as handled by global.css */
-  }
-  .burger {
-    display: block; /* Show burger menu */
-  }
 }
 @media (max-width: 480px) {
   .form-section {
-    padding: 20px; /* Further reduce padding on very small screens */
+    padding: 20px; 
   }
   h1 {
     font-size: 1.5em;
@@ -259,8 +289,11 @@ button[type="submit"]:hover {
   }
 }
 
-/* Ensure the footer is at the bottom */
+/* MUDANÇA:
+  Regra do footer simplificada.
+  Deixamos SÓ o 'margin-top: auto' para empurrar o footer
+  para o fim da página, já que o 'body' é flex-column.
+*/
 .footer {
-  width: 100%;
-  margin-top: auto; /* Pushes the footer to the bottom if body is flex-column */
+  margin-top: auto; 
 }

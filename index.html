@@ -45,7 +45,7 @@
     <main>
         <section class="hero">
             <div class="hero-bg"></div>
-            <h1>Explore <span>culturas autênticas</span></h1>
+            <h1>Explore <span class="orange">culturas autênticas</span></h1>
             <p>Roteiros feitos por quem vive a cultura local: mercados, rituais, festivais e experiências reais para quem busca mais.</p>
             <div class="hero-ctas">
                 <a href="./Viagem/home_viagem.html"><button class="btn primary lg"><i class="fa-solid fa-compass"></i> Explore Destinos</button></a>
@@ -58,7 +58,17 @@
         <section class="section">
             <div class="section-head">
                 <h2>Destinos em Destaque</h2>
-                <a href="./Viagem/home_viagem.html" class="link">Ver todos &rarr;</a>
+                <a
+            href="./Viagem/home_viagem.html"
+            class="link"
+            style="
+              color: rgb(255, 103, 1);
+              font-weight: bold;
+              font-size: large;
+              -webkit-text-stroke-width: 0.01px;
+              -webkit-text-stroke-color: #000;
+            "
+            >Ver todos &rarr;</a>
             </div>
             <div class="grid cards">
                 <div class="card">
@@ -70,7 +80,7 @@
                             <span><i class="fa-solid fa-clock"></i> 7 dias</span>
                             <span>a partir de R$ 3.520</span>
                         </div>
-                        <button class="btn secondary">Ver detalhes</button>
+                        <a href="./Viagem/home_viagem.html" class="btn secondary">Ver detalhes</a>
                     </div>
                 </div>
                 <div class="card">
@@ -82,7 +92,7 @@
                             <span><i class="fa-solid fa-clock"></i> 5 dias</span>
                             <span>a partir de R$ 1.950</span>
                         </div>
-                        <button class="btn secondary">Ver detalhes</button>
+                        <a href="./Viagem/home_viagem.html" class="btn secondary">Ver detalhes</a>
                     </div>
                 </div>
                 <div class="card">
@@ -94,7 +104,7 @@
                             <span><i class="fa-solid fa-clock"></i> 10 dias</span>
                             <span>a partir de R$ 9.880</span>
                         </div>
-                        <button class="btn secondary">Ver detalhes</button>
+                        <a href="./Viagem/home_viagem.html" class="btn secondary">Ver detalhes</a>
                     </div>
                 </div>
                 <div class="card">
@@ -106,7 +116,7 @@
                             <span><i class="fa-solid fa-clock"></i> 3 dias</span>
                             <span>a partir de R$ 1.410</span>
                         </div>
-                        <button class="btn secondary">Ver detalhes</button>
+                        <a href="./Viagem/home_viagem.html" class="btn secondary">Ver detalhes</a>
                     </div>
                 </div>
             </div>
@@ -184,29 +194,68 @@
             <div id="mapaAgencias"></div>
         </section>
 
-        <section class="section alt">
-            <div class="testimonials">
-                <div class="testimonial">
-                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Foto de Ana Ribeiro">
-                    <div>
-                        <h4>Ana Ribeiro - ⭐⭐⭐⭐⭐</h4>
-                        <p>"Experiência incrível, viagem impecável!"</p>
+       <section class="section alt">
+            <div class="section-head">
+                 <h2>O que nossos viajantes dizem</h2>
+                 <a href="./Comunidade/home_comunidade.html" class="link">Ver mais na comunidade &rarr;</a>
+            </div>
+            
+            <div class="testimonial-grid">
+                
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="quote">"Experiência incrível, viagem impecável! A WonderFly cuidou de tudo, os guias locais eram fantásticos e o roteiro foi diferenciado."</p>
+                    <div class="profile">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Foto de Ana Ribeiro">
+                        <div class="profile-info">
+                            <h4>Ana Ribeiro</h4>
+                            <span>Viagem: <strong>Safari na Tanzânia</strong></span>
+                        </div>
                     </div>
                 </div>
-                <div class="testimonial">
-                    <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Foto de Carlos Mendes">
-                    <div>
-                        <h4>Carlos Mendes - ⭐⭐⭐⭐⭐</h4>
-                        <p>"Acompanhamento excelente e roteiros diferenciados."</p>
+                
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="quote">"A melhor agência para quem busca imersão cultural. O festival Holi na Índia foi algo que jamais esquecerei. Seguro e autêntico."</p>
+                    <div class="profile">
+                        <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Foto de Carlos Mendes">
+                        <div class="profile-info">
+                            <h4>Carlos Mendes</h4>
+                            <span>Viagem: <strong>Holi na Índia</strong></span>
+                        </div>
                     </div>
                 </div>
-                <div class="testimonial">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Foto de Ricardo Torres">
-                    <div>
-                        <h4>Ricardo Torres - ⭐⭐⭐⭐⭐</h4>
-                        <p>"Serviço impecável, recomendo!"</p>
+                
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+                    <p class="quote">"Fiz o roteiro do Marrocos e foi espetacular. Grupos pequenos realmente fazem a diferença. Recomendo 100%!"</p>
+                    <div class="profile">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Foto de Juliana Costa">
+                        <div class="profile-info">
+                            <h4>Juliana Costa</h4>
+                            <span>Viagem: <strong>Marrocos Essencial</strong></span>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </section>
 
@@ -219,6 +268,26 @@
             </form>
         </section>
     </main>
+
+    <button class="chatbot-fab" id="open-chat-btn" aria-label="Abrir chat">
+        <i class="fa-solid fa-comments"></i>
+    </button>
+
+    <div class="chat-window" id="chat-window">
+        <div class="chat-header">
+            <h3>WonderFly Assistente</h3>
+            <button id="close-chat-btn" aria-label="Fechar chat">&times;</button>
+        </div>
+        <div class="chat-body">
+            <div class="chat-message bot">
+                <p>Olá! Eu sou o seu assistente virtual. Como posso ajudar a planejar sua próxima aventura?</p>
+            </div>
+            </div>
+        <div class="chat-footer">
+            <input type="text" placeholder="Digite sua mensagem...">
+            <button aria-label="Enviar"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="footer-grid">

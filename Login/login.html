@@ -3,13 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WonderFly - Crie sua conta</title>
+    <title>WonderFly - Faça Login</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
     <link rel="stylesheet" href="../CSS/global.css" />
     <link rel="stylesheet" href="../CSS/login.css" />
   </head>
@@ -21,17 +22,16 @@
         <span>WonderFly</span>
       </a>
       <nav class="nav">
-        <a href="#" class="active">Destinos</a>
+        <a href="../Viagem/home_viagem.html">Destinos</a>
         <a href="../Comunidade/home_comunidade.html">Comunidade</a>
         <a href="../Blog/blog_home.html">Blog</a>
         <a href="../Contato/contato.html">Contato</a>
       </nav>
       <div class="header-cta">
-        <a href="../Login/login.html" class="btn ghost">Fazer Login</a>
-        <a href="#all-destination-cards"
+        <a href="login.html" class="btn ghost">Fazer Login</a>
+        <a href="../Viagem/home_viagem.html"
           ><button class="btn primary">Reserve Agora</button></a
         >
-        <!-- Updated link -->
       </div>
       <button class="burger" id="burger-menu">
         <i class="fa-solid fa-bars"></i>
@@ -40,26 +40,25 @@
 
     <div class="container">
       <div class="image-section">
-        <!-- A imagem de fundo é definida via CSS -->
-      </div>
+        </div>
       <div class="form-section">
         <div class="logo">
           <img src="../images/logo.png" alt="WonderFly Logo" />
-          <!-- Substitua pelo favicon real -->
           <span class="azul">Wonder</span><span class="laranja">Fly</span>
         </div>
         <h1>Bem-vindo de volta!</h1>
         <p class="description">
-          Junte-se a nós e comece a planejar sua próxima grande aventura!
+          Acesse sua conta para ver suas viagens e momentos salvos.
         </p>
 
-        <form>
+        <form id="login-form">
           <div  class="form-group">
             <label for="email">Email</label>
             <input
               type="email"
               id="email"
               placeholder="seu.email@exemplo.com"
+              required
             />
           </div>
           <div class="form-group">
@@ -67,10 +66,10 @@
             <input
               type="password"
               id="senha"
-              placeholder="Mínimo 8 caracteres"
+              placeholder="Sua senha"
+              required
             />
-            <div class="hint">Mínimo 8 caracteres.</div>
-          </div>
+            </div>
           <button type="submit">Entrar</button>
         </form>
         <div class="top-right-nav">
@@ -97,6 +96,7 @@
         </button>
       </div>
     </div>
+    
     <footer class="footer">
       <div class="footer-grid">
         <div>
@@ -118,7 +118,7 @@
         <div>
           <h4>Sobre nós</h4>
           <ul>
-            <li><a href="./Blog/blog_home.html">Blog</a></li>
+            <li><a href="../Blog/blog_home.html">Blog</a></li>
           </ul>
         </div>
         <div>
@@ -151,16 +151,19 @@
         &copy; 2025 WonderFly Viagens Ltda. Todos os direitos reservados.
       </div>
     </footer>
-            <script>
-            document.addEventListener('DOMContentLoaded', function() {
-              const submitBtn = document.querySelector('.form-section button[type="submit"]');
-              if (!submitBtn) return;
-              submitBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                // Redireciona para a página de login após o envio
-                window.location.href = '../perfil/perfil.html';
-              });
-            });
-            </script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('login-form');
+      if (!form) return;
+      
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Apenas para demonstração, redireciona para o perfil
+        console.log("Login enviado! Redirecionando...");
+        window.location.href = '../Perfil/perfil.html';
+      });
+    });
+    </script>
   </body>
 </html>

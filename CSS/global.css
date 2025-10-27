@@ -76,14 +76,14 @@ button {
 .logo img {
   height: 32px;
 }
-.blue{
+.blue {
   color: rgb(22, 123, 191);
 }
-.orange{
+.orange {
   color: rgb(240, 121, 19);
 }
-.footer-logo{
-    display: flex;
+.footer-logo {
+  display: flex;
   align-items: center;
   font-weight: 700;
   font-size: 1.4rem;
@@ -181,9 +181,9 @@ button {
   font-size: 2.8rem;
   margin-bottom: 12px;
 }
-.hero h1 span {
-  color: #ffcf9d; /* COR ALTERADA */
-}
+/* .hero h1 span {
+  color: #ff6701;
+} */
 .hero p {
   max-width: 600px;
   margin: 0 auto 24px;
@@ -373,7 +373,12 @@ button {
 
 /* Newsletter / PROMO BANNER */
 .cta-newsletter {
-  background: #f07913; /* COR ALTERADA */
+  background: #f07913;
+  background: linear-gradient(
+    90deg,
+    rgba(240, 121, 19, 1) 48%,
+    rgba(255, 193, 135, 1) 100%
+  );
   color: #fff;
   text-align: center;
   padding: 60px 20px;

@@ -1,0 +1,97 @@
+/* =============================================
+   ARQUIVO: legal.css
+   Estilos para as páginas de Termos e Privacidade.
+   ============================================= */
+
+body {
+    /* MUDANÇA: Força o fundo a ser o cinza-azulado do .section.alt
+       para combinar com o resto do site (login, etc.) */
+    background-color: #afc9d8;
+}
+
+/* MUDANÇA:
+   Nestas páginas, o header não será 'sticky' (fixo),
+   ele vai rolar junto com a página.
+*/
+.header {
+    position: relative;
+}
+
+/* MUDANÇA:
+   Nestas páginas, o footer não fica no final da tela,
+   ele fica logo após o conteúdo.
+*/
+.footer {
+    margin-top: 0;
+}
+
+
+/* Container principal para o texto */
+.legal-container {
+    max-width: 900px;
+    margin: 40px auto; /* Centraliza o bloco de texto */
+    padding: 40px 50px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.legal-container h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.legal-container .last-updated {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.legal-container h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #0b5a8c; /* Azul da marca */
+    margin-top: 40px;
+    margin-bottom: 15px;
+}
+
+.legal-container p,
+.legal-container li {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.legal-container ul {
+    list-style-type: disc;
+    padding-left: 25px;
+}
+
+.legal-container a {
+    color: #f07913; /* Laranja da marca */
+    font-weight: 600;
+    text-decoration: none;
+}
+.legal-container a:hover {
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .legal-container {
+        padding: 30px 25px;
+        margin: 20px 15px;
+    }
+    .legal-container h1 {
+        font-size: 2rem;
+    }
+    .legal-container h2 {
+        font-size: 1.5rem;
+    }
+}
