@@ -204,4 +204,5 @@ document.addEventListener("DOMContentLoaded", () => {
     const group = new L.featureGroup(agencias.map(a => L.marker([a.lat, a.lng])));
     map.fitBounds(group.getBounds().pad(0.5)); // .pad(0.5) dá uma margem
   }
+  
 });

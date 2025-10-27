@@ -348,27 +348,51 @@ button {
   color: #f07913; /* COR ALTERADA */
   margin-bottom: 12px;
 }
-
-/* Depoimentos */
-.testimonials {
+.testimonial-grid {
   display: grid;
   gap: 24px;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
-.testimonial {
+.testimonial-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   display: flex;
-  gap: 16px;
-  align-items: flex-start;
+  flex-direction: column;
 }
-.testimonial img {
-  width: 60px;
-  height: 60px;
+.testimonial-card .stars {
+  color: #f07913; /* Laranja da marca */
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+.testimonial-card .quote {
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  color: #333;
+  flex-grow: 1; /* Empurra o perfil para baixo */
+}
+.testimonial-card .profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 20px;
+}
+.testimonial-card .profile img {
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   object-fit: cover;
 }
-.testimonial p {
-  font-size: 0.95rem;
-  margin-bottom: 6px;
+.testimonial-card .profile h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+.testimonial-card .profile span {
+  font-size: 0.85rem;
+  color: #555;
 }
 
 /* Newsletter / PROMO BANNER */
@@ -402,7 +426,6 @@ button {
   border: none;
   width: 260px;
 }
-
 /* Footer */
 .footer {
   background: #000000;

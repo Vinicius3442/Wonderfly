@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WonderFly - Explore Culturas Autênticas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-    
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha26-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
 
-    <link rel="stylesheet" href="./CSS/global.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha26-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
 
+    <link rel="stylesheet" href="./CSS/global.css" />
+  </head>
+  <body>
     <div class="topbar">
       <p>
         <span class="blink">●</span> Até 25% OFF nas experiências de verão — use
@@ -23,42 +33,78 @@
     </div>
 
     <header class="header">
-        <a href="#" class="logo">
-            <img src="./images/white_logo.png" alt="">
-            <span>WonderFly</span>
-        </a>
-        <nav class="nav">
-            <a href="./Viagem/home_viagem.html">Destinos</a>
-            <a href="./Comunidade/home_comunidade.html">Comunidade</a>
-            <a href="./Blog/blog_home.html">Blog</a>
-            <a href="./Contato/contato.html">Contato</a>
-        </nav>
-        <div class="header-cta">
-             <a href="./Login/login.html" class="btn ghost">Fazer Login</a>
-            <a href="./Viagem/home_viagem.html"><button class="btn primary">Reserve Agora</button></a>
-        </div>
-        <button class="burger">
-            <i class="fa-solid fa-bars"></i>
-        </button>
+      <a href="#" class="logo">
+        <img src="./images/white_logo.png" alt="" />
+        <span>WonderFly</span>
+      </a>
+      <nav class="nav">
+        <a href="./Viagem/home_viagem.html">Destinos</a>
+        <a href="./Comunidade/home_comunidade.html">Comunidade</a>
+        <a href="./Blog/blog_home.html">Blog</a>
+        <a href="./Contato/contato.html">Contato</a>
+      </nav>
+      <div class="header-cta">
+        <a href="./Login/login.html" class="btn ghost">Fazer Login</a>
+        <a href="./Viagem/home_viagem.html"
+          ><button class="btn primary">Reserve Agora</button></a
+        >
+      </div>
+      <button class="burger">
+        <i class="fa-solid fa-bars"></i>
+      </button>
     </header>
 
     <main>
-        <section class="hero">
-            <div class="hero-bg"></div>
-            <h1>Explore <span class="orange">culturas autênticas</span></h1>
-            <p>Roteiros feitos por quem vive a cultura local: mercados, rituais, festivais e experiências reais para quem busca mais.</p>
-            <div class="hero-ctas">
-                <a href="./Viagem/home_viagem.html"><button class="btn primary lg"><i class="fa-solid fa-compass"></i> Explore Destinos</button></a>
-            </div>
-            <div class="trust">
-                <span>Pagamento seguro • Turismo responsável • Grupos pequenos</span>
-            </div>
-        </section>
+      <section class="hero">
+        <div class="hero-bg"></div>
+        <h1>Explore <span class="orange">culturas autênticas</span></h1>
+        <p>
+          Roteiros feitos por quem vive a cultura local: mercados, rituais,
+          festivais e experiências reais para quem busca mais.
+        </p>
+        <div class="hero-ctas">
+          <a href="./Viagem/home_viagem.html"
+            ><button class="btn primary lg">
+              <i class="fa-solid fa-compass"></i> Explore Destinos
+            </button></a
+          >
+        </div>
+        <div class="trust">
+          <span>Pagamento seguro • Turismo responsável • Grupos pequenos</span>
+        </div>
+      </section>
 
-        <section class="section">
-            <div class="section-head">
-                <h2>Destinos em Destaque</h2>
-                <a
+      
+      <section class="section trust-cards">
+        <div class="trust-grid">
+          <div class="trust-card">
+            <i class="fa-solid fa-earth-americas"></i>
+            <h4>Turismo responsável</h4>
+            <p>
+              Parcerias com guias locais, respeito às comunidades e compensação
+              de carbono.
+            </p>
+          </div>
+          <div class="trust-card">
+            <i class="fa-solid fa-users"></i>
+            <h4>Grupos pequenos</h4>
+            <p>
+              Experiências mais autênticas, tempo livre e acompanhamento
+              completo.
+            </p>
+          </div>
+          <div class="trust-card">
+            <i class="fa-solid fa-headset"></i>
+            <h4>Suporte 24/7</h4>
+            <p>Atendimento humano antes, durante e depois da viagem.</p>
+          </div>
+        </div>
+      </section>
+      
+      <section class="section">
+        <div class="section-head">
+          <h2>Destinos em Destaque</h2>
+          <a
             href="./Viagem/home_viagem.html"
             class="link"
             style="
@@ -68,272 +114,357 @@
               -webkit-text-stroke-width: 0.01px;
               -webkit-text-stroke-color: #000;
             "
-            >Ver todos &rarr;</a>
+            >Ver todos &rarr;</a
+          >
+        </div>
+        <div class="grid cards">
+          <div class="card">
+            <div
+              class="card-img"
+              style="
+                background-image: url('https://ecommerce.cdn.genera.com.br/uploads/2022/12/cidade-antiga-marrocos-1024x575.jpg');
+              "
+            ></div>
+            <div class="card-body">
+              <h3>Marrocos Essencial</h3>
+              <p>
+                7 dias por Marrakech, deserto de Agafay e montanhas históricas.
+              </p>
+              <div class="meta">
+                <span><i class="fa-solid fa-clock"></i> 7 dias</span>
+                <span>a partir de R$ 3.520</span>
+              </div>
+              <a href="./Viagem/home_viagem.html" class="btn secondary"
+                >Ver detalhes</a
+              >
             </div>
-            <div class="grid cards">
-                <div class="card">
-                    <div class="card-img" style="background-image: url('https://ecommerce.cdn.genera.com.br/uploads/2022/12/cidade-antiga-marrocos-1024x575.jpg');"></div>
-                    <div class="card-body">
-                        <h3>Marrocos Essencial</h3>
-                        <p>7 dias por Marrakech, deserto de Agafay e montanhas históricas.</p>
-                        <div class="meta">
-                            <span><i class="fa-solid fa-clock"></i> 7 dias</span>
-                            <span>a partir de R$ 3.520</span>
-                        </div>
-                        <a href="./Viagem/home_viagem.html" class="btn secondary">Ver detalhes</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-img" style="background-image: url('https://cdn.americachip.com/wp-content/uploads/2024/05/camboja-onde-fica-1024x619.jpg?strip=all&lossy=1&quality=92&webp=92&ssl=1');"></div>
-                    <div class="card-body">
-                        <h3>Templos do Camboja</h3>
-                        <p>Angkor Wat ao nascer do sol e imersão gastronômica em Siem Reap.</p>
-                        <div class="meta">
-                            <span><i class="fa-solid fa-clock"></i> 5 dias</span>
-                            <span>a partir de R$ 1.950</span>
-                        </div>
-                        <a href="./Viagem/home_viagem.html" class="btn secondary">Ver detalhes</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-img" style="background-image: url('https://www.travely.com.br/wp-content/uploads/2021/07/59b514757c03f4e14c006ca63de02928_XL.jpg');"></div>
-                    <div class="card-body">
-                        <h3>Safari na Tanzânia</h3>
-                        <p>Parques Tarangire e Serengeti com guias locais e lodge ecológico.</p>
-                        <div class="meta">
-                            <span><i class="fa-solid fa-clock"></i> 10 dias</span>
-                            <span>a partir de R$ 9.880</span>
-                        </div>
-                        <a href="./Viagem/home_viagem.html" class="btn secondary">Ver detalhes</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-img" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx8mYNSgi3ADAOBJYbukIK-uCWbUGO6gou1A&s');"></div>
-                    <div class="card-body">
-                        <h3>Holi na Índia</h3>
-                        <p>Participe do festival das cores mais aguardado e seguro de Jaipur.</p>
-                        <div class="meta">
-                            <span><i class="fa-solid fa-clock"></i> 3 dias</span>
-                            <span>a partir de R$ 1.410</span>
-                        </div>
-                        <a href="./Viagem/home_viagem.html" class="btn secondary">Ver detalhes</a>
-                    </div>
-                </div>
+          </div>
+          <div class="card">
+            <div
+              class="card-img"
+              style="
+                background-image: url('https://cdn.americachip.com/wp-content/uploads/2024/05/camboja-onde-fica-1024x619.jpg?strip=all&lossy=1&quality=92&webp=92&ssl=1');
+              "
+            ></div>
+            <div class="card-body">
+              <h3>Templos do Camboja</h3>
+              <p>
+                Angkor Wat ao nascer do sol e imersão gastronômica em Siem Reap.
+              </p>
+              <div class="meta">
+                <span><i class="fa-solid fa-clock"></i> 5 dias</span>
+                <span>a partir de R$ 1.950</span>
+              </div>
+              <a href="./Viagem/home_viagem.html" class="btn secondary"
+                >Ver detalhes</a
+              >
             </div>
-        </section>
+          </div>
+          <div class="card">
+            <div
+              class="card-img"
+              style="
+                background-image: url('https://www.travely.com.br/wp-content/uploads/2021/07/59b514757c03f4e14c006ca63de02928_XL.jpg');
+              "
+            ></div>
+            <div class="card-body">
+              <h3>Safari na Tanzânia</h3>
+              <p>
+                Parques Tarangire e Serengeti com guias locais e lodge
+                ecológico.
+              </p>
+              <div class="meta">
+                <span><i class="fa-solid fa-clock"></i> 10 dias</span>
+                <span>a partir de R$ 9.880</span>
+              </div>
+              <a href="./Viagem/home_viagem.html" class="btn secondary"
+                >Ver detalhes</a
+              >
+            </div>
+          </div>
+          <div class="card">
+            <div
+              class="card-img"
+              style="
+                background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx8mYNSgi3ADAOBJYbukIK-uCWbUGO6gou1A&s');
+              "
+            ></div>
+            <div class="card-body">
+              <h3>Holi na Índia</h3>
+              <p>
+                Participe do festival das cores mais aguardado e seguro de
+                Jaipur.
+              </p>
+              <div class="meta">
+                <span><i class="fa-solid fa-clock"></i> 3 dias</span>
+                <span>a partir de R$ 1.410</span>
+              </div>
+              <a href="./Viagem/home_viagem.html" class="btn secondary"
+                >Ver detalhes</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <section class="section alt">
-            <div class="section-head">
-                <h2>Experiências Culturais</h2>
-                <span>Escolha por tema e encontre roteiros que combinam com você.</span>
+      <section class="section alt">
+        <div class="section-head">
+          <h2>Experiências Culturais</h2>
+          <span
+            >Escolha por tema e encontre roteiros que combinam com você.</span
+          >
+        </div>
+        <div class="themes">
+          <button class="chip active" data-filter="all">Todos</button>
+          <button class="chip" data-filter="gastronomia">Gastronomia</button>
+          <button class="chip" data-filter="natureza">Natureza</button>
+          <button class="chip" data-filter="festivais">Festivais</button>
+          <button class="chip" data-filter="arte">História & Arte</button>
+          <button class="chip" data-filter="comunidades">Comunidades</button>
+        </div>
+        <div class="carousel">
+          <div class="carousel-track">
+            <div
+              class="slide"
+              data-category="gastronomia"
+              style="
+                background-image: url('https://blog.swiggy.com/wp-content/uploads/2024/10/Image1_Pani-Puri-1024x538.jpg');
+              "
+            >
+              <span class="badge">Gastronomia</span>
+              <h3>Street food na Índia</h3>
             </div>
-            <div class="themes">
-                <button class="chip active" data-filter="all">Todos</button>
-                <button class="chip" data-filter="gastronomia">Gastronomia</button>
-                <button class="chip" data-filter="natureza">Natureza</button>
-                <button class="chip" data-filter="festivais">Festivais</button>
-                <button class="chip" data-filter="arte">História & Arte</button>
-                <button class="chip" data-filter="comunidades">Comunidades</button>
+            <div
+              class="slide"
+              data-category="natureza"
+              style="
+                background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3nANE7cGoXS78_C4-OQFPehXlujwJULHvTg&s');
+              "
+            >
+              <span class="badge">Natureza</span>
+              <h3>Trilha em Java</h3>
             </div>
-            <div class="carousel">
-                <div class="carousel-track">
-                    <div class="slide" data-category="gastronomia" style="background-image: url('https://blog.swiggy.com/wp-content/uploads/2024/10/Image1_Pani-Puri-1024x538.jpg');">
-                        <span class="badge">Gastronomia</span>
-                        <h3>Street food na Índia</h3>
-                    </div>
-                    <div class="slide" data-category="natureza" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3nANE7cGoXS78_C4-OQFPehXlujwJULHvTg&s');">
-                        <span class="badge">Natureza</span>
-                        <h3>Trilha em Java</h3>
-                    </div>
-                    <div class="slide" data-category="festivais" style="background-image: url('https://images.squarespace-cdn.com/content/v1/52c0b141e4b0b87925bacd01/1462779501654-SZX1U1SK9WUBJW3ZC6QW/songkran3.jpg');">
-                        <span class="badge">Festivais</span>
-                        <h3>Songkran na Tailândia</h3>
-                    </div>
-                    <div class="slide" data-category="arte" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWxtyOb3Q5pQYZ6Pbi9GqKN07b5ShegUTDww&s');">
-                        <span class="badge">História & Arte</span>
-                        <h3>Patrimônios no Irã</h3>
-                    </div>
-                    <div class="slide" data-category="comunidades" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7YBsf3JuuinnjaGvy_mZRPCYsN7yPVnfrOw&s');">
-                        <span class="badge">Comunidades</span>
-                        <h3>Vilarejos na Etiópia</h3>
-                    </div>
-                    <div class="slide" data-category="festivais" style="background-image: url('https://www.chingay.gov.sg/images/UNESCO.jpg');">
-                        <span class="badge">Comunidades</span>
-                        <h3>Chingay Parada em Singapura</h3>
-                    </div>
-                </div>
-                <button class="carousel-btn prev"><i class="fa-solid fa-chevron-left"></i></button>
-                <button class="carousel-btn next"><i class="fa-solid fa-chevron-right"></i></button>
+            <div
+              class="slide"
+              data-category="festivais"
+              style="
+                background-image: url('https://images.squarespace-cdn.com/content/v1/52c0b141e4b0b87925bacd01/1462779501654-SZX1U1SK9WUBJW3ZC6QW/songkran3.jpg');
+              "
+            >
+              <span class="badge">Festivais</span>
+              <h3>Songkran na Tailândia</h3>
             </div>
-        </section>
+            <div
+              class="slide"
+              data-category="arte"
+              style="
+                background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWxtyOb3Q5pQYZ6Pbi9GqKN07b5ShegUTDww&s');
+              "
+            >
+              <span class="badge">História & Arte</span>
+              <h3>Patrimônios no Irã</h3>
+            </div>
+            <div
+              class="slide"
+              data-category="comunidades"
+              style="
+                background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7YBsf3JuuinnjaGvy_mZRPCYsN7yPVnfrOw&s');
+              "
+            >
+              <span class="badge">Comunidades</span>
+              <h3>Vilarejos na Etiópia</h3>
+            </div>
+            <div
+              class="slide"
+              data-category="festivais"
+              style="
+                background-image: url('https://www.chingay.gov.sg/images/UNESCO.jpg');
+              "
+            >
+              <span class="badge">Comunidades</span>
+              <h3>Chingay Parada em Singapura</h3>
+            </div>
+          </div>
+          <button class="carousel-btn prev">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button class="carousel-btn next">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      </section>
 
-        <section class="section trust-cards">
-             <div class="trust-grid">
-                 <div class="trust-card">
-                     <i class="fa-solid fa-earth-americas"></i>
-                     <h4>Turismo responsável</h4>
-                     <p>Parcerias com guias locais, respeito às comunidades e compensação de carbono.</p>
-                 </div>
-                 <div class="trust-card">
-                     <i class="fa-solid fa-users"></i>
-                     <h4>Grupos pequenos</h4>
-                     <p>Experiências mais autênticas, tempo livre e acompanhamento completo.</p>
-                 </div>
-                 <div class="trust-card">
-                     <i class="fa-solid fa-headset"></i>
-                     <h4>Suporte 24/7</h4>
-                     <p>Atendimento humano antes, durante e depois da viagem.</p>
-                 </div>
-             </div>
-        </section>
+      <section class="section">
+        <div class="section-head">
+          <h2>Nossas agências:</h2>
+        </div>
+        <div id="mapaAgencias"></div>
+      </section>
 
-        <section class="section">
-            <div class="section-head">
-                 <h2>Nossas agências:</h2>
+      <section class="section alt">
+        <div class="section-head">
+          <h2>O que nossos viajantes dizem</h2>
+          <a
+            href="./Comunidade/home_comunidade.html"
+            class="link"
+            style="
+              color: rgb(255, 103, 1);
+              font-weight: bold;
+              font-size: large;
+              -webkit-text-stroke-width: 0.01px;
+              -webkit-text-stroke-color: #000;
+            "
+            >Ver mais &rarr;</a
+          >
+        </div>
+
+        <div class="testimonial-grid">
+          <div class="testimonial-card">
+            <div class="stars">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
             </div>
-            <div id="mapaAgencias"></div>
-        </section>
-
-       <section class="section alt">
-            <div class="section-head">
-                 <h2>O que nossos viajantes dizem</h2>
-                 <a href="./Comunidade/home_comunidade.html" class="link">Ver mais na comunidade &rarr;</a>
+            <p class="quote">
+              "Experiência incrível, viagem impecável! A WonderFly cuidou de
+              tudo, os guias locais eram fantásticos e o roteiro foi
+              diferenciado."
+            </p>
+            <div class="profile">
+              <img
+                src="https://randomuser.me/api/portraits/women/68.jpg"
+                alt="Foto de Ana Ribeiro"
+              />
+              <div class="profile-info">
+                <h4>Ana Ribeiro</h4>
+                <span>Viagem: <strong>Safari na Tanzânia</strong></span>
+              </div>
             </div>
-            
-            <div class="testimonial-grid">
-                
-                <div class="testimonial-card">
-                    <div class="stars">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="quote">"Experiência incrível, viagem impecável! A WonderFly cuidou de tudo, os guias locais eram fantásticos e o roteiro foi diferenciado."</p>
-                    <div class="profile">
-                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Foto de Ana Ribeiro">
-                        <div class="profile-info">
-                            <h4>Ana Ribeiro</h4>
-                            <span>Viagem: <strong>Safari na Tanzânia</strong></span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="stars">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="quote">"A melhor agência para quem busca imersão cultural. O festival Holi na Índia foi algo que jamais esquecerei. Seguro e autêntico."</p>
-                    <div class="profile">
-                        <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Foto de Carlos Mendes">
-                        <div class="profile-info">
-                            <h4>Carlos Mendes</h4>
-                            <span>Viagem: <strong>Holi na Índia</strong></span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="stars">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star-half-stroke"></i>
-                    </div>
-                    <p class="quote">"Fiz o roteiro do Marrocos e foi espetacular. Grupos pequenos realmente fazem a diferença. Recomendo 100%!"</p>
-                    <div class="profile">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Foto de Juliana Costa">
-                        <div class="profile-info">
-                            <h4>Juliana Costa</h4>
-                            <span>Viagem: <strong>Marrocos Essencial</strong></span>
-                        </div>
-                    </div>
-                </div>
+          </div>
 
+          <div class="testimonial-card">
+            <div class="stars">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
             </div>
-        </section>
+            <p class="quote">
+              "A melhor agência para quem busca imersão cultural. O festival
+              Holi na Índia foi algo que jamais esquecerei. Seguro e autêntico."
+            </p>
+            <div class="profile">
+              <img
+                src="https://randomuser.me/api/portraits/men/46.jpg"
+                alt="Foto de Carlos Mendes"
+              />
+              <div class="profile-info">
+                <h4>Carlos Mendes</h4>
+                <span>Viagem: <strong>Holi na Índia</strong></span>
+              </div>
+            </div>
+          </div>
 
-        <section class="cta-newsletter">
-            <h3>Ganhe R$ 200 de desconto no 1º pacote</h3>
-            <p>Assine a newsletter e receba nossas melhores ofertas exclusivas.</p>
-            <form class="newsletter">
-                <input type="email" placeholder="Seu melhor e-mail">
-                <button type="submit" class="btn white">Quero receber!</button>
-            </form>
-        </section>
+          <div class="testimonial-card">
+            <div class="stars">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star-half-stroke"></i>
+            </div>
+            <p class="quote">
+              "Fiz o roteiro do Marrocos e foi espetacular. Grupos pequenos
+              realmente fazem a diferença. Recomendo 100%!"
+            </p>
+            <div class="profile">
+              <img
+                src="https://randomuser.me/api/portraits/women/44.jpg"
+                alt="Foto de Juliana Costa"
+              />
+              <div class="profile-info">
+                <h4>Juliana Costa</h4>
+                <span>Viagem: <strong>Marrocos Essencial</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-newsletter">
+        <h3>Ganhe R$ 200 de desconto no 1º pacote</h3>
+        <p>Assine a newsletter e receba nossas melhores ofertas exclusivas.</p>
+        <form class="newsletter">
+          <input type="email" placeholder="Seu melhor e-mail" />
+          <button type="submit" class="btn white">Quero receber!</button>
+        </form>
+      </section>
     </main>
 
-    <button class="chatbot-fab" id="open-chat-btn" aria-label="Abrir chat">
-        <i class="fa-solid fa-comments"></i>
-    </button>
-
-    <div class="chat-window" id="chat-window">
-        <div class="chat-header">
-            <h3>WonderFly Assistente</h3>
-            <button id="close-chat-btn" aria-label="Fechar chat">&times;</button>
-        </div>
-        <div class="chat-body">
-            <div class="chat-message bot">
-                <p>Olá! Eu sou o seu assistente virtual. Como posso ajudar a planejar sua próxima aventura?</p>
-            </div>
-            </div>
-        <div class="chat-footer">
-            <input type="text" placeholder="Digite sua mensagem...">
-            <button aria-label="Enviar"><i class="fa-solid fa-paper-plane"></i></button>
-        </div>
-    </div>
-
     <footer class="footer">
-        <div class="footer-grid">
-            <div>
-                <a href="#" class="logo footer-logo">
-                    <img src="./images/logo.png" alt="">
-                    <span class="blue">Wonder</span><span class="orange">Fly</span>
-                </a>
-                <p>Explorar culturas, conectar pessoas e transformar olhares. Este é o nosso plano de voo.</p>
-                <div class="social">
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                </div>
-            </div>
-            <div>
-                <h4>Sobre nós</h4>
-                <ul>
-                    <li><a href="./Blog/blog_home.html">Blog</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4>Atendimento</h4>
-                <ul>
-                    <li><a href="#">ola@wonderfly.com</a></li>
-                    <li><a href="#">(11) 98888-9999</a></li>
-                    <li><a href="#">FAQ</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4>Pagamento</h4>
-                <div class="payments">
-                     <img src="https://img.icons8.com/color/48/000000/visa.png" alt="Visa">
-                     <img src="https://img.icons8.com/color/48/000000/mastercard.png" alt="Mastercard">
-                     <img src="https://img.icons8.com/color/48/000000/pix.png" alt="Pix">
-                </div>
-            </div>
+      <div class="footer-grid">
+        <div>
+          <a href="#" class="logo footer-logo">
+            <img src="./images/logo.png" alt="" />
+            <span class="blue">Wonder</span><span class="orange">Fly</span>
+          </a>
+          <p>
+            Explorar culturas, conectar pessoas e transformar olhares. Este é o
+            nosso plano de voo.
+          </p>
+          <div class="social">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          </div>
         </div>
-        <div class="copy">
-            &copy; 2025 WonderFly Viagens Ltda. Todos os direitos reservados.
+        <div>
+          <h4>Sobre nós</h4>
+          <ul>
+            <li><a href="./Blog/blog_home.html">Blog</a></li>
+          </ul>
         </div>
+        <div>
+          <h4>Atendimento</h4>
+          <ul>
+            <li><a href="#">ola@wonderfly.com</a></li>
+            <li><a href="#">(11) 98888-9999</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Pagamento</h4>
+          <div class="payments">
+            <img
+              src="https://img.icons8.com/color/48/000000/visa.png"
+              alt="Visa"
+            />
+            <img
+              src="https://img.icons8.com/color/48/000000/mastercard.png"
+              alt="Mastercard"
+            />
+            <img
+              src="https://img.icons8.com/color/48/000000/pix.png"
+              alt="Pix"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        &copy; 2025 WonderFly Viagens Ltda. Todos os direitos reservados.
+      </div>
     </footer>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
 
     <script src="./JS/home.js"></script>
-</body>
+  </body>
 </html>

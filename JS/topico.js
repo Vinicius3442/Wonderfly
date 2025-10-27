@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Pega o ID do tópico da URL
     function getTopicIdFromUrl() {
         const params = new URLSearchParams(window.location.search);
-        // Usamos parseInt para garantir que o ID seja um número
         return parseInt(params.get('id'), 10);
     }
 
@@ -55,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        // Define o título da página
         document.title = `WonderFly - ${topic.subject}`;
 
         const defaultImage = "../images/banner.png";
@@ -63,13 +61,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const boardName = topic.board.charAt(0).toUpperCase() + topic.board.slice(1);
         const postDate = new Date(topic.createdAt).toLocaleDateString('pt-BR');
 
+        // Adicionado "data-board" para o CSS colorir o badge
+        // Adicionado botão de apagar com id "delete-topic-btn"
         const opHTML = `
-        <article class="original-post" data-id="${topic.id}">
+        <article class="original-post" data-id="${topic.id}" data-board="${topic.board}"> 
             <header class="op-header">
                 <span class="thread-board-badge">${boardName}</span>
                 <h1>${topic.subject}</h1>
                 <div class="op-meta">
-                    Postado por <strong>Usuário Anônimo</strong> em ${postDate}
+                    <div>Postado por <strong>Usuário Anônimo</strong> em ${postDate}</div>
+                    <button class="btn-delete-topic" id="delete-topic-btn" title="Apagar este tópico">
+                        <i class="ri-delete-bin-line"></i> Apagar Tópico
+                    </button>
                 </div>
             </header>
             <div class="op-body">
@@ -79,13 +82,22 @@ document.addEventListener('DOMContentLoaded', () => {
         </article>
         `;
         opContainer.innerHTML = opHTML;
+
+        // --- NOVO: Listener para o botão de apagar ---
+        // Adiciona o listener DEPOIS de inserir o HTML na página
+        const deleteBtn = document.getElementById('delete-topic-btn');
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', () => {
+                // Passa o ID do tópico atual para a função de apagar
+                handleDeleteTopic(topic.id);
+            });
+        }
     }
 
     // Renderiza a lista de respostas
     function renderReplies(replies) {
-        repliesContainer.innerHTML = ''; // Limpa a lista
+        repliesContainer.innerHTML = ''; 
         
-        // Atualiza a contagem
         replyCountEl.textContent = `Respostas (${replies.length})`;
 
         if (replies.length === 0) {
@@ -93,10 +105,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Mostra as mais antigas primeiro
         replies.forEach(reply => {
             const replyDate = new Date(reply.createdAt).toLocaleDateString('pt-BR');
-            // Usamos um avatar padrão, pois ainda não temos login
             const avatar = '../images/profile/avatar-default.jpg'; 
 
             const replyHTML = `
@@ -114,62 +124,84 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ===================================
-    // 3. LÓGICA DE NOVA RESPOSTA
+    // 3. LÓGICA DE AÇÕES (Responder / Apagar)
     // ===================================
+    
     replyForm.addEventListener('submit', (e) => {
         e.preventDefault();
-
         const message = replyMessageInput.value;
         if (!message.trim()) {
             Swal.fire('Oops!', 'Você não pode publicar uma resposta vazia.', 'error');
             return;
         }
         
-        // Cria o objeto da nova resposta
         const newReply = {
             id: Date.now(),
             message: message,
             createdAt: new Date().toISOString()
-            // (Poderia adicionar 'user' se tivéssemos login)
         };
 
-        // Atualiza o localStorage
         const allThreads = getThreads();
-        // Encontra o tópico que estamos vendo
         const topicIndex = allThreads.findIndex(t => t.id === currentTopic.id);
         
         if (topicIndex > -1) {
-            // Adiciona a nova resposta ao array de respostas do tópico
             allThreads[topicIndex].replies.push(newReply);
-            
-            // Salva a estrutura de tópicos inteira de volta no localStorage
             saveThreads(allThreads);
-
-            // Atualiza o objeto 'currentTopic'
             currentTopic = allThreads[topicIndex];
-            
-            // Re-renderiza as respostas na tela (sem recarregar a página)
             renderReplies(currentTopic.replies);
-
-            // Limpa o formulário
             replyMessageInput.value = '';
             
-            // Feedback de sucesso
             Swal.fire({
                 title: 'Sucesso!',
                 text: 'Sua resposta foi publicada.',
                 icon: 'success',
-                timer: 1500, // Fecha sozinho
+                timer: 1500,
                 showConfirmButton: false,
                 confirmButtonColor: '#f07913'
             });
-
         } else {
             Swal.fire('Erro!', 'Não foi possível encontrar este tópico para salvar sua resposta.', 'error');
         }
     });
 
-    // =D=================================
+    // --- NOVA FUNÇÃO PARA APAGAR TÓPICO ---
+    function handleDeleteTopic(topicId) {
+        Swal.fire({
+            title: 'Você tem certeza?',
+            text: "Você não poderá reverter esta ação!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#f07913', // Laranja
+            cancelButtonColor: '#555',     // Cinza
+            confirmButtonText: 'Sim, apagar!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            // Se o usuário confirmar...
+            if (result.isConfirmed) {
+                // 1. Pega todos os tópicos
+                const allThreads = getThreads();
+                
+                // 2. Filtra o array, mantendo TODOS exceto o que tem o topicId
+                const updatedThreads = allThreads.filter(thread => thread.id !== topicId);
+                
+                // 3. Salva o novo array (sem o tópico apagado) no localStorage
+                saveThreads(updatedThreads);
+
+                // 4. Feedback de sucesso e redirecionamento
+                Swal.fire(
+                    'Apagado!',
+                    'Seu tópico foi removido.',
+                    'success'
+                ).then(() => {
+                    // 5. Redireciona para a home da comunidade
+                    window.location.href = './home_comunidade.html';
+                });
+            }
+        });
+    }
+
+
+    // ===================================
     // 4. INICIALIZAÇÃO DA PÁGINA
     // ===================================
     function init() {
@@ -188,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderReplies(currentTopic.replies);
         } else {
             renderOriginalPost(null); // Mostra "Tópico não encontrado"
-            repliesContainer.style.display = 'none'; // Esconde a seção de respostas
+            repliesContainer.style.display = 'none'; 
             replyForm.style.display = 'none';
         }
     }

@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.getElementById('modal-close-btn');
     const newThreadForm = document.getElementById('new-thread-form');
     const filterChips = document.querySelectorAll('#board-filter-chips .chip');
+    const seeAllReviewsLink = document.getElementById('see-all-reviews-link');
 
     // --- Constante do LocalStorage ---
     const STORAGE_KEY = 'wonderflyThreads';
@@ -44,15 +45,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Link da seção de review para o filtro
+    seeAllReviewsLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        const reviewChip = document.querySelector('.chip[data-board="avaliacoes"]');
+        if (reviewChip) {
+            reviewChip.click(); // Simula o clique no chip de avaliações
+            
+            // Rola suavemente até os filtros
+            const filterElement = document.getElementById('board-filter-chips');
+            filterElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    });
+
+    // ATUALIZADO: Filtra e mostra placeholder se o filtro não retornar nada
     function filterThreads(board) {
         const allThreads = document.querySelectorAll('.thread-card');
+        let visibleCount = 0;
+
+        // Remove placeholder antigo se existir
+        const oldPlaceholder = threadListContainer.querySelector('.thread-list-placeholder');
+        if (oldPlaceholder) oldPlaceholder.remove();
+
         allThreads.forEach(thread => {
             if (board === 'all' || thread.dataset.board === board) {
-                thread.style.display = 'flex'; // 'flex' porque usamos flex-direction
+                thread.style.display = 'flex'; 
+                visibleCount++;
             } else {
                 thread.style.display = 'none';
             }
         });
+
+        if (visibleCount === 0 && allThreads.length > 0) {
+            // Só mostra se houverem tópicos, mas NENHUM corresponder ao filtro
+            renderPlaceholder("Nenhum tópico encontrado.", "Tente selecionar outra categoria.");
+        }
     }
 
     // ===================================
@@ -69,14 +96,45 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(threads));
     }
 
-    // Carrega e exibe todos os tópicos na página
+    // NOVO: Helper para mostrar mensagem de lista vazia
+    function renderPlaceholder(title, message) {
+        // Limpa container antes de adicionar placeholder
+        threadListContainer.innerHTML = ''; 
+        
+        const placeholderHTML = `
+        <div class="thread-list-placeholder">
+            <i class="ri-discuss-line"></i>
+            <h3>${title}</h3>
+            <p>${message} Você também pode <a href="#" id="start-thread-from-placeholder">criar um novo tópico</a>.</p>
+        </div>
+        `;
+        threadListContainer.insertAdjacentHTML('beforeend', placeholderHTML);
+        
+        // Adiciona evento ao link do placeholder
+        const startThreadLink = document.getElementById('start-thread-from-placeholder');
+        if (startThreadLink) {
+            startThreadLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal(); // Reutiliza a função de abrir modal
+            });
+        }
+    }
+
+    // ATUALIZADO: Carrega tópicos ou mostra placeholder se não houver nenhum
     function loadAllThreads() {
         threadListContainer.innerHTML = ''; // Limpa a lista
         const threads = getThreads();
+
+        if (threads.length === 0) {
+            renderPlaceholder("Nenhum tópico por aqui... ainda!", "Seja o primeiro a começar uma conversa.");
+            return; // Para a execução
+        }
+        
         // Exibe os mais novos primeiro
         threads.reverse().forEach(thread => {
             renderThread(thread);
         });
+        
         // Reaplica o filtro atual (caso 'Todos' não esteja selecionado)
         const activeFilter = document.querySelector('#board-filter-chips .chip.active').dataset.board;
         filterThreads(activeFilter);

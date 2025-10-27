@@ -1,0 +1,94 @@
+/* =============================================
+   ARQUIVO: avaliacoes.css
+   Estilos para a página de avaliações.
+   ============================================= */
+
+/* --- Hero simples da página --- */
+.hero-avaliacoes {
+  padding: 60px 8%;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)),
+    url("https://wallpapers.com/images/hd/4k-beach-background-1lz5nyyjf5rgjv15.jpg")
+      center/cover no-repeat;
+  color: #fff;
+  text-align: center;
+}
+.hero-avaliacoes h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+.hero-avaliacoes p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* --- Estilos do Formulário --- */
+.form-container {
+  max-width: 700px; /* Limita a largura do formulário */
+  margin: 0 auto; /* Centraliza o formulário */
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #0b5a8c; /* Azul do tema */
+  box-shadow: 0 0 0 3px rgba(11, 90, 140, 0.1);
+}
+
+.form-container .btn {
+  width: 100%;
+  justify-content: center; /* Centraliza o texto no botão */
+}
+
+/* --- Sistema de Estrelas (Rating) --- */
+.rating-stars {
+  display: flex;
+  flex-direction: row-reverse; /* Faz as estrelas acenderem da direita para esquerda */
+  justify-content: flex-end; /* Alinha à esquerda */
+}
+
+.rating-stars input[type="radio"] {
+  display: none; /* Esconde os botões de rádio */
+}
+
+.rating-stars label {
+  font-size: 1.8rem;
+  color: #ddd; /* Cor da estrela apagada */
+  cursor: pointer;
+  margin: 0 2px;
+  transition: color 0.2s;
+}
+
+/* Magia do CSS: Quando passa o mouse SOBRE uma estrela, ela e todas à DIREITA (no HTML) mudam de cor */
+.rating-stars:not(:hover) input[type="radio"]:checked ~ label,
+.rating-stars:hover input[type="radio"] ~ label:hover,
+.rating-stars:hover input[type="radio"] ~ label:hover ~ label {
+  color: #f07913; /* Laranja da marca */
+}
