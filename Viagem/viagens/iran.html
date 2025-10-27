@@ -206,8 +206,8 @@
                         <label for="mensagem">Mensagem (opcional)</label>
                         <textarea id="mensagem" name="mensagem" rows="4" placeholder="Alguma dúvida ou pedido especial?"></textarea>
 
-                        <button class="btn primary lg full-width" type="submit">Prosseguir para o Pagamento</button>
                     </form>
+                    <a href="../../Pagamento/pagamento.html"><button class="btn primary lg full-width">Prosseguir para o Pagamento</button></a>
                     <p class="small-text" id="booking-message"></p>
                     <p class="small-text">Dúvidas? <a href="../../Contato/contato.html">Fale com um especialista</a>.</p>
                 </div>
@@ -292,7 +292,7 @@
                 <div
                   class="card-img"
                   style="
-                    background-image: url('https://images.unsplash.com/photo-1547432098-90050d246603?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+                    background-image: url('https://s2.static.brasilescola.uol.com.br/be/2024/08/1-ruinas-da-cidade-de-machu-picchu-no-peru-uma-maravilha-moderna-edificada-pelos-incas.jpg');
                   "
                 ></div>
                 <div class="card-body">
@@ -311,20 +311,6 @@
               </div>
         </div>
     </section>
-
-    <section class="cta-newsletter">
-        <h3>Ganhe R$ 200 de desconto no 1º pacote</h3>
-        <p>Assine a newsletter e receba roteiros, dicas e ofertas exclusivas.</p>
-        <form class="newsletter" id="newsletter-form-page">
-            <input type="email" id="newsletter-email-page" placeholder="Seu e-mail" required />
-            <button class="btn white" type="submit">Quero receber</button>
-        </form>
-        <p id="newsletter-message-page" class="newsletter-message" style="margin-top: 15px;"></p>
-    </section>
-
-    <button id="back-to-top" class="back-to-top">
-      <i class="ri-arrow-up-line"></i>
-    </button>
 
     <footer class="footer">
         <div class="footer-grid">
@@ -368,16 +354,7 @@
             © 2025 WonderFly Viagens Ltda. Todos os direitos reservados.
         </div>
     </footer>
-    <script>
-            document.addEventListener('DOMContentLoaded', function() {
-              const submitBtn = document.querySelector('.form-section button[type="submit"]');
-              if (!submitBtn) return;
-              submitBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.location.href = '../Pagamento/pagamento.html';
-              });
-            });
-            </script>
+
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="../../JS/viagem_page.js"></script>
 

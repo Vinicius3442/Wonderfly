@@ -152,23 +152,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --- 6. VALIDAÇÃO SIMPLES DO FORM DE RESERVA ---
-  if (bookingForm) {
-    bookingForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const dataViagem = document.getElementById("data-viagem").value;
-        
-        if (!dataViagem) {
-            bookingMessage.textContent = "Por favor, selecione uma data.";
-            bookingMessage.style.color = "#f07913"; // Cor primária
-        } else {
-            bookingMessage.textContent = "Enviando sua reserva...";
-            bookingMessage.style.color = "#28a745";
-            // Aqui você enviaria o formulário de verdade
-            // bookingForm.submit(); 
-            console.log("Formulário pronto para envio!");
-        }
-    });
-  }
 
   // --- INICIALIZAÇÃO ---
   window.addEventListener("scroll", handleBackToTop);
