@@ -1,3 +1,8 @@
+<?php
+include 'config.php'; 
+include ROOT_PATH . 'templates/header.php';
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
@@ -25,34 +30,6 @@
     <link rel="stylesheet" href="./CSS/global.css" />
   </head>
   <body>
-    <div class="topbar">
-      <p>
-        <span class="blink">●</span> Até 25% OFF nas experiências de verão — use
-        o cupom <strong>WONDER25</strong>
-      </p>
-    </div>
-
-    <header class="header">
-      <a href="#" class="logo">
-        <img src="./images/white_logo.png" alt="" />
-        <span>WonderFly</span>
-      </a>
-      <nav class="nav">
-        <a href="./Viagem/home_viagem.html">Destinos</a>
-        <a href="./Comunidade/home_comunidade.html">Comunidade</a>
-        <a href="./Blog/blog_home.html">Blog</a>
-        <a href="./Contato/contato.html">Contato</a>
-      </nav>
-      <div class="header-cta">
-        <a href="./Login/login.html" class="btn ghost">Fazer Login</a>
-        <a href="./Viagem/home_viagem.html"
-          ><button class="btn primary">Reserve Agora</button></a
-        >
-      </div>
-      <button class="burger">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-    </header>
 
     <main>
       <section class="hero">
