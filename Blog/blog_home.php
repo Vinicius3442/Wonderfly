@@ -4,6 +4,7 @@ include '../config.php';
 // Inclui a conexão
 include '../db_connect.php';
 
+// 2. Prepara as variáveis de filtro
 $search_query = $_GET['busca'] ?? null;
 $tag_query = $_GET['tag'] ?? null;
 
@@ -28,7 +29,7 @@ try {
     // 1. Se estiver BUSCANDO (Full-Text Search)
     if ($search_query) {
         $where_clauses[] = "MATCH(a.titulo, a.resumo, a.conteudo_html) AGAINST(:busca IN BOOLEAN MODE)";
-        $params[':busca'] = $search_query . '*'; // Adiciona wildcard
+        $params[':busca'] = $search_query . '*'; 
     }
 
     // 2. Se estiver FILTRANDO POR TAG
@@ -59,7 +60,7 @@ try {
 }
 
 // 3. Inclui o Header
-include ROOT_PATH . 'templates/header.php';
+include ROOT_PATH . '/templates/header.php';
 ?>
 
 <link rel="stylesheet" href="<?php echo BASE_URL; ?>/CSS/blog-home.css" />
@@ -81,54 +82,71 @@ include ROOT_PATH . 'templates/header.php';
     </form>
 </section>
 
+
 <section class="section blog-posts">
-  <div class="blog-grid">
     
-    <?php if (empty($artigos)): ?>
-        <p>Nenhum artigo publicado ainda. Volte em breve!</p>
-    <?php else: ?>
+    <?php if ($search_query): ?>
+        <h2>Resultados da busca por: "<?php echo htmlspecialchars($search_query); ?>"</h2>
+    <?php elseif ($tag_query): ?>
+        <h2>Mostrando artigos com a tag: "<?php echo htmlspecialchars($tag_query); ?>"</h2>
+    <?php endif; ?>
+
+    <div class="blog-grid">
         
-        <?php foreach ($artigos as $artigo): ?>
-            <article class="blog-post">
-              <img
-                src="<?php 
-                    // Carrega a URL da imagem do banco
-                    // (Verifica se é um link externo ou um upload interno)
-                    $img_url = filter_var($artigo['imagem_destaque_url'], FILTER_VALIDATE_URL) 
-                                ? $artigo['imagem_destaque_url'] 
-                                : BASE_URL . $artigo['imagem_destaque_url'];
-                    echo htmlspecialchars($img_url); 
-                ?>"
-                alt="<?php echo htmlspecialchars($artigo['titulo']); ?>"
-              />
-              <div class="post-body">
-                <span class="badge"><?php echo htmlspecialchars($artigo['categoria']); ?></span>
-                <h3><?php echo htmlspecialchars($artigo['titulo']); ?></h3>
-                <p>
-                  <?php echo htmlspecialchars($artigo['resumo']); ?>
-                </p>
-                <div class="post-meta">
-                  <span>
-                    <i class="ri-calendar-line"></i> 
-                    <?php 
-                        // Formata a data
-                        echo date('d \d\e F \d\e Y', strtotime($artigo['data_publicacao'])); 
-                    ?>
-                  </span>
-                  <span>
-                    <i class="ri-user-line"></i> 
-                    Por <?php echo htmlspecialchars($artigo['nome_autor'] ?? 'Equipe WonderFly'); ?>
-                  </span>
-                </div>
-                <a href="<?php echo BASE_URL; ?>Blog/Artigos/artigo.php?id=<?php echo $artigo['id']; ?>" class="link">
-                    Ler mais <i class="ri-arrow-right-line"></i>
-                </a>
-              </div>
-            </article>
-        <?php endforeach; ?>
+        <?php if (empty($artigos)): ?>
+            <p style="text-align: center;">Nenhum artigo encontrado. Tente uma busca ou filtro diferente.</p>
+        <?php else: ?>
+            
+            <?php foreach ($artigos as $artigo): ?>
+                <article class="blog-post">
+                  <img
+                    src="<?php 
+                        $img_url = filter_var($artigo['imagem_destaque_url'], FILTER_VALIDATE_URL) 
+                                    ? $artigo['imagem_destaque_url'] 
+                                    : BASE_URL . $artigo['imagem_destaque_url'];
+                        echo htmlspecialchars($img_url); 
+                    ?>"
+                    alt="<?php echo htmlspecialchars($artigo['titulo']); ?>"
+                  />
+                  <div class="post-body">
+                    
+                    <div class="post-tags">
+                        <?php if (!empty($artigo['tags'])): ?>
+                            <?php $tags_array = explode(',', $artigo['tags']); ?>
+                            <?php foreach (array_slice($tags_array, 0, 3) as $tag_nome): // Limita a 3 tags ?>
+                                <span class="badge">
+                                    <a href="<?php echo BASE_URL; ?>Blog/blog_home.php?tag=<?php echo urlencode($tag_nome); ?>">
+                                        <?php echo htmlspecialchars($tag_nome); ?>
+                                    </a>
+                                </span>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <h3><?php echo htmlspecialchars($artigo['titulo']); ?></h3>
+                    <p>
+                      <?php echo htmlspecialchars($artigo['resumo']); ?>
+                    </p>
+                    <div class="post-meta">
+                      <span>
+                        <i class="ri-calendar-line"></i> 
+                        <?php echo date('d \d\e F \d\e Y', strtotime($artigo['data_publicacao'])); ?>
+                      </span>
+                      <span>
+                        <i class="ri-user-line"></i> 
+                        Por <?php echo htmlspecialchars($artigo['nome_autor'] ?? 'Equipe WonderFly'); ?>
+                      </span>
+                    </div>
+                    <a href="<?php echo BASE_URL; ?>Blog/Artigos/artigo.php?id=<?php echo $artigo['id']; ?>" class="link">
+                        Ler mais <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </div>
+                </article>
+            <?php endforeach; ?>
+        
         <?php endif; ?>
 
-  </div>
+    </div>
 </section>
 
 <section class="cta-newsletter">
@@ -145,6 +163,7 @@ include ROOT_PATH . 'templates/header.php';
 </section>
 
 <?php
+// 4. Inclui o Footer
 include ROOT_PATH . 'templates/footer.php';
 ?>
 

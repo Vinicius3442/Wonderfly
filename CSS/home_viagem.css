@@ -152,7 +152,51 @@
 #back-to-top:hover {
   background: #d16a0f; /* Laranja mais escuro no hover */
 }
+.card-img {
+    position: relative; /* Necessário para posicionar o botão dentro */
+}
 
+.btn-favorito {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    color: var(--color-primary);
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-favorito:hover {
+    background: #fff;
+    transform: scale(1.1);
+}
+
+/* Ícones de coração */
+.btn-favorito .ri-heart-fill {
+    display: none; /* Coração preenchido escondido por padrão */
+}
+.btn-favorito .ri-heart-line {
+    display: block; /* Coração vazio visível */
+}
+
+/* Estilo do botão ATIVO (favoritado) */
+.btn-favorito.active .ri-heart-fill {
+    display: block;
+    color: #e63946; /* Vermelho */
+}
+.btn-favorito.active .ri-heart-line {
+    display: none;
+}
 /* =============================================
    RESPONSIVIDADE (Complementar ao global.css)
    ============================================= */

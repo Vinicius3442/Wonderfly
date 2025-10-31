@@ -33,7 +33,39 @@
 html {
     scroll-padding-top: 100px; /* Garante que links como #reserva-form pousem abaixo do header sticky */
 }
+.btn-favorito {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    color: var(--color-primary);
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.btn-favorito:hover {
+    background: #fff;
+    transform: scale(1.1);
+}
+
+.btn-favorito .ri-heart-fill { display: none; }
+.btn-favorito .ri-heart-line { display: block; }
+
+.btn-favorito.active .ri-heart-fill {
+    display: block;
+    color: #e63946;
+}
+.btn-favorito.active .ri-heart-line { display: none; }
 /* =============================================
    HERO DA VIAGEM
    ============================================= */
