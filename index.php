@@ -378,61 +378,9 @@ include ROOT_PATH . 'templates/header.php';
       </section>
     </main>
 
-    <footer class="footer">
-      <div class="footer-grid">
-        <div>
-          <a href="#" class="logo footer-logo">
-            <img src="./images/logo.png" alt="" />
-            <span class="blue">Wonder</span><span class="orange">Fly</span>
-          </a>
-          <p>
-            Explorar culturas, conectar pessoas e transformar olhares. Este é o
-            nosso plano de voo.
-          </p>
-          <div class="social">
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-youtube"></i></a>
-            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-            <a href="#"><i class="fa-brands fa-facebook"></i></a>
-          </div>
-        </div>
-        <div>
-          <h4>Sobre nós</h4>
-          <ul>
-            <li><a href="./Blog/blog_home.html">Blog</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Atendimento</h4>
-          <ul>
-            <li><a href="#">ola@wonderfly.com</a></li>
-            <li><a href="#">(11) 98888-9999</a></li>
-            <li><a href="#">FAQ</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Pagamento</h4>
-          <div class="payments">
-            <img
-              src="https://img.icons8.com/color/48/000000/visa.png"
-              alt="Visa"
-            />
-            <img
-              src="https://img.icons8.com/color/48/000000/mastercard.png"
-              alt="Mastercard"
-            />
-            <img
-              src="https://img.icons8.com/color/48/000000/pix.png"
-              alt="Pix"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="copy">
-        &copy; 2025 WonderFly Viagens Ltda. Todos os direitos reservados.
-      </div>
-    </footer>
-
+    <?PHP
+    include ROOT_PATH . 'templates/footer.php';
+    ?>
     <script
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
