@@ -3,8 +3,8 @@ include 'config.php';
 include 'db_connect.php'; // Inclui a conexão com o banco
 
 try {
-  // Query que "junta" 3 tabelas: avaliacoes, usuarios e viagens
-  $sql = "
+    // Query que "junta" 3 tabelas
+    $sql = "
         SELECT 
             a.mensagem, a.nota,
             u.nome_exibicao, u.avatar_url,
@@ -12,13 +12,13 @@ try {
         FROM avaliacoes AS a
         LEFT JOIN usuarios AS u ON a.usuario_id = u.id
         LEFT JOIN viagens AS v ON a.viagem_id = v.id
-        ORDER BY a.data_criacao DESC
+        ORDER BY RAND()
         LIMIT 3
     ";
-
-  $stmt = $conn->prepare($sql);
-  $stmt->execute();
-  $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 } catch (PDOException $e) {
   $reviews = []; // Se der erro, o array fica vazio
@@ -42,7 +42,6 @@ include ROOT_PATH . 'templates/header.php';
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha26-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-
   <link rel="stylesheet" href="./CSS/global.css" />
 </head>
 
@@ -127,7 +126,7 @@ include ROOT_PATH . 'templates/header.php';
           <div class="card-body">
             <h3>Templos do Camboja</h3>
             <p>
-              Angkor Wat ao nascer do sol e imersão gastronômica em Siem Reap.
+              Angkor Wat ao nascer do sol e imersão gastronômica.
             </p>
             <div class="meta">
               <span><i class="fa-solid fa-clock"></i> 5 dias</span>
@@ -241,6 +240,12 @@ include ROOT_PATH . 'templates/header.php';
     </section>
 
     <section class="section alt">
+      <div class="section-head">
+        <h2>O que nossos viajantes dizem</h2>
+        <a href="./Avaliacoes/avaliacoes.php" class="link" style="color: rgb(255, 103, 1); font-weight: bold; font-size: large; -webkit-text-stroke-width: 0.01px; -webkit-text-stroke-color: #000;">
+            Ver todos &rarr;
+        </a>
+      </div>
       <div class="testimonial-grid">
 
         <?php if (empty($reviews)): ?>
