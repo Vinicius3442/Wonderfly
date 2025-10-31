@@ -18,7 +18,6 @@
     --color-border: #eee;
     --color-border-dark: #ddd;
     --color-success: #28a745;
-    --color-gradient-hero: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8));
     --shadow-sm: 0 4px 15px rgba(0,0,0,0.08);
     --shadow-md: 0 6px 20px rgba(0,0,0,0.1);
     --shadow-lg: 0 8px 30px rgba(0,0,0,0.3);
@@ -40,12 +39,19 @@ html {
    ============================================= */
 .trip-hero {
     position: relative;
-    background: var(--color-gradient-hero);
+    background: 
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), 
+      url("https://www.papeldeparede.etc.br/fotos/wp-content/uploads/papeldeparede-Deserto-de-4K.jpg");
+    
+    /* Recomendações para a imagem de fundo */
+    background-size: cover;       /* Faz a imagem cobrir todo o elemento */
+    background-position: center;  /* Centraliza a imagem */
+    
     color: var(--color-text-light);
-    padding: 5rem 8% 2.5rem; /* 80px 40px */
+    padding: 5rem 8% 2.5rem;
     display: flex;
     flex-direction: column;
-    gap: 2.5rem; /* 40px */
+    gap: 2.5rem;
 }
 
 .trip-hero-content {
