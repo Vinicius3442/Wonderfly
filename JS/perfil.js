@@ -122,6 +122,22 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const mapElement = document.getElementById('moments-map');
     if (mapElement) {
+
+        const momentoIcon = L.icon({
+            iconUrl: `${baseUrl}./images/logo.png`,
+            iconSize: [32, 37],
+            iconAnchor: [16, 32], // Metade da largura, altura total
+            popupAnchor: [0, -34]
+        });
+
+        // --- 2. DEFINA O ÍCONE TEMPORÁRIO (opcional) ---
+        const tempIcon = L.icon({
+            iconUrl: `${baseUrl}./images/logo.png`,
+            iconSize: [32, 37],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -34]
+        });
+        
         const momentForm = document.getElementById('moment-form');
         const cancelBtn = document.getElementById('cancel-moment');
         const gallery = document.getElementById('moments-gallery');
@@ -156,11 +172,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>${momento.descricao}</p>
                 </div>
             `;
-            const marker = L.marker([momento.latitude, momento.longitude])
+            const marker = L.marker([momento.latitude, momento.longitude], { 
+                icon: momentoIcon // <-- APLICA O ÍCONE AQUI
+            })
                 .addTo(map)
                 .bindPopup(popupContent, { minWidth: 150 });
             
-            allMarkers[momento.id] = marker; // Salva referência
+            allMarkers[momento.id] = marker;
         }
 
         // --- Lógica de clicar no mapa (igual) ---
@@ -169,7 +187,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const lng = e.latlng.lng;
             if (tempMarker) tempMarker.remove();
             
-            tempMarker = L.marker([lat, lng], { draggable: true }).addTo(map);
+            tempMarker = L.marker([lat, lng], { 
+                draggable: true,
+                icon: tempIcon // <-- APLICA O ÍCONE TEMPORÁRIO AQUI
+            }).addTo(map);
             tempMarker.bindPopup("<b>Novo Momento</b><br>Arraste para ajustar.").openPopup();
             
             tempMarker.on('dragend', (e) => fetchAddress(e.target.getLatLng().lat, e.target.getLatLng().lng));

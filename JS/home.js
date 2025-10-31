@@ -160,21 +160,28 @@ document.addEventListener("DOMContentLoaded", () => {
   // Atualiza as métricas se a janela for redimensionada
   window.addEventListener("resize", updateCarouselMetrics);
 
-  // --- LÓGICA DO MAPA LEAFLET ---
+// --- LÓGICA DO MAPA LEAFLET ---
 
-  // Verifica se o elemento do mapa existe na página
-  if (document.getElementById("mapaAgencias")) {
-    // 1. Inicializa o mapa: Coordenadas de SP, zoom 10
-    // (Ajustei o zoom inicial para 10 para caber melhor os 3 pontos)
+ if (document.getElementById("mapaAgencias")) {
+
+    // --- 1. CAMINHO DO ÍCONE CORRIGIDO ---
+    const momentoIcon = L.icon({
+            iconUrl: `${baseUrl}./images/logo.png`, // CORRIGIDO: Removido o "./"
+            iconSize: [32, 37],     // Atenção: Verifique se este é o tamanho real do logo.png
+            iconAnchor: [16, 37],   // Metade da largura, altura total (para a ponta ficar no lugar certo)
+            popupAnchor: [0, -38]
+        });
+
+    // 1. Inicializa o mapa
     const map = L.map("mapaAgencias").setView([-23.2098, -45.2133], 8);
 
-    // 2. Adiciona o "chão" do mapa (tile layer) do OpenStreetMap
+    // 2. Adiciona o "chão" do mapa
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
 
-    // 3. Define os locais das suas agências (locais de exemplo)
+    // 3. Define os locais das suas agências
     const agencias = [
       {
         lat: -23.5489, // São Paulo (próx. à Sé)
@@ -193,9 +200,12 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     ];
     
-    // 4. Adiciona um marcador (pin) para cada agência no mapa
+    // --- 2. SINTAXE DO MARCADOR CORRIGIDA ---
+    // O erro de sintaxe foi corrigido aqui:
     agencias.forEach((agencia) => {
-      L.marker([agencia.lat, agencia.lng])
+      L.marker([agencia.lat, agencia.lng], { // O objeto de opções é o SEGUNDO argumento
+        icon: momentoIcon                    // Usa a variável correta
+      }) 
         .addTo(map)
         .bindPopup(agencia.nome); // Adiciona o pop-up com o nome
     });

@@ -308,8 +308,12 @@ include ROOT_PATH . 'templates/header.php';
   ?>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+    // Passa a URL Base do PHP para o JavaScript
+    const baseUrl = '<?php echo BASE_URL; ?>';
+</script>
 
-  <script src="./JS/home.js"></script>
+<script src="<?php echo BASE_URL; ?>JS/home.js"></script>
 </body>
 
 </html>

@@ -106,30 +106,74 @@
 .blog-post .link:hover {
     opacity: 0.8;
 }
+/* ============================================= */
+/* NOVOS ESTILOS - Adicionar ao blog-home.css   */
+/* ============================================= */
 
-/* Responsividade para posts do blog */
-@media (min-width: 768px) {
-    .blog-post {
-        flex-direction: row; /* Imagem ao lado do texto */
-    }
-    .blog-post img {
-        width: 350px; /* Largura fixa para a imagem */
-        height: auto; /* Altura automática */
-        min-height: 250px; /* Garante altura mínima */
-    }
-    .blog-post .post-body {
-        padding: 30px;
-    }
+/* --- Estilos da Barra de Busca --- */
+.blog-search {
+    /* Faz a barra ter a mesma largura dos posts */
+    max-width: 800px;
+    margin: 0 auto;
+    /* Espaçamento: 40px em cima/baixo, 20px nas laterais */
+    padding: 40px 20px; 
 }
 
-@media (max-width: 768px) {
-    .hero-blog h1 {
-        font-size: 2.2rem;
-    }
-    .hero-blog p {
-        font-size: 1rem;
-    }
-    .blog-post h3 {
-        font-size: 1.3rem;
-    }
+.blog-search form {
+    display: flex;
+    gap: 10px;
+}
+
+.blog-search .search-input {
+    flex-grow: 1; /* Faz o input ocupar o máximo de espaço */
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Efeito de foco (do global.css, mas garantido aqui) */
+.blog-search .search-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(255, 103, 1, 0.2);
+    outline: none;
+}
+
+
+/* --- Título dos Resultados da Busca --- */
+.blog-posts h2 {
+    max-width: 800px;
+    margin: 0 auto 30px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-align: center;
+    color: #333;
+}
+
+
+/* --- Estilos das Tags nos Cards --- */
+.blog-post .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px; /* Espaço entre as tags e o título */
+}
+
+/* O .badge já existe, mas vamos garantir que o link dentro dele
+   fique correto e que a margem original seja removida */
+
+.blog-post .badge {
+    margin-bottom: 0; /* Remove a margem antiga, pois .post-tags agora controla */
+    transition: transform 0.2s ease;
+}
+
+.blog-post .badge:hover {
+    transform: translateY(-2px);
+}
+
+.blog-post .badge a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
 }
