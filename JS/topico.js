@@ -1,103 +1,91 @@
 /* =============================================
-   ARQUIVO: topico.js
-   Lógica para a página de um único tópico.
+   ARQUIVO: topico_novo.js
+   Lógica com Fetch para um único tópico.
    ============================================= */
+// 'baseUrl', 'isUserLoggedIn', 'currentUserId' são injetados pelo PHP
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- Seletores ---
     const opContainer = document.getElementById('original-post-container');
     const repliesContainer = document.getElementById('replies-list-container');
     const replyForm = document.getElementById('reply-form');
     const replyCountEl = document.getElementById('reply-count');
     const replyMessageInput = document.getElementById('reply-message');
 
-    // --- Constante do LocalStorage ---
-    const STORAGE_KEY = 'wonderflyThreads';
-
-    // --- Estado ---
     let currentTopic = null; // Armazena o tópico atual
 
-    // ===================================
-    // 1. FUNÇÕES DE DADOS (LocalStorage)
-    // ===================================
+    // 1. FUNÇÕES DE DADOS (Fetch)
     
-    // Pega todos os tópicos
-    function getThreads() {
-        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-    }
-    // Salva todos os tópicos
-    function saveThreads(threads) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(threads));
-    }
-    
-    // Pega o ID do tópico da URL
     function getTopicIdFromUrl() {
         const params = new URLSearchParams(window.location.search);
         return parseInt(params.get('id'), 10);
     }
 
-    // Busca um tópico específico pelo ID
-    function findTopicById(topicId) {
-        const threads = getThreads();
-        return threads.find(thread => thread.id === topicId);
+    async function fetchTopicData(topicId) {
+        try {
+            const response = await fetch(`${baseUrl}api/forum_get_detalhes.php?id=${topicId}`);
+            if (!response.ok) throw new Error('Falha ao buscar dados do tópico.');
+            
+            const result = await response.json();
+            if (result.success) {
+                return result; // Retorna { topico: {...}, respostas: [...] }
+            } else {
+                throw new Error(result.message || 'Tópico não encontrado.');
+            }
+        } catch (error) {
+            renderOriginalPost(null, error.message);
+            return null;
+        }
     }
 
-    // ===================================
     // 2. FUNÇÕES DE RENDERIZAÇÃO
-    // ===================================
     
-    // Renderiza a Postagem Original (OP)
-    function renderOriginalPost(topic) {
+    function renderOriginalPost(topic, errorMsg = null) {
         if (!topic) {
-            opContainer.innerHTML = '<div class="op-loading"><h2>Tópico não encontrado!</h2><a href="./comunidade.html">Voltar</a></div>';
+            opContainer.innerHTML = `<div class="op-loading"><h2>${errorMsg || 'Tópico não encontrado!'}</h2><a href="${baseUrl}Comunidade/home_comunidade.php">Voltar</a></div>`;
             return;
         }
         
-        document.title = `WonderFly - ${topic.subject}`;
+        document.title = `WonderFly - ${topic.assunto}`;
 
-        const defaultImage = "../images/banner.png";
-        const imageUrl = topic.image || defaultImage;
+        const defaultImage = `${baseUrl}images/banner.png`;
+        const imageUrl = topic.imagem_url ? (baseUrl + topic.imagem_url) : null;
         const boardName = topic.board.charAt(0).toUpperCase() + topic.board.slice(1);
-        const postDate = new Date(topic.createdAt).toLocaleDateString('pt-BR');
+        const postDate = new Date(topic.data_criacao).toLocaleString('pt-BR');
+        const autorNome = topic.autor_nome || 'Usuário Anônimo';
 
-        // Adicionado "data-board" para o CSS colorir o badge
-        // Adicionado botão de apagar com id "delete-topic-btn"
+        // (TODO: Lógica de apagar/editar)
+        const canDelete = isUserLoggedIn && (currentUserId === topic.usuario_id);
+
         const opHTML = `
         <article class="original-post" data-id="${topic.id}" data-board="${topic.board}"> 
             <header class="op-header">
                 <span class="thread-board-badge">${boardName}</span>
-                <h1>${topic.subject}</h1>
+                <h1>${topic.assunto}</h1>
                 <div class="op-meta">
-                    <div>Postado por <strong>Usuário Anônimo</strong> em ${postDate}</div>
+                    <div>Postado por <strong>${autorNome}</strong> em ${postDate}</div>
+                    ${canDelete ? `
                     <button class="btn-delete-topic" id="delete-topic-btn" title="Apagar este tópico">
                         <i class="ri-delete-bin-line"></i> Apagar Tópico
-                    </button>
+                    </button>` : ''}
                 </div>
             </header>
             <div class="op-body">
-                ${topic.image ? `<img src="${topic.image}" alt="${topic.subject}" class="op-image">` : ''}
-                <p>${topic.message}</p>
-            </div>
+                ${imageUrl ? `<img src="${imageUrl}" alt="${topic.assunto}" class="op-image">` : ''}
+                <p>${nl2br(topic.mensagem)}</p> </div>
         </article>
         `;
         opContainer.innerHTML = opHTML;
 
-        // --- NOVO: Listener para o botão de apagar ---
-        // Adiciona o listener DEPOIS de inserir o HTML na página
+        // (Lógica de apagar - ainda não implementada no backend)
         const deleteBtn = document.getElementById('delete-topic-btn');
         if (deleteBtn) {
-            deleteBtn.addEventListener('click', () => {
-                // Passa o ID do tópico atual para a função de apagar
-                handleDeleteTopic(topic.id);
-            });
+            deleteBtn.addEventListener('click', () => handleDeleteTopic(topic.id));
         }
     }
 
-    // Renderiza a lista de respostas
     function renderReplies(replies) {
         repliesContainer.innerHTML = ''; 
-        
         replyCountEl.textContent = `Respostas (${replies.length})`;
 
         if (replies.length === 0) {
@@ -106,125 +94,156 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         replies.forEach(reply => {
-            const replyDate = new Date(reply.createdAt).toLocaleDateString('pt-BR');
-            const avatar = '../images/profile/avatar-default.jpg'; 
-
-            const replyHTML = `
-            <article class="reply-card">
-                <div class="reply-user">
-                    <img src="${avatar}" alt="Avatar">
-                    <strong>Usuário Anônimo</strong>
-                    <span class="reply-date"> - ${replyDate}</span>
-                </div>
-                <p>${reply.message}</p>
-            </article>
-            `;
-            repliesContainer.insertAdjacentHTML('beforeend', replyHTML);
+            renderSingleReply(reply);
         });
     }
 
-    // ===================================
-    // 3. LÓGICA DE AÇÕES (Responder / Apagar)
-    // ===================================
+    // Helper para renderizar UMA resposta (usado no load e no submit)
+    function renderSingleReply(reply) {
+        const replyDate = new Date(reply.data_criacao).toLocaleString('pt-BR');
+        const autorNome = reply.autor_nome || 'Usuário Anônimo';
+        const avatar = (reply.autor_avatar && reply.autor_avatar !== '/images/profile/avatar-default.jpg') 
+                       ? (baseUrl + reply.autor_avatar) 
+                       : `${baseUrl}images/profile/avatar-default.jpg`; 
+
+        const replyHTML = `
+        <article class="reply-card">
+            <div class="reply-user">
+                <img src="${avatar}" alt="Avatar">
+                <strong>${autorNome}</strong>
+                <span class="reply-date"> - ${replyDate}</span>
+            </div>
+            <p>${nl2br(reply.mensagem)}</p>
+        </article>
+        `;
+        repliesContainer.insertAdjacentHTML('beforeend', replyHTML);
+    }
     
-    replyForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const message = replyMessageInput.value;
-        if (!message.trim()) {
-            Swal.fire('Oops!', 'Você não pode publicar uma resposta vazia.', 'error');
-            return;
-        }
-        
-        const newReply = {
-            id: Date.now(),
-            message: message,
-            createdAt: new Date().toISOString()
-        };
+    // Helper para converter \n em <br>
+    function nl2br(str) {
+        return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br>$2');
+    }
 
-        const allThreads = getThreads();
-        const topicIndex = allThreads.findIndex(t => t.id === currentTopic.id);
-        
-        if (topicIndex > -1) {
-            allThreads[topicIndex].replies.push(newReply);
-            saveThreads(allThreads);
-            currentTopic = allThreads[topicIndex];
-            renderReplies(currentTopic.replies);
-            replyMessageInput.value = '';
+    // 3. LÓGICA DE AÇÕES (Responder / Apagar)
+    
+    if (replyForm) {
+        replyForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const message = replyMessageInput.value;
+            if (!message.trim()) {
+                Swal.fire('Oops!', 'Você não pode publicar uma resposta vazia.', 'error');
+                return;
+            }
             
-            Swal.fire({
-                title: 'Sucesso!',
-                text: 'Sua resposta foi publicada.',
-                icon: 'success',
-                timer: 1500,
-                showConfirmButton: false,
-                confirmButtonColor: '#f07913'
-            });
-        } else {
-            Swal.fire('Erro!', 'Não foi possível encontrar este tópico para salvar sua resposta.', 'error');
-        }
-    });
+            const submitButton = replyForm.querySelector('button[type="submit"]');
+            submitButton.textContent = 'Publicando...';
+            submitButton.disabled = true;
 
-    // --- NOVA FUNÇÃO PARA APAGAR TÓPICO ---
+            try {
+                const response = await fetch(`${baseUrl}api/forum_add_resposta.php`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        topico_id: currentTopic.id,
+                        message: message
+                    })
+                });
+                
+                if (!response.ok) throw new Error('Erro na rede.');
+                
+                const result = await response.json();
+                
+                if (result.success && result.resposta) {
+                    // Limpa o placeholder (se for a primeira resposta)
+                    const noReplies = repliesContainer.querySelector('.no-replies');
+                    if (noReplies) noReplies.remove();
+                    
+                    renderSingleReply(result.resposta); // Adiciona a nova resposta
+                    replyMessageInput.value = '';
+                    replyCountEl.textContent = `Respostas (${repliesContainer.children.length})`;
+                } else {
+                    throw new Error(result.message || 'Erro ao publicar resposta.');
+                }
+                
+            } catch (error) {
+                Swal.fire('Erro!', error.message, 'error');
+            } finally {
+                submitButton.textContent = 'Publicar Resposta';
+                submitButton.disabled = false;
+            }
+        });
+    }
+
     function handleDeleteTopic(topicId) {
         Swal.fire({
             title: 'Você tem certeza?',
-            text: "Você não poderá reverter esta ação!",
+            text: "Esta ação é irreversível e apagará todas as respostas!",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#f07913', // Laranja
-            cancelButtonColor: '#555',     // Cinza
+            confirmButtonColor: '#e63946', // Um vermelho mais forte para delete
+            cancelButtonColor: '#555',
             confirmButtonText: 'Sim, apagar!',
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             // Se o usuário confirmar...
             if (result.isConfirmed) {
-                // 1. Pega todos os tópicos
-                const allThreads = getThreads();
-                
-                // 2. Filtra o array, mantendo TODOS exceto o que tem o topicId
-                const updatedThreads = allThreads.filter(thread => thread.id !== topicId);
-                
-                // 3. Salva o novo array (sem o tópico apagado) no localStorage
-                saveThreads(updatedThreads);
-
-                // 4. Feedback de sucesso e redirecionamento
-                Swal.fire(
-                    'Apagado!',
-                    'Seu tópico foi removido.',
-                    'success'
-                ).then(() => {
-                    // 5. Redireciona para a home da comunidade
-                    window.location.href = './home_comunidade.html';
-                });
+                // Chama a função que executa a deleção
+                executeDelete(topicId);
             }
         });
     }
 
+    async function executeDelete(topicId) {
+        try {
+            const response = await fetch(`${baseUrl}api/forum_delete_topico.php`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: topicId })
+            });
 
-    // ===================================
+            if (!response.ok) throw new Error('Erro na resposta da rede.');
+
+            const result = await response.json();
+
+            if (result.success) {
+                // 4. Feedback de sucesso e redirecionamento
+                await Swal.fire(
+                    'Apagado!',
+                    'Seu tópico foi removido.',
+                    'success'
+                );
+                // 5. Redireciona para a home da comunidade
+                window.location.href = `${baseUrl}Comunidade/home_comunidade.php`;
+            } else {
+                // Falha (ex: não é o dono do post)
+                throw new Error(result.message || 'Erro ao apagar.');
+            }
+
+        } catch (error) {
+            Swal.fire('Erro!', error.message, 'error');
+        }
+    }
+
     // 4. INICIALIZAÇÃO DA PÁGINA
-    // ===================================
-    function init() {
-        opContainer.innerHTML = '<div class="op-loading"><h2>Carregando tópico...</h2></div>';
-        
+    async function init() {
         const topicId = getTopicIdFromUrl();
         if (!topicId) {
-            opContainer.innerHTML = '<div class="op-loading"><h2>ID do tópico não fornecido!</h2><a href="./comunidade.html">Voltar</a></div>';
+            renderOriginalPost(null, 'ID do tópico não fornecido!');
             return;
         }
         
-        currentTopic = findTopicById(topicId);
+        const data = await fetchTopicData(topicId);
         
-        if (currentTopic) {
-            renderOriginalPost(currentTopic);
-            renderReplies(currentTopic.replies);
+        if (data && data.topico) {
+            currentTopic = data.topico; // Salva o tópico atual
+            renderOriginalPost(data.topico);
+            renderReplies(data.respostas);
         } else {
-            renderOriginalPost(null); // Mostra "Tópico não encontrado"
+            // O erro já foi renderizado por fetchTopicData
             repliesContainer.style.display = 'none'; 
-            replyForm.style.display = 'none';
+            if(replyForm) replyForm.style.display = 'none';
         }
     }
 
     init();
-
-}); // Fim do DOMContentLoaded
+});

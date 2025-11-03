@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+  <script src="//code.jivosite.com/widget/g9s4rCzC8l" async></script>
+
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>./CSS/global.css" />
 </head>
 

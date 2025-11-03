@@ -1,69 +1,47 @@
 /* =============================================
-   ARQUIVO: comunidade.js
-   Lógica para o fórum da comunidade.
+   ARQUIVO: comunidade_novo.js
+   Lógica com Fetch para o fórum da comunidade.
    ============================================= */
+// 'baseUrl' e 'isUserLoggedIn' são injetados pelo PHP
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- Seletores Principais ---
     const threadListContainer = document.getElementById('thread-list-container');
     const startThreadBtn = document.getElementById('start-thread-btn');
     const modal = document.getElementById('new-thread-modal');
     const closeBtn = document.getElementById('modal-close-btn');
     const newThreadForm = document.getElementById('new-thread-form');
     const filterChips = document.querySelectorAll('#board-filter-chips .chip');
-    const seeAllReviewsLink = document.getElementById('see-all-reviews-link');
+    
+    // (A lógica do 'seeAllReviewsLink' foi removida, 
+    // pois o link agora vai direto para a página de avaliações)
 
-    // --- Constante do LocalStorage ---
-    const STORAGE_KEY = 'wonderflyThreads';
+    // 1. LÓGICA DO MODAL (Apenas se o usuário estiver logado)
+    if (isUserLoggedIn && modal) {
+        function openModal() { modal.classList.add('show'); }
+        function closeModal() { modal.classList.remove('show'); }
 
-    // ===================================
-    // 1. LÓGICA DO MODAL
-    // ===================================
-    function openModal() { modal.classList.add('show'); }
-    function closeModal() { modal.classList.remove('show'); }
+        startThreadBtn.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+    }
 
-    startThreadBtn.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closeModal();
-        }
-    });
-
-    // ===================================
-    // 2. LÓGICA DE FILTRAGEM
-    // ===================================
+    // 2. LÓGICA DE FILTRAGEM (Igual ao JS antigo)
     filterChips.forEach(chip => {
         chip.addEventListener('click', () => {
-            // Atualiza o estado ativo do chip
             filterChips.forEach(c => c.classList.remove('active'));
             chip.classList.add('active');
-
             const boardFilter = chip.dataset.board;
             filterThreads(boardFilter);
         });
     });
 
-    // Link da seção de review para o filtro
-    seeAllReviewsLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        const reviewChip = document.querySelector('.chip[data-board="avaliacoes"]');
-        if (reviewChip) {
-            reviewChip.click(); // Simula o clique no chip de avaliações
-            
-            // Rola suavemente até os filtros
-            const filterElement = document.getElementById('board-filter-chips');
-            filterElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-    });
-
-    // ATUALIZADO: Filtra e mostra placeholder se o filtro não retornar nada
     function filterThreads(board) {
         const allThreads = document.querySelectorAll('.thread-card');
         let visibleCount = 0;
 
-        // Remove placeholder antigo se existir
         const oldPlaceholder = threadListContainer.querySelector('.thread-list-placeholder');
         if (oldPlaceholder) oldPlaceholder.remove();
 
@@ -77,168 +55,130 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (visibleCount === 0 && allThreads.length > 0) {
-            // Só mostra se houverem tópicos, mas NENHUM corresponder ao filtro
             renderPlaceholder("Nenhum tópico encontrado.", "Tente selecionar outra categoria.");
         }
     }
 
-    // ===================================
-    // 3. LÓGICA DE CARREGAR TÓPICOS
-    // ===================================
+    // 3. LÓGICA DE CARREGAR TÓPICOS (Refatorada com Fetch)
     
-    // Pega os tópicos do localStorage
-    function getThreads() {
-        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-    }
-
-    // Salva os tópicos no localStorage
-    function saveThreads(threads) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(threads));
-    }
-
-    // NOVO: Helper para mostrar mensagem de lista vazia
     function renderPlaceholder(title, message) {
-        // Limpa container antes de adicionar placeholder
         threadListContainer.innerHTML = ''; 
-        
         const placeholderHTML = `
         <div class="thread-list-placeholder">
             <i class="ri-discuss-line"></i>
             <h3>${title}</h3>
-            <p>${message} Você também pode <a href="#" id="start-thread-from-placeholder">criar um novo tópico</a>.</p>
+            <p>${message}</p>
         </div>
         `;
         threadListContainer.insertAdjacentHTML('beforeend', placeholderHTML);
-        
-        // Adiciona evento ao link do placeholder
-        const startThreadLink = document.getElementById('start-thread-from-placeholder');
-        if (startThreadLink) {
-            startThreadLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                openModal(); // Reutiliza a função de abrir modal
-            });
+    }
+
+    async function loadAllThreads() {
+        try {
+            const response = await fetch(`${baseUrl}api/forum_get_topicos.php`);
+            if (!response.ok) throw new Error('Falha ao buscar tópicos.');
+            
+            const result = await response.json();
+            
+            if (result.success && result.topicos) {
+                threadListContainer.innerHTML = ''; // Limpa o "Carregando..."
+                
+                if (result.topicos.length === 0) {
+                    renderPlaceholder("Nenhum tópico por aqui... ainda!", "Seja o primeiro a começar uma conversa.");
+                    return;
+                }
+                
+                result.topicos.forEach(thread => {
+                    renderThread(thread);
+                });
+                
+                // Reaplica o filtro inicial
+                const activeFilter = document.querySelector('#board-filter-chips .chip.active').dataset.board;
+                filterThreads(activeFilter);
+
+            } else {
+                throw new Error(result.message || 'Erro ao carregar tópicos.');
+            }
+        } catch (error) {
+            renderPlaceholder("Erro de Conexão", error.message);
         }
     }
 
-    // ATUALIZADO: Carrega tópicos ou mostra placeholder se não houver nenhum
-    function loadAllThreads() {
-        threadListContainer.innerHTML = ''; // Limpa a lista
-        const threads = getThreads();
-
-        if (threads.length === 0) {
-            renderPlaceholder("Nenhum tópico por aqui... ainda!", "Seja o primeiro a começar uma conversa.");
-            return; // Para a execução
-        }
-        
-        // Exibe os mais novos primeiro
-        threads.reverse().forEach(thread => {
-            renderThread(thread);
-        });
-        
-        // Reaplica o filtro atual (caso 'Todos' não esteja selecionado)
-        const activeFilter = document.querySelector('#board-filter-chips .chip.active').dataset.board;
-        filterThreads(activeFilter);
-    }
-
-    // Cria o HTML de um único tópico e o insere na página
     function renderThread(thread) {
-        // Fallback de imagem (se o usuário não enviar uma)
-        const defaultImage = "../images/banner.png";
-        const imageUrl = thread.image || defaultImage;
+        const defaultImage = `${baseUrl}images/banner.png`;
+        const imageUrl = thread.imagem_url ? (baseUrl + thread.imagem_url) : defaultImage;
         
-        // Trunca a mensagem para o card
-        const truncatedMessage = thread.message.length > 100 ? thread.message.substring(0, 100) + '...' : thread.message;
-
-        // Capitaliza a primeira letra da categoria
+        const truncatedMessage = thread.mensagem.length > 100 ? thread.mensagem.substring(0, 100) + '...' : thread.mensagem;
         const boardName = thread.board.charAt(0).toUpperCase() + thread.board.slice(1);
         
-        // O `href` aponta para uma futura página de tópico
-        // Passando o ID do tópico na URL (ex: ?id=12345)
-        const threadUrl = `topico.html?id=${thread.id}`;
+        // CORRIGIDO: O link agora aponta para 'topico.php'
+        const threadUrl = `${baseUrl}Comunidade/topico.php?id=${thread.id}`;
 
         const cardHTML = `
         <article class="thread-card" data-board="${thread.board}">
             <div class="thread-image">
-                <img src="${imageUrl}" alt="${thread.subject}">
+                <img src="${imageUrl}" alt="${thread.assunto}">
             </div>
             <div class="thread-content">
                 <span class="thread-board-badge">${boardName}</span>
-                <h3>${thread.subject}</h3>
+                <h3>${thread.assunto}</h3>
                 <p class="thread-message">${truncatedMessage}</p>
                 <div class="thread-stats">
-                    <span><i class="ri-reply-line"></i> ${thread.replies.length} Respostas</span>
+                    <span><i class="ri-reply-line"></i> ${thread.total_respostas} Respostas</span>
+                    <span><i class="ri-user-line"></i> ${thread.autor_nome || 'Anônimo'}</span>
                 </div>
                 <a href="${threadUrl}" class="btn secondary small">Ver Tópico</a>
             </div>
         </article>
         `;
-        // Usamos insertAdjacentHTML para adicionar no início
         threadListContainer.insertAdjacentHTML('beforeend', cardHTML);
     }
 
-    // ===================================
-    // 4. LÓGICA DE CRIAR NOVO TÓPICO
-    // ===================================
-    newThreadForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+    // 4. LÓGICA DE CRIAR NOVO TÓPICO (Refatorada com Fetch)
+    if (newThreadForm) {
+        newThreadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitButton = newThreadForm.querySelector('button[type="submit"]');
 
-        // Pega os valores do formulário
-        const board = document.getElementById('thread-board').value;
-        const subject = document.getElementById('thread-subject').value;
-        const message = document.getElementById('thread-message').value;
-        const imageFile = document.getElementById('thread-image').files[0];
+            const formData = new FormData(newThreadForm);
 
-        if (!subject || !message) {
-            Swal.fire('Oops!', 'Assunto e Mensagem são obrigatórios.', 'error');
-            return;
-        }
+            // Validação simples no frontend
+            if (!formData.get('subject') || !formData.get('message')) {
+                Swal.fire('Oops!', 'Assunto e Mensagem são obrigatórios.', 'error');
+                return;
+            }
 
-        const reader = new FileReader();
+            submitButton.textContent = 'Publicando...';
+            submitButton.disabled = true;
 
-        // O que fazer DEPOIS que a imagem for lida
-        reader.onload = (event) => {
-            const imageUrl = event.target.result; // Imagem em Base64
-            
-            const newThread = {
-                id: Date.now(), // ID único baseado no tempo
-                board: board,
-                subject: subject,
-                message: message,
-                image: imageUrl,
-                replies: [], // Um array vazio para futuras respostas
-                createdAt: new Date().toISOString()
-            };
+            try {
+                const response = await fetch(`${baseUrl}api/forum_criar_topico.php`, {
+                    method: 'POST',
+                    body: formData // FormData cuida do 'multipart/form-data' para arquivos
+                });
 
-            // Salva no localStorage
-            const threads = getThreads();
-            threads.push(newThread);
-            saveThreads(threads);
+                if (!response.ok) throw new Error('Erro na rede.');
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    newThreadForm.reset();
+                    closeModal();
+                    Swal.fire('Sucesso!', 'Seu tópico foi publicado.', 'success');
+                    loadAllThreads(); // Recarrega a lista
+                } else {
+                    throw new Error(result.message || 'Erro ao publicar.');
+                }
 
-            // Adiciona na página (sem recarregar)
-            loadAllThreads(); 
-
-            // Limpa e fecha o modal
-            newThreadForm.reset();
-            closeModal();
-
-            Swal.fire({
-                title: 'Sucesso!',
-                text: 'Seu tópico foi publicado.',
-                icon: 'success',
-                confirmButtonColor: '#f07913'
-            });
-        };
-
-        // Se o usuário enviou uma imagem, leia-a.
-        if (imageFile) {
-            reader.readAsDataURL(imageFile);
-        } else {
-            // Se não, execute o 'onload' manualmente com 'null'
-            reader.onload({ target: { result: null } });
-        }
-    });
+            } catch (error) {
+                Swal.fire('Erro!', error.message, 'error');
+            } finally {
+                submitButton.textContent = 'Publicar Tópico';
+                submitButton.disabled = false;
+            }
+        });
+    }
 
     // --- Inicialização ---
     loadAllThreads();
-
-}); // Fim do DOMContentLoaded
+});
