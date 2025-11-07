@@ -42,20 +42,28 @@
     </nav>
 
     <div class="header-cta">
-      <?php if (isset($_SESSION['user_id'])): ?>
+        <?php if (isset($_SESSION['user_id'])): ?>
+          
+          <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
+            <a href="<?php echo BASE_URL; ?>admin/index.php" class="btn primary admin-link">
+                <i class="ri-dashboard-line"></i> Painel
+            </a>
+          <?php endif; ?>
+          <a href="<?php echo BASE_URL; ?>perfil/perfil.php" class="btn ghost">
+            <i class="fa-solid fa-user"></i> Meu Perfil
+          </a>
+          <a href="<?php echo BASE_URL; ?>logout.php" class="btn primary">Sair</a>
 
-        <a href="<?php echo BASE_URL; ?>./perfil/perfil.php" class="btn ghost">
-          <i class="fa-solid fa-user"></i> Meu Perfil
-        </a>
-        <a href="<?php echo BASE_URL; ?>./logout.php" class="btn primary">Sair</a>
+        <?php else: ?>
 
-      <?php else: ?>
+          <a href="<?php echo BASE_URL; ?>Login/login.php" class="btn ghost">Fazer Login</a>
+          <a href="<?php echo BASE_URL; ?>Viagem/home_viagem.php"
+            ><button class="btn primary">Reserve Agora</button></a
+          >
 
-        <a href="<?php echo BASE_URL; ?>./Login/login.php" class="btn ghost">Fazer Login</a>
-        <a href="<?php echo BASE_URL; ?>./Viagem/home_viagem.php"><button class="btn primary">Reserve Agora</button></a>
+        <?php endif; ?>
+      </div>
 
-      <?php endif; ?>
-    </div>
 
     <button class="burger" id="burger">
       <i class="fa-solid fa-bars"></i>

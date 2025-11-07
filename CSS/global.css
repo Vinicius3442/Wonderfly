@@ -259,7 +259,9 @@ button {
   font-size: 0.85rem;
   color: #777;
 }
-
+.header-cta .btn.admin-link {
+  margin-right: 10px;
+}
 /* Chips */
 .themes {
   display: flex;
