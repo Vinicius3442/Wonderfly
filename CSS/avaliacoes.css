@@ -1,21 +1,25 @@
 /* =============================================
-   ARQUIVO: avaliacoes.css
+   ARQUIVO: CSS/avaliacoes.css (Versão Completa e Redefinida)
    Estilos para a página de avaliações.
    ============================================= */
 
-/* --- Hero simples da página --- */
+/* --- 1. Hero da Página --- */
 .hero-avaliacoes {
-  padding: 60px 8%;
+  padding: 80px 5%;
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)),
-    url("https://wallpapers.com/images/hd/4k-beach-background-1lz5nyyjf5rgjv15.jpg")
+    url("https://wallpapers.com/images/hd/4k-beach-background-1lz5nyyjf5rgjv15.jpg") 
       center/cover no-repeat;
+  background-attachment: fixed; /* Efeito parallax */
   color: #fff;
   text-align: center;
 }
+
 .hero-avaliacoes h1 {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
+  font-weight: 700;
   margin-bottom: 10px;
 }
+
 .hero-avaliacoes p {
   font-size: 1.1rem;
   opacity: 0.9;
@@ -23,72 +27,209 @@
   margin: 0 auto;
 }
 
-/* --- Estilos do Formulário --- */
+
+/* --- 2. Seção do Formulário de Avaliação --- */
+/* (Esta section engloba o formulário ou o aviso de login) */
+#criar-avaliacao .section-head {
+  margin-bottom: 25px;
+}
+
+/* O container do formulário */
 .form-container {
-  max-width: 700px; /* Limita a largura do formulário */
-  margin: 0 auto; /* Centraliza o formulário */
+  max-width: 750px;
+  margin: 0 auto;
   background: #fff;
-  padding: 30px;
+  padding: 30px 40px;
   border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
-.form-group {
-  margin-bottom: 20px;
+/* O container do aviso de "Faça Login" */
+.form-container-login {
+  max-width: 750px;
+  margin: 0 auto;
+  text-align: center;
+  background: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
-.form-group label {
+.form-container-login p {
+  font-size: 1.15rem;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+.form-container-login .btn {
+  font-size: 1rem;
+  padding: 12px 24px;
+}
+
+/* Campos do formulário */
+.form-container .form-group {
+  margin-bottom: 22px;
+}
+
+.form-container label {
   display: block;
   font-weight: 600;
   margin-bottom: 8px;
   color: #333;
 }
 
-.form-group input[type="text"],
-.form-group textarea {
+/* Estilo unificado para inputs, textareas e selects */
+.form-container input[type="text"],
+.form-container textarea,
+.form-container select {
   width: 100%;
   padding: 12px 14px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.95rem;
   transition: border-color 0.3s, box-shadow 0.3s;
+  background-color: #fcfcfc;
 }
 
-.form-group input[type="text"]:focus,
-.form-group textarea:focus {
+/* Seta para o <select> */
+.form-container select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-13%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2013l128%20128c3.6%203.6%207.8%205.4%2013%205.4s9.4-1.8%2013-5.4l128-128c3.6-3.6%205.4-7.8%205.4-13%200-5-1.8-9.4-5.4-13z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 14px top 50%;
+  background-size: 10px auto;
+  padding-right: 40px; 
+}
+
+.form-container input[type="text"]:focus,
+.form-container textarea:focus,
+.form-container select:focus {
   outline: none;
-  border-color: #0b5a8c; /* Azul do tema */
-  box-shadow: 0 0 0 3px rgba(11, 90, 140, 0.1);
+  border-color: var(--color-primary); /* Laranja */
+  box-shadow: 0 0 0 3px rgba(255, 103, 1, 0.2);
 }
 
 .form-container .btn {
   width: 100%;
-  justify-content: center; /* Centraliza o texto no botão */
+  justify-content: center;
 }
 
-/* --- Sistema de Estrelas (Rating) --- */
+/* --- 3. Sistema de Estrelas (Rating) --- */
 .rating-stars {
   display: flex;
-  flex-direction: row-reverse; /* Faz as estrelas acenderem da direita para esquerda */
-  justify-content: flex-end; /* Alinha à esquerda */
+  flex-direction: row-reverse; 
+  justify-content: flex-end; 
 }
 
 .rating-stars input[type="radio"] {
-  display: none; /* Esconde os botões de rádio */
+  display: none; 
 }
 
 .rating-stars label {
   font-size: 1.8rem;
-  color: #ddd; /* Cor da estrela apagada */
+  color: #ddd; 
   cursor: pointer;
   margin: 0 2px;
   transition: color 0.2s;
 }
 
-/* Magia do CSS: Quando passa o mouse SOBRE uma estrela, ela e todas à DIREITA (no HTML) mudam de cor */
+/* Lógica de :hover para acender as estrelas */
 .rating-stars:not(:hover) input[type="radio"]:checked ~ label,
 .rating-stars:hover input[type="radio"] ~ label:hover,
 .rating-stars:hover input[type="radio"] ~ label:hover ~ label {
-  color: #f07913; /* Laranja da marca */
+  color: var(--color-primary); /* Laranja */
+}
+
+
+/* --- 4. Seção da Lista de Avaliações --- */
+.section.alt {
+  padding-bottom: 60px;
+}
+
+/* Abas de Filtro (Todas / Minhas) */
+.profile-tabs-nav {
+  display: flex;
+  gap: 10px;
+  border-bottom: 2px solid #eee;
+  max-width: 900px;
+  margin: -10px auto 30px auto;
+  padding: 0 20px;
+}
+
+.tab-link {
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #777;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: 0.3s;
+}
+
+.tab-link:hover {
+  color: #333;
+}
+
+.tab-link.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+/* Grid de Avaliações */
+/* (O .testimonial-grid já vem do global.css) */
+
+/* Botão de Excluir no Card */
+.testimonial-card {
+  position: relative; 
+}
+
+.btn-delete-review {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.btn-delete-review:hover {
+  color: #e63946; /* Vermelho */
+  background-color: #fce8e8;
+}
+
+.btn-delete-review i {
+  display: block;
+}
+
+
+/* --- 5. Responsividade --- */
+@media (max-width: 768px) {
+  .hero-avaliacoes h1 {
+    font-size: 2.2rem;
+  }
+  .hero-avaliacoes p {
+    font-size: 1rem;
+  }
+  .form-container,
+  .form-container-login {
+    padding: 25px 20px;
+  }
+  .profile-tabs-nav {
+    padding: 0 5px;
+    gap: 5px;
+  }
+  .tab-link {
+    padding: 10px 12px;
+    font-size: 1rem;
+  }
 }

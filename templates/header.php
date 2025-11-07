@@ -34,6 +34,7 @@
     </a>
 
     <nav class="nav" id="nav">
+      <a href="<?php echo BASE_URL; ?>./Avaliacoes/avaliacoes.php">Avaliações</a>
       <a href="<?php echo BASE_URL; ?>./Viagem/home_viagem.php">Destinos</a>
       <a href="<?php echo BASE_URL; ?>./Comunidade/home_comunidade.php">Comunidade</a>
       <a href="<?php echo BASE_URL; ?>./Blog/blog_home.php">Blog</a>

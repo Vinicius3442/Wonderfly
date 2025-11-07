@@ -5,17 +5,19 @@ include '../config.php';
 include '../db_connect.php';
 
 // 2. GUARDIÃO DE AUTENTICAÇÃO
-// Se o usuário NÃO ESTIVER LOGADO, chuta ele para a página de login
 if (!isset($_SESSION['user_id'])) {
-    header("Location: " . BASE_URL . "./Login/login.php");
+    // CORRIGIDO: Removido o "./"
+    header("Location: " . BASE_URL . "Login/login.php");
     exit;
 }
 
 // 3. BUSCA TODOS OS DADOS DO USUÁRIO
 $user_id = $_SESSION['user_id'];
-$user = null; // Para guardar os dados do perfil
-$favoritos = []; // Para a Lista de Desejos
-$momentos = [];  // Para o Mapa de Momentos
+$user = null;
+$favoritos = [];
+$momentos = [];
+$viagens_feitas_lista = [];
+$viagens_proximas_lista = [];
 
 try {
     // 3a. Pega os dados do perfil
@@ -23,9 +25,9 @@ try {
     $stmt->execute(['id' => $user_id]);
     $user = $stmt->fetch();
     
-    // Se o usuário não for encontrado (ex: deletado), desloga
     if (!$user) {
-        header("Location: " . BASE_URL . "./logout.php");
+        // CORRIGIDO: Removido o "./"
+        header("Location: " . BASE_URL . "logout.php");
         exit;
     }
 
@@ -37,49 +39,64 @@ try {
         ORDER BY f.data_favoritado DESC
     ");
     $stmt_fav->execute(['user_id' => $user_id]);
-    $favoritos = $stmt_fav->fetchAll();
+    $favoritos = $stmt_fav->fetchAll(PDO::FETCH_ASSOC);
 
     // 3c. Pega os Momentos do mapa
     $stmt_mom = $conn->prepare("SELECT * FROM momentos WHERE usuario_id = :user_id ORDER BY data_criacao DESC");
     $stmt_mom->execute(['user_id' => $user_id]);
-    $momentos = $stmt_mom->fetchAll();
+    $momentos = $stmt_mom->fetchAll(PDO::FETCH_ASSOC);
 
-    // 3d. CONTAGEM DE VIAGENS FEITAS
-    // Conta reservas onde a data da viagem já passou
-    $stmt_feitas = $conn->prepare("
-        SELECT COUNT(*) FROM reservas 
-        WHERE usuario_id = :user_id AND data_viagem < NOW()
+    // 3d. Pega a lista de VIAGENS JÁ FEITAS (data no passado)
+    $stmt_feitas_lista = $conn->prepare("
+        SELECT v.*, r.data_viagem FROM viagens AS v
+        JOIN reservas AS r ON v.id = r.viagem_id
+        WHERE r.usuario_id = :user_id AND r.data_viagem < NOW()
+        ORDER BY r.data_viagem DESC
     ");
-    $stmt_feitas->execute(['user_id' => $user_id]);
-    $viagens_feitas_count = $stmt_feitas->fetchColumn();
+    $stmt_feitas_lista->execute(['user_id' => $user_id]);
+    $viagens_feitas_lista = $stmt_feitas_lista->fetchAll(PDO::FETCH_ASSOC);
+    
+    // 3e. Pega a lista de VIAGENS PRÓXIMAS (data no futuro)
+    $stmt_proximas_lista = $conn->prepare("
+        SELECT v.*, r.data_viagem FROM viagens AS v
+        JOIN reservas AS r ON v.id = r.viagem_id
+        WHERE r.usuario_id = :user_id AND r.data_viagem >= NOW()
+        ORDER BY r.data_viagem ASC
+    ");
+    $stmt_proximas_lista->execute(['user_id' => $user_id]);
+    $viagens_proximas_lista = $stmt_proximas_lista->fetchAll(PDO::FETCH_ASSOC);
+    
+    // 3f. Atualiza a contagem (para as estatísticas)
+    $viagens_feitas_count = count($viagens_feitas_lista);
+
 
 } catch (PDOException $e) {
     error_log("Erro ao carregar perfil: " . $e->getMessage());
-    // (Você pode mostrar uma página de erro aqui)
 }
 
-// 4. Prepara variáveis para o HTML (para evitar bugs)
+// 4. Prepara variáveis para o HTML
 $banner_style = $user['banner_url'] 
     ? 'background-image: url(' . BASE_URL . htmlspecialchars($user['banner_url']) . ');'
-    : 'background-color: #eee;'; // Um fallback
+    : 'background-color: #eee;';
 
 $avatar_src = $user['avatar_url']
     ? BASE_URL .  htmlspecialchars($user['avatar_url'])
-    : BASE_URL . './images/profile/avatar-default.jpg'; // O padrão do banco
+    // CORRIGIDO: Removido o "./"
+    : BASE_URL . 'images/profile/avatar-default.jpg'; 
 
 $bio_text = $user['bio']
     ? htmlspecialchars($user['bio'])
     : 'Clique em "Editar Perfil" para adicionar sua bio!';
 
 // 5. Inclui o Header
-include ROOT_PATH . './templates/header.php';
+// CORRIGIDO: Removido o "./"
+include ROOT_PATH . 'templates/header.php';
 ?>
 
-<link rel="stylesheet" href="<?php echo BASE_URL; ?>./CSS/perfil.css">
+<link rel="stylesheet" href="<?php echo BASE_URL; ?>CSS/perfil.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 <main>
-    <script src="../JS/perfil.js"></script>
     <section class="profile-header">
         <div class="profile-banner" style="<?php echo $banner_style; ?>"></div>
         
@@ -99,8 +116,12 @@ include ROOT_PATH . './templates/header.php';
                     <span class="stat-label">Viagens Feitas</span>
                 </div>
                 <div class="stat-item">
+                    <span class="stat-number"><?php echo count($viagens_proximas_lista); ?></span>
+                    <span class="stat-label">Próximas Viagens</span>
+                </div>
+                <div class="stat-item">
                     <span class="stat-number"><?php echo count($favoritos); ?></span>
-                    <span class="stat-label">Na Lista de Desejos</span>
+                    <span class="stat-label">Lista de Desejos</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number"><?php echo count($momentos); ?></span>
@@ -123,8 +144,55 @@ include ROOT_PATH . './templates/header.php';
                 <button class="tab-link-secondary active" data-tab="desejos">Lista de Desejos</button>
             </div>
 
-            <div class="tab-pane-secondary" id="tab-atuais">...</div>
-            <div class="tab-pane-secondary" id="tab-feitas">...</div>
+            <div class="tab-pane-secondary" id="tab-atuais">
+    <div class="trip-list">
+        <?php if (empty($viagens_proximas_lista)): ?>
+            <p>Você ainda não tem nenhuma viagem futura reservada.</p>
+        <?php else: ?>
+            <?php foreach ($viagens_proximas_lista as $viagem): ?>
+                <div class="trip-card">
+                    <img src="<?php 
+                        $img_url = $viagem['imagem_url'];
+                        if ($img_url && !filter_var($img_url, FILTER_VALIDATE_URL)) {
+                            $img_url = BASE_URL . $img_url;
+                        }
+                        echo htmlspecialchars($img_url); 
+                    ?>" alt="<?php echo htmlspecialchars($viagem['titulo']); ?>">
+                    
+                    <div class="trip-card-info">
+                        <h3><?php echo htmlspecialchars($viagem['titulo']); ?></h3>
+                        <p><strong>Data da Viagem:</strong> <?php echo date('d/m/Y', strtotime($viagem['data_viagem'])); ?></p>
+                        <a href="<?php echo BASE_URL; ?>Viagem/viagem.php?id=<?php echo $viagem['id']; ?>" class="btn secondary small">Ver detalhes</a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+</div>
+
+            <div class="tab-pane-secondary" id="tab-feitas">
+                <div class="trip-list">
+                    <?php if (empty($viagens_feitas_lista)): ?>
+                        <p>Você ainda não completou nenhuma viagem.</p>
+                    <?php else: ?>
+                        <?php foreach ($viagens_feitas_lista as $viagem): ?>
+                            <div class="trip-card">
+                                <img src="<?php $img_url = $viagem['imagem_url'];
+                                if ($img_url && !filter_var($img_url, FILTER_VALIDATE_URL)) {
+                                    $img_url = BASE_URL . $img_url;
+                                }
+                                echo htmlspecialchars($img_url); 
+                                ?>" alt="<?php echo htmlspecialchars($viagem['titulo']); ?>">
+                                <div class="trip-card-info">
+                                    <h3><?php echo htmlspecialchars($viagem['titulo']); ?></h3>
+                                    <p><strong>Viagem realizada em:</strong> <?php echo date('d/m/Y', strtotime($viagem['data_viagem'])); ?></p>
+                                    <a href="<?php echo BASE_URL; ?>Avaliacoes/avaliacoes.php" class="btn primary small">Deixar Avaliação</a>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+            </div>
 
             <div class="tab-pane-secondary active" id="tab-desejos">
                 <div class="trip-list">
@@ -133,12 +201,17 @@ include ROOT_PATH . './templates/header.php';
                     <?php else: ?>
                         <?php foreach ($favoritos as $viagem): ?>
                             <div class="trip-card">
-                                <img src="<?php echo BASE_URL . htmlspecialchars($viagem['imagem_url']); ?>" alt="<?php echo htmlspecialchars($viagem['titulo']); ?>">
+                                <img src="<?php $img_url = $viagem['imagem_url']; 
+                                if ($img_url && !filter_var($img_url, FILTER_VALIDATE_URL)) {
+                                    $img_url = BASE_URL . $img_url;
+                                }
+                                echo htmlspecialchars($img_url); 
+                                ?>" alt="<?php echo htmlspecialchars($viagem['titulo']); ?>">
                                 <div class="trip-card-info">
                                     <h3><?php echo htmlspecialchars($viagem['titulo']); ?></h3>
                                     <p>A partir de R$ <?php echo number_format($viagem['preco'], 2, ',', '.'); ?></p>
                                     <span class="badge"><?php echo htmlspecialchars($viagem['categorias']); ?></span>
-                                    <a href="#" class="btn primary small">Reservar Agora</a>
+                                    <a href="<?php echo BASE_URL; ?>Pagamento/pagamento.php?viagem_id=<?php echo $viagem['id']; ?>" class="btn primary small">Reservar Agora</a>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -147,7 +220,7 @@ include ROOT_PATH . './templates/header.php';
             </div>
         </div>
         
-        <div class="tab-pane" id="tab-momentos">
+                <div class="tab-pane" id="tab-momentos">
             <div class="moments-container">
                 <div class="moments-map-area">
                     <h3>Mapa de Momentos</h3>
@@ -209,6 +282,7 @@ include ROOT_PATH . './templates/header.php';
     </section>
 </main>
 
+
 <div class="modal" id="profile-edit-modal">
     <div class="modal-content">
         <button class="modal-close" id="modal-close-btn">&times;</button>
@@ -239,11 +313,13 @@ include ROOT_PATH . './templates/header.php';
 </div>
 
 <?php
-include ROOT_PATH . './templates/footer.php';
+// CORRIGIDO: Removido o "./"
+include ROOT_PATH . 'templates/footer.php';
 ?>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="..."></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
 <script src="<?php echo BASE_URL; ?>JS/perfil.js"></script>
 
 <script>

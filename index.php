@@ -55,7 +55,7 @@ include ROOT_PATH . 'templates/header.php';
         festivais e experiências reais para quem busca mais.
       </p>
       <div class="hero-ctas">
-        <a href="./Viagem/home_viagem.html"><button class="btn primary lg">
+        <a href="./Viagem/home_viagem.php"><button class="btn primary lg">
             <i class="fa-solid fa-compass"></i> Explore Destinos
           </button></a>
       </div>
@@ -94,7 +94,7 @@ include ROOT_PATH . 'templates/header.php';
     <section class="section">
       <div class="section-head">
         <h2>Destinos em Destaque</h2>
-        <a href="./Viagem/home_viagem.html" class="link" style="
+        <a href="./Viagem/home_viagem.php" class="link" style="
               color: rgb(255, 103, 1);
               font-weight: bold;
               font-size: large;
@@ -132,7 +132,7 @@ include ROOT_PATH . 'templates/header.php';
               <span><i class="fa-solid fa-clock"></i> 5 dias</span>
               <span>a partir de R$ 1.950</span>
             </div>
-            <a href="./Viagem/home_viagem.html" class="btn secondary">Ver detalhes</a>
+            <a href="./Viagem/home_viagem.php" class="btn secondary">Ver detalhes</a>
           </div>
         </div>
         <div class="card">
@@ -149,7 +149,7 @@ include ROOT_PATH . 'templates/header.php';
               <span><i class="fa-solid fa-clock"></i> 10 dias</span>
               <span>a partir de R$ 9.880</span>
             </div>
-            <a href="./Viagem/home_viagem.html" class="btn secondary">Ver detalhes</a>
+            <a href="./Viagem/home_viagem.php" class="btn secondary">Ver detalhes</a>
           </div>
         </div>
         <div class="card">
@@ -166,7 +166,7 @@ include ROOT_PATH . 'templates/header.php';
               <span><i class="fa-solid fa-clock"></i> 3 dias</span>
               <span>a partir de R$ 1.410</span>
             </div>
-            <a href="./Viagem/home_viagem.html" class="btn secondary">Ver detalhes</a>
+            <a href="./Viagem/home_viagem.php" class="btn secondary">Ver detalhes</a>
           </div>
         </div>
       </div>
