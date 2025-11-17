@@ -1,0 +1,159 @@
+/* =============================================
+   ARQUIVO: admin/editar_viagem_style.css
+   Estilos para o Editor Visual de Viagem
+   ============================================= */
+
+/* --- Estilos Globais do Formulário --- */
+.editor-form {
+    /* Remove o padding do 'admin-content' para o hero grudar */
+    margin: -30px; 
+}
+.editor-form .btn-save {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1002;
+    font-size: 1.1rem;
+    padding: 15px 25px;
+    border-radius: 50px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+/* --- 1. Hero Section --- */
+/* Carrega o CSS da página de viagem para usar o layout */
+@import url('<?php echo BASE_URL; ?>CSS/viagempage.css');
+
+/* Sobrescreve h1, p, etc. para se tornarem inputs */
+.trip-hero-content .edit-field {
+    width: 100%;
+    background: rgba(255,255,255, 0.05);
+    border: 1px dashed rgba(255,255,255, 0.3);
+    color: #fff;
+    border-radius: 6px;
+    padding: 10px;
+    font-family: var(--font-main);
+    transition: background 0.2s, border 0.2s;
+}
+.trip-hero-content .edit-field:focus {
+    background: rgba(0,0,0, 0.2);
+    border-color: var(--color-primary);
+    outline: none;
+}
+.trip-hero-content .edit-field::placeholder {
+    color: rgba(255,255,255, 0.5);
+}
+
+/* Título H1 */
+.trip-hero-content input[name="titulo"] {
+    font-size: clamp(2.2rem, 5vw, 3rem); /* */
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+/* Descrição Curta (Parágrafo) */
+.trip-hero-content textarea[name="descricao_curta"] {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    min-height: 80px;
+}
+/* Meta Itens (Duração, Keywords) */
+.trip-meta .edit-field {
+    font-size: 0.95rem;
+    padding: 8px;
+    max-width: 200px;
+}
+.trip-hero-gallery .main-image {
+    position: relative; /* */
+}
+/* Campo para trocar a URL da imagem */
+.image-url-input {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.7);
+    padding: 15px;
+    z-index: 10;
+    border-top: 1px solid rgba(255,255,255,0.2);
+}
+.image-url-input label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #fff;
+    display: block;
+    margin-bottom: 5px;
+}
+.image-url-input input {
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+/* --- 2. Conteúdo Principal e Sidebar --- */
+/* (O .details-grid vem do viagempage.css) */
+
+.main-content h2 {
+    font-size: 1.5rem; /* Um pouco menor para dar espaço */
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+/* Remove o padding do editor TinyMCE */
+.tox.tox-tinymce {
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+.main-content .form-card {
+    margin-bottom: 30px;
+}
+
+/* --- 3. Sidebar (Inputs) --- */
+/* (O .sidebar e .booking-box vêm do viagempage.css) */
+.booking-box h3 {
+    font-size: 1.5rem;
+}
+/* Estilo unificado para os inputs da sidebar */
+.booking-box .form-group {
+    margin-bottom: 15px;
+}
+.booking-box .form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: var(--color-text-body);
+}
+.booking-box .form-group input,
+.booking-box .form-group select,
+.booking-box .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: var(--font-main);
+    font-size: 0.95rem;
+}
+.booking-box .form-group input:focus,
+.booking-box .form-group select:focus,
+.booking-box .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(240, 121, 19, 0.2);
+}
+/* Mapa de Pins (igual ao form antigo) */
+#map-pin-editor {
+    height: 300px; width: 100%;
+    border-radius: 6px; z-index: 1; cursor: crosshair;
+}
+#pin-list { list-style: none; padding: 0; margin-top: 10px; }
+#pin-list li {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px; background: #f4f7fa; border-radius: 4px;
+    margin-bottom: 5px; font-size: 0.9rem;
+}
+#pin-list li button {
+    background: none; border: none; color: #c0392b;
+    cursor: pointer; font-size: 1rem;
+}

@@ -14,8 +14,11 @@ $active_slug = $page_slug ?? 'dashboard';
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
     
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>admin/admin_style.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>admin/css/admin_style.css">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
 </head>
 <body>
 
