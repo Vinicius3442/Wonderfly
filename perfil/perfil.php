@@ -324,7 +324,7 @@ include ROOT_PATH . 'templates/header.php';
 include ROOT_PATH . 'templates/footer.php';
 ?>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="..."></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
 <script src="<?php echo BASE_URL; ?>JS/perfil.js"></script>
