@@ -3,23 +3,28 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 html {
   scroll-behavior: smooth;
 }
+
 body {
   font-family: "Poppins", sans-serif;
   line-height: 1.6;
   color: #222;
   background-color: #fff;
 }
+
 a {
   text-decoration: none;
   color: inherit;
 }
+
 img {
   max-width: 100%;
   display: block;
 }
+
 button {
   font-family: inherit;
   border: none;
@@ -34,16 +39,19 @@ button {
   padding: 6px 12px;
   font-size: 0.9rem;
 }
+
 .topbar .blink {
   color: #0f0;
   margin-right: 5px;
   animation: blink 1s infinite;
 }
+
 @keyframes blink {
   50% {
     opacity: 0;
   }
 }
+
 .modal {
   position: fixed;
   inset: 0;
@@ -56,6 +64,7 @@ button {
   transition: 0.3s;
   z-index: 200000000000000;
 }
+
 .modal.show {
   visibility: visible;
   opacity: 1;
@@ -73,15 +82,19 @@ button {
   top: 0;
   z-index: 1000;
 }
+
 .logo img {
   height: 32px;
 }
+
 .blue {
   color: rgb(22, 123, 191);
 }
+
 .orange {
   color: rgb(240, 121, 19);
 }
+
 .footer-logo {
   display: flex;
   align-items: center;
@@ -90,6 +103,7 @@ button {
   gap: 6px;
   color: rgb(22, 123, 191);
 }
+
 .header .logo {
   display: flex;
   align-items: center;
@@ -98,22 +112,27 @@ button {
   gap: 6px;
   color: #fff;
 }
+
 .header .nav {
   display: flex;
   gap: 24px;
 }
+
 .header .nav a {
   font-weight: 500;
   transition: opacity 0.3s;
 }
+
 .header .nav a:hover {
   opacity: 0.8;
 }
+
 .header-cta {
   display: flex;
   align-items: center;
   gap: 12px;
 }
+
 .burger {
   display: none;
   font-size: 1.6rem;
@@ -131,32 +150,42 @@ button {
   align-items: center;
   gap: 6px;
 }
+
 .btn.primary {
-  background: #0b5a8c; /* COR ALTERADA */
+  background: #0b5a8c;
+  /* COR ALTERADA */
   color: #fff;
 }
+
 .btn.primary:hover {
-  background: #167cbf; /* COR ALTERADA */
+  background: #167cbf;
+  /* COR ALTERADA */
 }
+
 .btn.secondary {
   background: #f1f1f1;
   color: #333;
 }
+
 .btn.secondary:hover {
   background: #ddd;
 }
+
 .btn.white {
   background: #fff;
   color: #333;
 }
+
 .btn.ghost {
   border: 1px solid #fff;
   background: transparent;
   color: #fff;
 }
+
 .btn.ghost:hover {
   background: rgba(255, 255, 255, 0.15);
 }
+
 .btn.lg {
   padding: 14px 26px;
   font-size: 1rem;
@@ -169,18 +198,20 @@ button {
   color: #fff;
   padding: 120px 20px;
 }
+
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600")
-    center/cover no-repeat;
+  background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600") center/cover no-repeat;
   z-index: -1;
   filter: brightness(0.5);
 }
+
 .hero h1 {
   font-size: 2.8rem;
   margin-bottom: 12px;
 }
+
 /* .hero h1 span {
   color: #ff6701;
 } */
@@ -188,12 +219,14 @@ button {
   max-width: 600px;
   margin: 0 auto 24px;
 }
+
 .hero-ctas {
   display: flex;
   justify-content: center;
   gap: 16px;
   flex-wrap: wrap;
 }
+
 .trust {
   margin-top: 24px;
   font-size: 0.9rem;
@@ -204,21 +237,26 @@ button {
 .section {
   padding: 80px 8%;
 }
+
 .section.alt {
   background: #afc9d8;
 }
+
 .section-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 40px;
 }
+
 .section-head h2 {
   font-size: 2rem;
 }
+
 .section-head .link {
   font-size: 0.9rem;
-  color: #f07913; /* COR ALTERADA */
+  color: #f07913;
+  /* COR ALTERADA */
 }
 
 /* Cards de destinos */
@@ -227,6 +265,7 @@ button {
   gap: 24px;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
+
 .card {
   background: #fff;
   border-radius: 12px;
@@ -235,23 +274,28 @@ button {
   display: flex;
   flex-direction: column;
 }
+
 .card-img {
   height: 200px;
   background-size: cover;
   background-position: center;
 }
+
 .card-body {
   padding: 20px;
 }
+
 .card-body h3 {
   margin-bottom: 10px;
   font-size: 1.2rem;
 }
+
 .card-body p {
   font-size: 0.9rem;
   margin-bottom: 12px;
   color: #555;
 }
+
 .card-body .meta {
   display: flex;
   justify-content: space-between;
@@ -259,27 +303,67 @@ button {
   font-size: 0.85rem;
   color: #777;
 }
+
 .header-cta .btn.admin-link {
   margin-right: 10px;
 }
+
 /* Chips */
 .themes {
   display: flex;
-  gap: 12px;
+  gap: 16px;
   flex-wrap: wrap;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  justify-content: center;
+  /* Centraliza os filtros */
 }
+
 .chip {
-  padding: 8px 14px;
-  border-radius: 30px;
-  border: 1px solid #ddd;
+  padding: 10px 24px;
+  border-radius: 50px;
+  border: none;
   background: #fff;
-  font-size: 0.9rem;
-  transition: 0.3s;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  /* Sombra suave */
+  position: relative;
+  overflow: hidden;
 }
+
 .chip:hover {
-  border-color: #f07913; /* COR ALTERADA */
-  color: #f07913; /* COR ALTERADA */
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  color: #f07913;
+}
+
+.chip.active {
+  background: linear-gradient(135deg, #f07913, #ff9f43);
+  /* Degradê laranja */
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(240, 121, 19, 0.4);
+  /* Glow laranja */
+  font-weight: 600;
+  transform: translateY(-1px);
+}
+
+/* Efeito de brilho sutil ao passar o mouse */
+.chip::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.chip:hover::after {
+  left: 100%;
 }
 
 /* Carousel */
@@ -287,11 +371,13 @@ button {
   position: relative;
   overflow: hidden;
 }
+
 .carousel-track {
   display: flex;
   gap: 16px;
   transition: transform 0.4s;
 }
+
 .slide {
   min-width: 250px;
   height: 300px;
@@ -305,17 +391,21 @@ button {
   justify-content: end;
   box-shadow: inset 0 -80px 40px rgba(0, 0, 0, 0.4);
 }
+
 .slide h3 {
   font-size: 1rem;
 }
+
 .badge {
-  background: #f07913; /* COR ALTERADA */
+  background: #f07913;
+  /* COR ALTERADA */
   padding: 4px 10px;
   border-radius: 6px;
   font-size: 0.75rem;
   margin-bottom: 8px;
   display: inline-block;
 }
+
 .carousel-btn {
   position: absolute;
   top: 50%;
@@ -325,9 +415,11 @@ button {
   padding: 8px;
   font-size: 1.4rem;
 }
+
 .carousel-btn.prev {
   left: 10px;
 }
+
 .carousel-btn.next {
   right: 10px;
 }
@@ -339,22 +431,27 @@ button {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   text-align: center;
 }
+
 .trust-card {
   background: #fff;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
 }
+
 .trust-card i {
   font-size: 2rem;
-  color: #f07913; /* COR ALTERADA */
+  color: #f07913;
+  /* COR ALTERADA */
   margin-bottom: 12px;
 }
+
 .testimonial-grid {
   display: grid;
   gap: 24px;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
+
 .testimonial-card {
   background: #fff;
   border-radius: 12px;
@@ -363,17 +460,22 @@ button {
   display: flex;
   flex-direction: column;
 }
+
 .testimonial-card .stars {
-  color: #f07913; /* Laranja da marca */
+  color: #f07913;
+  /* Laranja da marca */
   margin-bottom: 15px;
   font-size: 1.1rem;
 }
+
 .testimonial-card .quote {
   font-size: 0.95rem;
   margin-bottom: 20px;
   color: #333;
-  flex-grow: 1; /* Empurra o perfil para baixo */
+  flex-grow: 1;
+  /* Empurra o perfil para baixo */
 }
+
 .testimonial-card .profile {
   display: flex;
   align-items: center;
@@ -381,17 +483,20 @@ button {
   border-top: 1px solid #f0f0f0;
   padding-top: 20px;
 }
+
 .testimonial-card .profile img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
 }
+
 .testimonial-card .profile h4 {
   font-size: 1rem;
   font-weight: 600;
   margin: 0;
 }
+
 .testimonial-card .profile span {
   font-size: 0.85rem;
   color: #555;
@@ -400,46 +505,51 @@ button {
 /* Newsletter / PROMO BANNER */
 .cta-newsletter {
   background: #f07913;
-  background: linear-gradient(
-    90deg,
-    rgba(240, 121, 19, 1) 48%,
-    rgba(255, 193, 135, 1) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(240, 121, 19, 1) 48%,
+      rgba(255, 193, 135, 1) 100%);
   color: #fff;
   text-align: center;
   padding: 60px 20px;
 }
+
 .cta-newsletter h3 {
   font-size: 1.8rem;
   margin-bottom: 10px;
 }
+
 .cta-newsletter p {
   margin-bottom: 20px;
 }
+
 .newsletter {
   display: flex;
   justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
 }
+
 .newsletter input {
   padding: 12px;
   border-radius: 8px;
   border: none;
   width: 260px;
 }
+
 /* Footer */
 .footer {
   background: #000000;
   color: #ddd;
   padding: 60px 8% 20px;
 }
+
 .footer-grid {
   display: grid;
   gap: 30px;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   margin-bottom: 40px;
 }
+
 .footer-logo {
   font-weight: 700;
   font-size: 1.4rem;
@@ -448,27 +558,33 @@ button {
   align-items: center;
   gap: 6px;
 }
+
 .footer h4 {
   margin-bottom: 12px;
   font-size: 1rem;
   color: #fff;
 }
+
 .footer ul {
   list-style: none;
 }
+
 .footer ul li {
   margin-bottom: 8px;
 }
+
 .footer .social a {
   margin-right: 12px;
   font-size: 1.3rem;
   color: #fff;
 }
+
 .footer .payments img {
   height: 26px;
   margin-right: 12px;
   display: inline-block;
 }
+
 .copy {
   text-align: center;
   font-size: 0.85rem;
@@ -476,12 +592,14 @@ button {
   padding-top: 12px;
   color: #ccc;
 }
+
 #mapaAgencias {
   height: 450px;
   width: 100%;
   border-radius: 12px;
   z-index: 1;
 }
+
 /* Estilo que destaca o filtro selecionado */
 .chip.active {
   background-color: #f07913;
@@ -495,9 +613,11 @@ button {
   .header .nav {
     display: none;
   }
+
   .burger {
     display: block;
   }
+
   .hero h1 {
     font-size: 2rem;
   }

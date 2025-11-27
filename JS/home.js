@@ -130,9 +130,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 2. Mostra/Esconde os slides (usando a lista original)
       originalSlides.forEach((slide) => {
-        const category = slide.dataset.category;
+        // Pega as categorias do slide (assumindo separação por espaço)
+        const slideCategories = slide.dataset.category ? slide.dataset.category.split(' ') : [];
 
-        if (filter === "all" || filter === category) {
+        if (filter === "all" || slideCategories.includes(filter)) {
           slide.style.display = "flex";
         } else {
           slide.style.display = "none";
@@ -160,17 +161,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // Atualiza as métricas se a janela for redimensionada
   window.addEventListener("resize", updateCarouselMetrics);
 
-// --- LÓGICA DO MAPA LEAFLET ---
+  // --- LÓGICA DO MAPA LEAFLET ---
 
- if (document.getElementById("mapaAgencias")) {
+  if (document.getElementById("mapaAgencias")) {
 
     // --- 1. CAMINHO DO ÍCONE CORRIGIDO ---
     const momentoIcon = L.icon({
-            iconUrl: `${baseUrl}./images/logo.png`, // CORRIGIDO: Removido o "./"
-            iconSize: [32, 37],     // Atenção: Verifique se este é o tamanho real do logo.png
-            iconAnchor: [16, 37],   // Metade da largura, altura total (para a ponta ficar no lugar certo)
-            popupAnchor: [0, -38]
-        });
+      iconUrl: `${baseUrl}./images/logo.png`, // CORRIGIDO: Removido o "./"
+      iconSize: [32, 37],     // Atenção: Verifique se este é o tamanho real do logo.png
+      iconAnchor: [16, 37],   // Metade da largura, altura total (para a ponta ficar no lugar certo)
+      popupAnchor: [0, -38]
+    });
 
     // 1. Inicializa o mapa
     const map = L.map("mapaAgencias").setView([-23.2098, -45.2133], 8);
@@ -199,20 +200,20 @@ document.addEventListener("DOMContentLoaded", () => {
         nome: "<strong>WonderFly - Vale do Paraíba</strong><br>Rua das Palmeiras, 50",
       },
     ];
-    
+
     // --- 2. SINTAXE DO MARCADOR CORRIGIDA ---
     // O erro de sintaxe foi corrigido aqui:
     agencias.forEach((agencia) => {
       L.marker([agencia.lat, agencia.lng], { // O objeto de opções é o SEGUNDO argumento
         icon: momentoIcon                    // Usa a variável correta
-      }) 
+      })
         .addTo(map)
         .bindPopup(agencia.nome); // Adiciona o pop-up com o nome
     });
-      
+
     // (Opcional) Ajusta o mapa para mostrar todos os marcadores
     const group = new L.featureGroup(agencias.map(a => L.marker([a.lat, a.lng])));
     map.fitBounds(group.getBounds().pad(0.5)); // .pad(0.5) dá uma margem
   }
-  
+
 });

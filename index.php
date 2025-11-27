@@ -20,9 +20,21 @@ try {
     $stmt->execute();
     $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    // Query para "Destinos em Destaque" (4 aleatórios)
+    $stmtDestaques = $conn->prepare("SELECT * FROM viagens ORDER BY RAND() LIMIT 4");
+    $stmtDestaques->execute();
+    $destaques = $stmtDestaques->fetchAll(PDO::FETCH_ASSOC);
+
+    // Query para "Experiências Culturais" (6 aleatórios para o carrossel)
+    $stmtExperiencias = $conn->prepare("SELECT * FROM viagens ORDER BY RAND() LIMIT 6");
+    $stmtExperiencias->execute();
+    $experiencias = $stmtExperiencias->fetchAll(PDO::FETCH_ASSOC);
+
 } catch (PDOException $e) {
-  $reviews = []; // Se der erro, o array fica vazio
-  error_log("Erro ao buscar avaliações: " . $e->getMessage());
+  $reviews = []; 
+  $destaques = [];
+  $experiencias = [];
+  error_log("Erro ao buscar dados da home: " . $e->getMessage());
 }
 
 include ROOT_PATH . 'templates/header.php';
@@ -103,72 +115,26 @@ include ROOT_PATH . 'templates/header.php';
             ">Ver todos &rarr;</a>
       </div>
       <div class="grid cards">
-        <div class="card">
-          <div class="card-img" style="
-                background-image: url('https://ecommerce.cdn.genera.com.br/uploads/2022/12/cidade-antiga-marrocos-1024x575.jpg');
-              "></div>
-          <div class="card-body">
-            <h3>Marrocos Essencial</h3>
-            <p>
-              7 dias por Marrakech, deserto de Agafay e montanhas históricas.
-            </p>
-            <div class="meta">
-              <span><i class="fa-solid fa-clock"></i> 7 dias</span>
-              <span>a partir de R$ 3.520</span>
-            </div>
-            <a href="./Viagem/home_viagem.html" class="btn secondary">Ver detalhes</a>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-img" style="
-                background-image: url('https://cdn.americachip.com/wp-content/uploads/2024/05/camboja-onde-fica-1024x619.jpg?strip=all&lossy=1&quality=92&webp=92&ssl=1');
-              "></div>
-          <div class="card-body">
-            <h3>Templos do Camboja</h3>
-            <p>
-              Angkor Wat ao nascer do sol e imersão gastronômica.
-            </p>
-            <div class="meta">
-              <span><i class="fa-solid fa-clock"></i> 5 dias</span>
-              <span>a partir de R$ 1.950</span>
-            </div>
-            <a href="./Viagem/home_viagem.php" class="btn secondary">Ver detalhes</a>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-img" style="
-                background-image: url('https://www.travely.com.br/wp-content/uploads/2021/07/59b514757c03f4e14c006ca63de02928_XL.jpg');
-              "></div>
-          <div class="card-body">
-            <h3>Safari na Tanzânia</h3>
-            <p>
-              Parques Tarangire e Serengeti com guias locais e lodge
-              ecológico.
-            </p>
-            <div class="meta">
-              <span><i class="fa-solid fa-clock"></i> 10 dias</span>
-              <span>a partir de R$ 9.880</span>
-            </div>
-            <a href="./Viagem/home_viagem.php" class="btn secondary">Ver detalhes</a>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-img" style="
-                background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx8mYNSgi3ADAOBJYbukIK-uCWbUGO6gou1A&s');
-              "></div>
-          <div class="card-body">
-            <h3>Holi na Índia</h3>
-            <p>
-              Participe do festival das cores mais aguardado e seguro de
-              Jaipur.
-            </p>
-            <div class="meta">
-              <span><i class="fa-solid fa-clock"></i> 3 dias</span>
-              <span>a partir de R$ 1.410</span>
-            </div>
-            <a href="./Viagem/home_viagem.php" class="btn secondary">Ver detalhes</a>
-          </div>
-        </div>
+        <?php if (empty($destaques)): ?>
+            <p style="grid-column: 1/-1; text-align: center;">Nenhum destino em destaque no momento.</p>
+        <?php else: ?>
+            <?php foreach ($destaques as $viagem): ?>
+                <div class="card">
+                  <div class="card-img" style="background-image: url('<?php echo htmlspecialchars($viagem['imagem_url']); ?>');"></div>
+                  <div class="card-body">
+                    <h3><?php echo htmlspecialchars($viagem['titulo']); ?></h3>
+                    <p>
+                      <?php echo htmlspecialchars($viagem['descricao_curta']); ?>
+                    </p>
+                    <div class="meta">
+                      <span><i class="fa-solid fa-clock"></i> <?php echo htmlspecialchars($viagem['duracao']); ?></span>
+                      <span>a partir de R$ <?php echo number_format($viagem['preco'], 2, ',', '.'); ?></span>
+                    </div>
+                    <a href="./Viagem/viagem.php?id=<?php echo $viagem['id']; ?>" class="btn secondary">Ver detalhes</a>
+                  </div>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
       </div>
     </section>
 
@@ -178,50 +144,62 @@ include ROOT_PATH . 'templates/header.php';
       </div>
       <div class="themes">
         <button class="chip active" data-filter="all">Todos</button>
-        <button class="chip" data-filter="gastronomia">Gastronomia</button>
-        <button class="chip" data-filter="natureza">Natureza</button>
-        <button class="chip" data-filter="festivais">Festivais</button>
-        <button class="chip" data-filter="arte">História & Arte</button>
-        <button class="chip" data-filter="comunidades">Comunidades</button>
+        <?php 
+            // Extrai categorias únicas das experiências carregadas
+            $categorias_unicas = [];
+            if (!empty($experiencias)) {
+                foreach ($experiencias as $exp) {
+                    // Explode por vírgula OU espaço (regex)
+                    $cats = preg_split('/[\s,]+/', $exp['categorias'], -1, PREG_SPLIT_NO_EMPTY);
+                    
+                    foreach ($cats as $cat) {
+                        $cat = trim($cat);
+                        // Normaliza para chave (minúsculo, sem acentos básicos)
+                        $data_cat = strtolower($cat);
+                        
+                        if (!isset($categorias_unicas[$data_cat])) {
+                            $categorias_unicas[$data_cat] = $cat;
+                        }
+                    }
+                }
+            }
+            
+            // Gera os botões
+            foreach ($categorias_unicas as $data_val => $label): 
+        ?>
+            <button class="chip" data-filter="<?php echo htmlspecialchars($data_val); ?>">
+                <?php echo htmlspecialchars($label); ?>
+            </button>
+        <?php endforeach; ?>
       </div>
       <div class="carousel">
         <div class="carousel-track">
-          <div class="slide" data-category="gastronomia" style="
-                background-image: url('https://blog.swiggy.com/wp-content/uploads/2024/10/Image1_Pani-Puri-1024x538.jpg');
-              ">
-            <span class="badge">Gastronomia</span>
-            <h3>Street food na Índia</h3>
-          </div>
-          <div class="slide" data-category="natureza" style="
-                background-image: url('https://cdn.forevervacation.com/uploads/blog/why-java-is-the-next-up-and-coming-destination-in-indonesia-the-vacationer-by-forevervacation-3062.jpg');
-              ">
-            <span class="badge">Natureza</span>
-            <h3>Trilha em Java</h3>
-          </div>
-          <div class="slide" data-category="festivais" style="
-                background-image: url('https://images.squarespace-cdn.com/content/v1/52c0b141e4b0b87925bacd01/1462779501654-SZX1U1SK9WUBJW3ZC6QW/songkran3.jpg');
-              ">
-            <span class="badge">Festivais</span>
-            <h3>Songkran na Tailândia</h3>
-          </div>
-          <div class="slide" data-category="arte" style="
-                background-image: url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/c8/75/c2/zoroastrian-fire-temple.jpg?w=900&h=500&s=1');
-              ">
-            <span class="badge">História & Arte</span>
-            <h3>Patrimônios no Irã</h3>
-          </div>
-          <div class="slide" data-category="comunidades" style="
-                background-image: url('https://media.istockphoto.com/id/1280111094/pt/foto/ethiopian-landscape-ethiopia-africa-wilderness.jpg?s=170667a&w=0&k=20&c=dUqNe_i4sOfWjEYvGk-cTbBEHFTx1iy5BvL4lwo4rqM=');
-              ">
-            <span class="badge">Comunidades</span>
-            <h3>Vilarejos na Etiópia</h3>
-          </div>
-          <div class="slide" data-category="festivais" style="
-                background-image: url('https://www.chingay.gov.sg/images/UNESCO.jpg');
-              ">
-            <span class="badge">Comunidades</span>
-            <h3>Chingay em Singapura</h3>
-          </div>
+          <?php if (!empty($experiencias)): ?>
+            <?php foreach ($experiencias as $exp): ?>
+                <?php 
+                    $cats = preg_split('/[\s,]+/', $exp['categorias'], -1, PREG_SPLIT_NO_EMPTY);
+                    
+                    // Prepara string para data-category (separado por espaço)
+                    $data_cats_array = array_map('strtolower', $cats);
+                    $data_category_str = implode(' ', $data_cats_array);
+                    
+                    // Badge mostra TODAS as categorias, formatadas
+                    // Capitaliza cada palavra (ex: "aventura" -> "Aventura")
+                    $cats_formatted = array_map('ucfirst', $cats);
+                    $badge_label = implode(', ', $cats_formatted);
+                ?>
+                <div class="slide" data-category="<?php echo htmlspecialchars($data_category_str); ?>" style="background-image: url('<?php echo htmlspecialchars($exp['imagem_url']); ?>');">
+                    <span class="badge"><?php echo htmlspecialchars($badge_label); ?></span>
+                    <h3><?php echo htmlspecialchars($exp['titulo']); ?></h3>
+                    <!-- Link opcional para a viagem -->
+                    <a href="./Viagem/viagem.php?id=<?php echo $exp['id']; ?>" style="position:absolute; inset:0;"></a>
+                </div>
+            <?php endforeach; ?>
+          <?php else: ?>
+            <div class="slide" style="background-color: #333; display: flex; align-items: center; justify-content: center;">
+                <h3>Em breve novas experiências</h3>
+            </div>
+          <?php endif; ?>
         </div>
         <button class="carousel-btn prev">
           <i class="fa-solid fa-chevron-left"></i>
