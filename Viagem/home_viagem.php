@@ -14,6 +14,22 @@ try {
     $stmt->execute();
     $viagens = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    // 3b. Busca a primeira localização de cada viagem para o mapa
+    foreach ($viagens as &$v) {
+        $stmt_loc = $conn->prepare("SELECT latitude, longitude FROM viagem_locations WHERE viagem_id = :id LIMIT 1");
+        $stmt_loc->execute(['id' => $v['id']]);
+        $loc = $stmt_loc->fetch(PDO::FETCH_ASSOC);
+        if ($loc) {
+            $v['latitude'] = $loc['latitude'];
+            $v['longitude'] = $loc['longitude'];
+        } else {
+            // Fallback ou null se não tiver localização
+            $v['latitude'] = null;
+            $v['longitude'] = null;
+        }
+    }
+    unset($v); // Quebra a referência
+
     // 3b. Se o usuário estiver logado, pega os favoritos dele
     if (isset($_SESSION['user_id'])) {
         $user_id = $_SESSION['user_id'];
@@ -33,6 +49,7 @@ include ROOT_PATH . './templates/header.php';
 ?>
 
 <link rel="stylesheet" href="<?php echo BASE_URL; ?>/CSS/home_viagem.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <main>
     <section class="hero-viagem">
@@ -62,7 +79,7 @@ include ROOT_PATH . './templates/header.php';
     <section class="section alt">
         <div class="section-head">
             <h2>Explore por Tema</h2>
-            <a href="#all-destination-cards" class="link" id="ver-todos-link" style="...">Ver todos &rarr;</a>
+            <a href="#all-destination-cards" class="link" id="ver-todos-link">Ver todos &rarr;</a>
         </div>
         <div class="themes" id="theme-chips-container">
             <button class="chip active" data-filter="all">Todos</button>
@@ -147,11 +164,12 @@ include ROOT_PATH . './templates/header.php';
 include ROOT_PATH . 'templates/footer.php';
 ?>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="..."></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 <script>
     const baseUrl = '<?php echo BASE_URL; ?>';
+    const allTrips = <?php echo json_encode($viagens); ?>;
 </script>
 
 <script src="<?php echo BASE_URL; ?>/JS/home_viagem.js"></script>

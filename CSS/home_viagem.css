@@ -6,29 +6,26 @@
 /* --- Hero Section da Página de Viagem --- */
 .hero-viagem {
   position: relative;
-  padding: 120px 20px;
+  padding: 160px 20px 100px;
   color: #fff;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 60vh;
-  background: url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1770")
-    center/cover no-repeat;
+  min-height: 70vh;
+  background:
+    linear-gradient(to bottom, rgba(11, 89, 139, 0.6), rgba(0, 0, 0, 0.8)),
+    url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1770") center/cover no-repeat;
   z-index: 1;
 }
 
-/* Overlay escuro para legibilidade */
+/* Overlay escuro para legibilidade (Removido pois já está no background) */
 .hero-viagem::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: -1;
+  display: none;
 }
 
 .hero-viagem-content {
-  max-width: 800px;
+  max-width: 900px;
   z-index: 2;
   animation: fadeIn 1s ease-out;
 }
@@ -38,6 +35,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -45,63 +43,75 @@
 }
 
 .hero-viagem h1 {
-  font-size: 3rem; /* Um pouco maior que o hero global */
+  font-size: 3.5rem;
   font-weight: 700;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .hero-viagem p {
-  font-size: 1.1rem;
-  margin-bottom: 24px;
-  opacity: 0.9;
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  opacity: 0.95;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* --- Container de Busca --- */
 .search-container {
   display: flex;
-  gap: 10px;
-  background: #fff;
-  padding: 12px;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
   margin-top: 30px;
+  align-items: center;
 }
 
 .search-container select,
 .search-container input[type="text"] {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 12px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
   font-family: inherit;
-  font-size: 0.95rem;
-  color: #333;
+  font-size: 1rem;
+  color: var(--text-main);
+  background: #fff;
+  transition: var(--transition-fast);
+}
+
+.search-container select:focus,
+.search-container input[type="text"]:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(11, 89, 139, 0.1);
 }
 
 .search-container select {
-  flex-basis: 220px; /* Largura base para o seletor */
-  color: #555;
+  flex-basis: 240px;
   cursor: pointer;
 }
 
 .search-container input[type="text"] {
-  flex-grow: 1; /* Input ocupa o espaço restante */
-  border-left: 1px solid #eee;
-  padding-left: 15px;
+  flex-grow: 1;
 }
 
-/* O botão .btn.primary já está estilizado no global.css */
 .search-container .btn {
-  padding: 12px 20px; /* Ajusta o padding para alinhar com os inputs */
+  padding: 14px 28px;
+  font-size: 1rem;
+  box-shadow: var(--shadow-md);
 }
 
 /* --- Mapa de Destinos --- */
 #mapaDestinos {
-  height: 450px;
+  height: 500px;
   width: 100%;
-  border-radius: 12px;
-  z-index: 1; /* Necessário para o Leaflet */
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
-  background-color: #f9f9f9; /* Cor de fundo enquanto o mapa carrega */
+  border-radius: var(--radius-lg);
+  z-index: 1;
+  box-shadow: var(--shadow-md);
+  background-color: #f9f9f9;
+  border: 1px solid var(--border-light);
 }
 
 /* --- Mensagens da Newsletter (controladas por JS) --- */
@@ -110,37 +120,39 @@
   font-size: 0.9rem;
   font-weight: 500;
   transition: 0.3s;
-  height: 1.2em; /* Reserva espaço para evitar "pulos" */
-}
-.newsletter-message.success {
-  color: #d4edda; /* Verde claro para sucesso (contrasta com bg laranja) */
-}
-.newsletter-message.error {
-  color: #f8d7da; /* Vermelho claro para erro (contrasta com bg laranja) */
+  height: 1.2em;
 }
 
-/* --- Botão "Voltar ao Topo" (controlado por JS) --- */
+.newsletter-message.success {
+  color: #d4edda;
+}
+
+.newsletter-message.error {
+  color: #f8d7da;
+}
+
+/* --- Botão "Voltar ao Topo" --- */
 #back-to-top {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #f07913; /* Cor laranja do tema */
-  border: black, ;
+  bottom: 30px;
+  right: 30px;
+  background: var(--accent-gradient);
   color: #fff;
-  width: 45px;
-  height: 45px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   z-index: 1000;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+  transition: all 0.3s ease;
   transform: translateY(20px);
   border: none;
   cursor: pointer;
+  box-shadow: var(--shadow-md);
 }
 
 #back-to-top.show {
@@ -150,109 +162,111 @@
 }
 
 #back-to-top:hover {
-  background: #d16a0f; /* Laranja mais escuro no hover */
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
 }
+
 .card-img {
-    position: relative; /* Necessário para posicionar o botão dentro */
+  position: relative;
 }
 
 .btn-favorito {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    z-index: 10;
-    background: rgba(255, 255, 255, 0.8);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
-    color: var(--color-primary);
-    cursor: pointer;
-    backdrop-filter: blur(4px);
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 1.3rem;
+  color: var(--accent-orange);
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-favorito:hover {
-    background: #fff;
-    transform: scale(1.1);
+  background: #fff;
+  transform: scale(1.1);
+  box-shadow: var(--shadow-md);
 }
 
-/* Ícones de coração */
 .btn-favorito .ri-heart-fill {
-    display: none; /* Coração preenchido escondido por padrão */
-}
-.btn-favorito .ri-heart-line {
-    display: block; /* Coração vazio visível */
+  display: none;
 }
 
-/* Estilo do botão ATIVO (favoritado) */
+.btn-favorito .ri-heart-line {
+  display: block;
+}
+
 .btn-favorito.active .ri-heart-fill {
-    display: block;
-    color: #e63946; /* Vermelho */
+  display: block;
+  color: #e63946;
 }
+
 .btn-favorito.active .ri-heart-line {
-    display: none;
+  display: none;
 }
+
 /* =============================================
-   RESPONSIVIDADE (Complementar ao global.css)
+   RESPONSIVIDADE
    ============================================= */
 
 @media (max-width: 768px) {
-  /* --- Ajustes no Menu Mobile (controlado por JS) --- */
-  /* O .nav-open é adicionado ao .header pelo JS */
   .header.nav-open .nav {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 100%; /* Logo abaixo do header */
+    top: 100%;
     left: 0;
     right: 0;
-    background: #167cbf; /* Fundo azul do header */
-    padding: 10px 8%;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-    z-index: 999; /* Abaixo do header (z-index: 1000) */
+    background: var(--primary-blue);
+    padding: 20px 8%;
+    box-shadow: var(--shadow-lg);
+    z-index: 999;
   }
 
   .header .nav a {
-    padding: 12px 0; /* Mais área de toque */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .header .nav a:last-child {
     border-bottom: none;
   }
 
-  /* --- Ajustes no Hero de Viagem --- */
   .hero-viagem {
-    padding: 80px 20px;
-    min-height: 50vh;
+    padding: 120px 20px 80px;
+    min-height: 60vh;
   }
 
   .hero-viagem h1 {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
   }
 
   .hero-viagem p {
     font-size: 1rem;
   }
 
-  /* --- Ajustes na Busca --- */
   .search-container {
     flex-direction: column;
-    padding: 15px;
+    padding: 20px;
+    gap: 12px;
   }
 
   .search-container select,
   .search-container input[type="text"],
   .search-container .btn {
-    width: 100%; /* Ocupa largura total */
+    width: 100%;
   }
 
   .search-container select {
-    flex-basis: auto; /* Reseta a largura base */
+    flex-basis: auto;
   }
 }

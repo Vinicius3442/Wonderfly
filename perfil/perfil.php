@@ -87,7 +87,7 @@ $banner_style = $user['banner_url']
 $avatar_src = $user['avatar_url']
     ? BASE_URL .  htmlspecialchars($user['avatar_url'])
     // CORRIGIDO: Removido o "./"
-    : BASE_URL . 'images/profile/avatar-default.jpg'; 
+    : BASE_URL . 'images/profile/default.jpg'; 
 
 $bio_text = $user['bio']
     ? htmlspecialchars($user['bio'])

@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentTopic = null; // Armazena o tópico atual
 
     // 1. FUNÇÕES DE DADOS (Fetch)
-    
+
     function getTopicIdFromUrl() {
         const params = new URLSearchParams(window.location.search);
         return parseInt(params.get('id'), 10);
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch(`${baseUrl}api/forum_get_detalhes.php?id=${topicId}`);
             if (!response.ok) throw new Error('Falha ao buscar dados do tópico.');
-            
+
             const result = await response.json();
             if (result.success) {
                 return result; // Retorna { topico: {...}, respostas: [...] }
@@ -39,13 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 2. FUNÇÕES DE RENDERIZAÇÃO
-    
+
     function renderOriginalPost(topic, errorMsg = null) {
         if (!topic) {
             opContainer.innerHTML = `<div class="op-loading"><h2>${errorMsg || 'Tópico não encontrado!'}</h2><a href="${baseUrl}Comunidade/home_comunidade.php">Voltar</a></div>`;
             return;
         }
-        
+
         document.title = `WonderFly - ${topic.assunto}`;
 
         const defaultImage = `${baseUrl}images/banner.png`;
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderReplies(replies) {
-        repliesContainer.innerHTML = ''; 
+        repliesContainer.innerHTML = '';
         replyCountEl.textContent = `Respostas (${replies.length})`;
 
         if (replies.length === 0) {
@@ -102,9 +102,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderSingleReply(reply) {
         const replyDate = new Date(reply.data_criacao).toLocaleString('pt-BR');
         const autorNome = reply.autor_nome || 'Usuário Anônimo';
-        const avatar = (reply.autor_avatar && reply.autor_avatar !== '/images/profile/avatar-default.jpg') 
-                       ? (baseUrl + reply.autor_avatar) 
-                       : `${baseUrl}images/profile/avatar-default.jpg`; 
+        let avatar = `${baseUrl}images/profile/default.jpg`; // Default
+
+        if (reply.autor_avatar) {
+            if (reply.autor_avatar.startsWith('http')) {
+                avatar = reply.autor_avatar;
+            } else {
+                // Remove leading slash if present to avoid double slash with baseUrl
+                const cleanPath = reply.autor_avatar.startsWith('/') ? reply.autor_avatar.substring(1) : reply.autor_avatar;
+                avatar = baseUrl + cleanPath;
+            }
+        }
 
         const replyHTML = `
         <article class="reply-card">
@@ -118,14 +126,14 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         repliesContainer.insertAdjacentHTML('beforeend', replyHTML);
     }
-    
+
     // Helper para converter \n em <br>
     function nl2br(str) {
         return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br>$2');
     }
 
     // 3. LÓGICA DE AÇÕES (Responder / Apagar)
-    
+
     if (replyForm) {
         replyForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -134,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 Swal.fire('Oops!', 'Você não pode publicar uma resposta vazia.', 'error');
                 return;
             }
-            
+
             const submitButton = replyForm.querySelector('button[type="submit"]');
             submitButton.textContent = 'Publicando...';
             submitButton.disabled = true;
@@ -148,23 +156,23 @@ document.addEventListener('DOMContentLoaded', () => {
                         message: message
                     })
                 });
-                
+
                 if (!response.ok) throw new Error('Erro na rede.');
-                
+
                 const result = await response.json();
-                
+
                 if (result.success && result.resposta) {
                     // Limpa o placeholder (se for a primeira resposta)
                     const noReplies = repliesContainer.querySelector('.no-replies');
                     if (noReplies) noReplies.remove();
-                    
+
                     renderSingleReply(result.resposta); // Adiciona a nova resposta
                     replyMessageInput.value = '';
                     replyCountEl.textContent = `Respostas (${repliesContainer.children.length})`;
                 } else {
                     throw new Error(result.message || 'Erro ao publicar resposta.');
                 }
-                
+
             } catch (error) {
                 Swal.fire('Erro!', error.message, 'error');
             } finally {
@@ -231,17 +239,17 @@ document.addEventListener('DOMContentLoaded', () => {
             renderOriginalPost(null, 'ID do tópico não fornecido!');
             return;
         }
-        
+
         const data = await fetchTopicData(topicId);
-        
+
         if (data && data.topico) {
             currentTopic = data.topico; // Salva o tópico atual
             renderOriginalPost(data.topico);
             renderReplies(data.respostas);
         } else {
             // O erro já foi renderizado por fetchTopicData
-            repliesContainer.style.display = 'none'; 
-            if(replyForm) replyForm.style.display = 'none';
+            repliesContainer.style.display = 'none';
+            if (replyForm) replyForm.style.display = 'none';
         }
     }
 
