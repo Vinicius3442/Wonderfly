@@ -101,7 +101,7 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
     <!-- Sidebar -->
     <aside class="admin-sidebar">
         <div class="sidebar-header">
-            <img src="../assets/img/logo.png" alt="WonderFly Logo" style="height: 40px; margin-right: 10px;">
+            <img src="../images/logo.png" alt="WonderFly Logo" style="height: 40px; margin-right: 10px;">
             <span>WonderFly</span>
         </div>
         <nav class="sidebar-nav">
@@ -210,16 +210,29 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
             }
         }
 
+        function fixImagePath(url) {
+            if (!url) return '../images/profile/avatar-default.jpg';
+            if (url.startsWith('http')) return url;
+            if (url.startsWith('./')) url = url.substring(2);
+            if (url.startsWith('/')) url = url.substring(1);
+            return '../' + url;
+        }
+
         function renderProfile(user) {
             document.getElementById('loading').style.display = 'none';
             document.getElementById('profileContent').style.display = 'block';
 
-            document.getElementById('userName').textContent = user.nome;
+            document.getElementById('userName').textContent = user.nome_exibicao;
             document.getElementById('userEmail').textContent = user.email;
             document.getElementById('userDate').textContent = new Date(user.data_criacao).toLocaleDateString('pt-BR');
             document.getElementById('userBio').textContent = user.bio || 'Nenhuma biografia disponível.';
             
-            const avatar = user.avatar_url || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.nome);
+            let avatar = user.avatar_url;
+            if (!avatar) {
+                avatar = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.nome_exibicao);
+            } else {
+                avatar = fixImagePath(avatar);
+            }
             document.getElementById('userAvatar').src = avatar;
 
             const typeBadge = document.getElementById('userType');

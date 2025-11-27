@@ -19,7 +19,7 @@ if (!$id) {
 
 try {
     // Fetch user details
-    $stmt = $conn->prepare("SELECT id, nome, email, tipo, bio, avatar_url, data_criacao FROM usuarios WHERE id = ?");
+    $stmt = $conn->prepare("SELECT id, nome_exibicao, email, is_admin, bio, avatar_url, data_criacao FROM usuarios WHERE id = ?");
     $stmt->execute([$id]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -28,6 +28,9 @@ try {
         echo json_encode(['error' => 'User not found']);
         exit;
     }
+    
+    // Map is_admin to type
+    $user['tipo'] = $user['is_admin'] ? 'admin' : 'usuario';
 
     // Fetch stats
     // 1. Reviews count

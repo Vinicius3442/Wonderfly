@@ -13,6 +13,11 @@ if (!isset($_SESSION['user_id'])) {
 
 // 3. BUSCA TODOS OS DADOS DO USUÁRIO
 $user_id = $_SESSION['user_id'];
+
+// Allow admin to view other profiles
+if (isset($_GET['id']) && isset($_SESSION['is_admin']) && $_SESSION['is_admin']) {
+    $user_id = $_GET['id'];
+}
 $user = null;
 $favoritos = [];
 $momentos = [];
@@ -106,9 +111,11 @@ include ROOT_PATH . 'templates/header.php';
             <h1 class="profile-name" id="profile-name"><?php echo htmlspecialchars($user['nome_exibicao']); ?></h1>
             <p class="profile-bio" id="profile-bio"><?php echo $bio_text; ?></p>
             
+            <?php if ($user_id == $_SESSION['user_id']): ?>
             <button class="btn primary small" id="edit-profile-btn">
                 <i class="ri-pencil-line"></i> Editar Perfil
             </button>
+            <?php endif; ?>
 
             <div class="profile-stats">
                 <div class="stat-item">

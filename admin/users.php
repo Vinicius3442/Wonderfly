@@ -22,7 +22,7 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
     <!-- Sidebar -->
     <aside class="admin-sidebar">
         <div class="sidebar-header">
-            <img src="../assets/img/logo.png" alt="WonderFly Logo" style="height: 40px; margin-right: 10px;">
+            <img src="../images/logo.png" alt="WonderFly Logo" style="height: 40px; margin-right: 10px;">
             <span>WonderFly</span>
         </div>
         <nav class="sidebar-nav">
@@ -55,7 +55,7 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
             </div>
             <div class="user-profile">
                 <span><?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
-                <img src="<?php echo htmlspecialchars($_SESSION['user_avatar']); ?>" alt="Avatar" class="user-avatar">
+                <img src="<?php echo str_replace('./', '../', htmlspecialchars($_SESSION['user_avatar'])); ?>" alt="Avatar" class="user-avatar">
             </div>
         </div>
 
@@ -118,15 +118,41 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
             }
         }
 
+        function fixImagePath(url) {
+            if (!url) return '../images/profile/avatar-default.jpg';
+            if (url.startsWith('http')) return url;
+            // Remove ./ if present
+            if (url.startsWith('./')) url = url.substring(2);
+            // If starts with /, it's absolute from root, but let's be safe and use relative for admin
+            if (url.startsWith('/')) url = url.substring(1);
+            
+            return '../' + url;
+        }
+
         function renderTable(users) {
             const tbody = document.getElementById('usersTableBody');
             tbody.innerHTML = '';
 
             users.forEach(user => {
                 const tr = document.createElement('tr');
+                // Fix avatar path if we were showing it, but we are not in the table. 
+                // Wait, the user said "carregamento de imagens está falho na users.php".
+                // The table currently DOES NOT show images. 
+                // Maybe the user meant the profile avatar in the header?
+                // Or maybe they WANT images in the table?
+                // The prompt said "carregamento de imagens está falho na users.php".
+                // Let's look at users.php again. 
+                // Line 58: <img src="<?php echo htmlspecialchars($_SESSION['user_avatar']); ?>" ...>
+                // This is the admin's own avatar. If that's broken, it's because session has relative path.
+                // Also user_details.php has the user avatar.
+                
+                // Let's check the session avatar path in admin/users.php header.
+                // It uses PHP echo. I should fix it in PHP or JS. 
+                // But the user might be referring to user_details.php where the avatar is loaded via JS.
+                
                 tr.innerHTML = `
                     <td>#${user.id}</td>
-                    <td class="fw-bold">${user.nome}</td>
+                    <td class="fw-bold">${user.nome_exibicao}</td>
                     <td>${user.email}</td>
                     <td><span class="badge ${user.tipo === 'admin' ? 'badge-admin' : 'badge-user'}">${user.tipo}</span></td>
                     <td>${new Date(user.data_criacao).toLocaleDateString('pt-BR')}</td>
@@ -147,7 +173,7 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
         document.getElementById('searchInput').addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
             const filtered = allUsers.filter(user => 
-                user.nome.toLowerCase().includes(term) || 
+                (user.nome_exibicao && user.nome_exibicao.toLowerCase().includes(term)) || 
                 user.email.toLowerCase().includes(term)
             );
             renderTable(filtered);

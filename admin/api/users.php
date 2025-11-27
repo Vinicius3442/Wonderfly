@@ -13,9 +13,17 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'GET') {
     try {
-        $stmt = $conn->query("SELECT id, nome, email, tipo, data_criacao FROM usuarios ORDER BY data_criacao DESC");
+        $stmt = $conn->query("SELECT id, nome_exibicao, email, is_admin, data_criacao FROM usuarios ORDER BY data_criacao DESC");
         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($users);
+        
+        // Map is_admin to 'tipo' for frontend compatibility if needed, or just send is_admin
+        // The frontend expects 'tipo' (admin/user). Let's process it.
+        $result = array_map(function($user) {
+            $user['tipo'] = $user['is_admin'] ? 'admin' : 'usuario';
+            return $user;
+        }, $users);
+
+        echo json_encode($result);
     } catch (PDOException $e) {
         http_response_code(500);
         echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);

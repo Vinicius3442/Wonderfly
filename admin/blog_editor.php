@@ -109,7 +109,7 @@
     <!-- Sidebar -->
     <aside class="admin-sidebar">
         <div class="sidebar-header">
-            <img src="../assets/img/logo.png" alt="WonderFly Logo" style="height: 40px; margin-right: 10px;">
+            <img src="../images/logo.png" alt="WonderFly Logo" style="height: 40px; margin-right: 10px;">
             <span>WonderFly</span>
         </div>
         <nav class="sidebar-nav">

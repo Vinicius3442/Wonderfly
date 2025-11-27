@@ -13,7 +13,7 @@
     <!-- Sidebar -->
     <aside class="admin-sidebar">
         <div class="sidebar-header">
-            <img src="../assets/img/logo.png" alt="WonderFly Logo" style="height: 40px; margin-right: 10px;">
+            <img src="../images/logo.png" alt="WonderFly Logo" style="height: 40px; margin-right: 10px;">
             <span>WonderFly</span>
         </div>
         <nav class="sidebar-nav">
@@ -46,7 +46,7 @@
             </div>
             <div class="user-profile">
                 <span id="admin-name">Admin</span>
-                <img id="admin-avatar" src="" alt="Admin" class="user-avatar">
+                <img id="admin-avatar" src="../images/profile/default.jpg" alt="Admin" class="user-avatar">
             </div>
         </div>
 
