@@ -149,19 +149,6 @@ include ROOT_PATH . '/templates/header.php';
     </div>
 </section>
 
-<section class="cta-newsletter">
-  <div class="cta-inner">
-    <h3>Ganhe R$ 200 de desconto no 1º pacote</h3>
-    <p>
-      Assine a newsletter e receba roteiros, dicas e ofertas exclusivas.
-    </p>
-    <form class="newsletter" id="newsletter">
-      <input type="email" placeholder="Seu e-mail" required />
-      <button class="btn white" type="submit">Quero receber</button>
-    </form>
-  </div>
-</section>
-
 <?php
 // 4. Inclui o Footer
 include ROOT_PATH . 'templates/footer.php';

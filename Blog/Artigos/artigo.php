@@ -94,10 +94,8 @@ include ROOT_PATH . 'templates/header.php';
             echo $artigo['conteudo_html']; 
         ?>
     </div>
-    </div>
 
-  <section class.="section article-content-section">
-  <div class="article-main">
+
     <div class="article-tags">
       <?php if (!empty($artigo['tags'])): ?>
         <?php 
@@ -114,13 +112,30 @@ include ROOT_PATH . 'templates/header.php';
       <?php endif; ?>
     </div>
 
+    <div class="share-buttons">
+        <span>Compartilhar:</span>
+        <a href="#" class="social-share-btn"><i class="ri-facebook-fill"></i></a>
+        <a href="#" class="social-share-btn"><i class="ri-twitter-x-fill"></i></a>
+        <a href="#" class="social-share-btn"><i class="ri-whatsapp-line"></i></a>
+        <a href="#" class="social-share-btn"><i class="ri-linkedin-fill"></i></a>
+    </div>
+  </div>
+
   <aside class="article-sidebar">
     <div class="sidebar-block">
       <h4>Mais da WonderFly</h4>
       <ul class="sidebar-links">
         <li><a href="#">Roteiro: Marrocos Essencial</a></li>
         <li><a href="#">Guia Completo: Templos do Camboja</a></li>
+        <li><a href="#">Dicas: Como economizar em passagens</a></li>
+        <li><a href="#">Destinos: As praias mais bonitas do Brasil</a></li>
       </ul>
+    </div>
+
+    <div class="sidebar-block cta-quiz">
+        <h4>Descubra seu Destino</h4>
+        <p>Faça nosso quiz e encontre a viagem perfeita para o seu perfil!</p>
+        <a href="#" class="btn primary sm">Fazer Quiz</a>
     </div>
   </aside>
 </section>

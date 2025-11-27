@@ -1,82 +1,182 @@
+/* =============================================
+   ARQUIVO: blog-home.css
+   Estilos para a página principal do blog.
+   ============================================= */
+
 .hero-blog {
     position: relative;
     text-align: center;
     color: #fff;
-    padding: 100px 20px;
-    background: linear-gradient(rgba(0, 0, 0, 0.664), rgba(0, 0, 0, 0.726)), url('https://www.segueviagem.com.br/wp-content/uploads/2021/01/Aviao-shutterstock_146314307.jpg') center/cover no-repeat;
+    padding: 120px 20px 80px;
+    background: linear-gradient(135deg, rgba(11, 89, 139, 0.9), rgba(22, 124, 191, 0.8)),
+        url('https://www.segueviagem.com.br/wp-content/uploads/2021/01/Aviao-shutterstock_146314307.jpg') center/cover no-repeat;
     background-attachment: fixed;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    margin-bottom: 40px;
 }
 
 .hero-blog-content {
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
 .hero-blog h1 {
-    font-size: 3rem;
-    margin-bottom: 12px;
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: -1px;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .hero-blog p {
-    font-size: 1.1rem;
-    line-height: 1.8;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    opacity: 0.95;
+    font-weight: 300;
 }
 
+/* --- Barra de Busca --- */
+.blog-search {
+    max-width: 800px;
+    margin: -80px auto 40px;
+    /* Sobe para sobrepor o hero */
+    padding: 0 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.blog-search form {
+    display: flex;
+    gap: 10px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 50px;
+    box-shadow: var(--shadow-lg);
+}
+
+.blog-search .search-input {
+    flex-grow: 1;
+    padding: 15px 25px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 50px;
+    font-family: inherit;
+    background: transparent;
+}
+
+.blog-search .search-input:focus {
+    outline: none;
+}
+
+.blog-search .btn {
+    border-radius: 50px;
+    padding: 12px 30px;
+}
+
+/* --- Lista de Posts --- */
 .blog-posts {
-    padding-top: 60px;
+    padding-top: 20px;
+}
+
+.blog-posts h2 {
+    max-width: 1200px;
+    margin: 0 auto 40px;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text-dark);
 }
 
 .blog-grid {
     display: grid;
-    gap: 40px;
-    grid-template-columns: 1fr; /* Um post por linha */
-    max-width: 800px; /* Limita a largura dos posts */
+    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
 .blog-post {
     background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    border-radius: var(--radius-lg, 16px);
+    box-shadow: var(--shadow-sm);
     overflow: hidden;
-    display: flex; /* Para imagem ao lado do texto em telas maiores */
+    display: flex;
     flex-direction: column;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    height: 100%;
+}
+
+.blog-post:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
 }
 
 .blog-post img {
     width: 100%;
-    height: 250px;
+    height: 240px;
     object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.blog-post:hover img {
+    transform: scale(1.05);
 }
 
 .blog-post .post-body {
     padding: 25px;
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* Para que o conteúdo ocupe o espaço disponível */
+    flex-grow: 1;
+}
+
+.blog-post .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
 }
 
 .blog-post .badge {
-    background: #f07913;
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-size: 0.8rem;
+    background: rgba(240, 121, 19, 0.1);
+    color: var(--accent-orange);
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: all 0.2s;
+}
+
+.blog-post .badge:hover {
+    background: var(--accent-orange);
     color: #fff;
-    margin-bottom: 15px;
-    align-self: flex-start; /* Para o badge não ocupar a largura total */
+}
+
+.blog-post .badge a {
+    color: inherit;
+    text-decoration: none;
 }
 
 .blog-post h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 12px;
     line-height: 1.3;
-    color: #222;
+    color: var(--text-dark);
 }
 
 .blog-post p {
-    font-size: 0.95rem;
-    color: #555;
+    font-size: 1rem;
+    color: #666;
     margin-bottom: 20px;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex-grow: 1;
 }
 
 .blog-post .post-meta {
@@ -84,96 +184,120 @@
     flex-wrap: wrap;
     gap: 15px;
     font-size: 0.85rem;
-    color: #777;
-    margin-top: auto; /* Empurra a meta para baixo */
+    color: #888;
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
     margin-bottom: 15px;
 }
 
+.blog-post .post-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
 .blog-post .post-meta i {
-    margin-right: 5px;
-    color: #f07913;
+    color: var(--primary-blue);
 }
 
 .blog-post .link {
-    font-weight: 600;
-    color: #f07913;
+    font-weight: 700;
+    color: var(--primary-blue);
     display: inline-flex;
     align-items: center;
     gap: 5px;
     transition: 0.3s;
+    text-decoration: none;
 }
 
 .blog-post .link:hover {
-    opacity: 0.8;
+    gap: 8px;
+    color: var(--primary-dark);
 }
-/* ============================================= */
-/* NOVOS ESTILOS - Adicionar ao blog-home.css   */
-/* ============================================= */
 
-/* --- Estilos da Barra de Busca --- */
-.blog-search {
-    /* Faz a barra ter a mesma largura dos posts */
-    max-width: 800px;
+/* --- Newsletter --- */
+.cta-newsletter {
+    margin-top: 80px;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+    padding: 80px 20px;
+    text-align: center;
+    color: #fff;
+}
+
+.cta-inner {
+    max-width: 600px;
     margin: 0 auto;
-    /* Espaçamento: 40px em cima/baixo, 20px nas laterais */
-    padding: 40px 20px; 
 }
 
-.blog-search form {
+.cta-newsletter h3 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.cta-newsletter p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.newsletter {
     display: flex;
     gap: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.blog-search .search-input {
-    flex-grow: 1; /* Faz o input ocupar o máximo de espaço */
-    padding: 12px 15px;
+.newsletter input {
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    padding: 12px 20px;
+    color: #fff;
     font-size: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-family: 'Poppins', sans-serif;
 }
 
-/* Efeito de foco (do global.css, mas garantido aqui) */
-.blog-search .search-input:focus {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(255, 103, 1, 0.2);
+.newsletter input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.newsletter input:focus {
     outline: none;
 }
 
-
-/* --- Título dos Resultados da Busca --- */
-.blog-posts h2 {
-    max-width: 800px;
-    margin: 0 auto 30px;
-    font-size: 1.8rem;
-    font-weight: 600;
-    text-align: center;
-    color: #333;
+.newsletter .btn {
+    border-radius: 50px;
+    padding: 12px 30px;
 }
 
+@media (max-width: 768px) {
+    .hero-blog h1 {
+        font-size: 2.5rem;
+    }
 
-/* --- Estilos das Tags nos Cards --- */
-.blog-post .post-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 15px; /* Espaço entre as tags e o título */
-}
+    .blog-search {
+        margin-top: -40px;
+    }
 
-/* O .badge já existe, mas vamos garantir que o link dentro dele
-   fique correto e que a margem original seja removida */
+    .newsletter {
+        flex-direction: column;
+        background: transparent;
+        border: none;
+        padding: 0;
+    }
 
-.blog-post .badge {
-    margin-bottom: 0; /* Remove a margem antiga, pois .post-tags agora controla */
-    transition: transform 0.2s ease;
-}
+    .newsletter input {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        margin-bottom: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
 
-.blog-post .badge:hover {
-    transform: translateY(-2px);
-}
-
-.blog-post .badge a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
+    .newsletter .btn {
+        width: 100%;
+        border-radius: 8px;
+    }
 }
