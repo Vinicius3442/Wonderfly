@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Blog - WonderFly Admin</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- Libraries for Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="../images/logo.png" alt="WonderFly" style="height: 30px; margin-right: 10px;">
+            WonderFly Admin
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.php" class="nav-item">
+                <i class="ri-dashboard-line"></i> Dashboard
+            </a>
+            <a href="#" class="nav-item active">
+                <i class="ri-article-line"></i> Blog
+            </a>
+            <a href="#" class="nav-item">
+                <i class="ri-discuss-line"></i> Fórum
+            </a>
+            <a href="#" class="nav-item">
+                <i class="ri-user-line"></i> Usuários
+            </a>
+            <a href="#" class="nav-item">
+                <i class="ri-map-pin-line"></i> Viagens
+            </a>
+            <a href="../index.php" class="nav-item">
+                <i class="ri-arrow-left-line"></i> Voltar ao Site
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header-bar">
+            <div class="header-title">
+                <h1>Gerenciar Blog</h1>
+            </div>
+            <div class="user-profile">
+                <span id="admin-name">Admin</span>
+                <img id="admin-avatar" src="" alt="Admin" class="user-avatar">
+            </div>
+        </div>
+
+        <!-- Actions Bar -->
+        <div class="actions-bar">
+            <div class="search-box">
+                <i class="ri-search-line"></i>
+                <input type="text" id="searchInput" placeholder="Buscar artigos...">
+            </div>
+            <div class="action-buttons">
+                <button class="btn-export" onclick="exportCSV()">
+                    <i class="ri-file-excel-line"></i> CSV
+                </button>
+                <button class="btn-export" onclick="exportPDF()">
+                    <i class="ri-file-pdf-line"></i> PDF
+                </button>
+                <a href="blog_editor.php" class="btn-add">
+                    <i class="ri-add-line"></i> Novo Artigo
+                </a>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="table-container">
+            <table id="blogTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Data Publicação</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="blogTableBody">
+                    <!-- Rows will be populated by JS -->
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <script src="js/blog.js"></script>
+</body>
+</html>

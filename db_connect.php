@@ -2,8 +2,8 @@
 
 $host = 'localhost';     
 $db   = 'wonderfly';     
-$user = 'root';          
-$pass = '';              
+$user = 'pma_user';          
+$pass = 'vinicius_sql';              
 $charset = 'utf8mb4';    
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
