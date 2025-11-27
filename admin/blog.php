@@ -25,7 +25,7 @@
             <a href="#" class="nav-item active">
                 <i class="ri-article-line"></i> Blog
             </a>
-            <a href="#" class="nav-item">
+            <a href="forum.php" class="nav-item">
                 <i class="ri-discuss-line"></i> Fórum
             </a>
             <a href="users.php" class="nav-item">
@@ -33,6 +33,9 @@
             </a>
             <a href="trips.php" class="nav-item">
                 <i class="ri-map-pin-line"></i> Viagens
+            </a>
+            <a href="reviews.php" class="nav-item">
+                <i class="ri-star-line"></i> Avaliações
             </a>
             <a href="../index.php" class="nav-item">
                 <i class="ri-arrow-left-line"></i> Voltar ao Site

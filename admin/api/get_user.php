@@ -19,7 +19,7 @@ if (!$id) {
 
 try {
     // Fetch user details
-    $stmt = $conn->prepare("SELECT id, nome_exibicao, email, is_admin, bio, avatar_url, data_criacao FROM usuarios WHERE id = ?");
+    $stmt = $conn->prepare("SELECT id, nome_exibicao, email, is_admin, is_banned, bio, avatar_url, data_criacao FROM usuarios WHERE id = ?");
     $stmt->execute([$id]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 

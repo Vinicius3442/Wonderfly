@@ -32,7 +32,7 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
             <a href="blog.php" class="nav-item">
                 <i class="ri-article-line"></i> Blog
             </a>
-            <a href="#" class="nav-item">
+            <a href="forum.php" class="nav-item">
                 <i class="ri-discuss-line"></i> Fórum
             </a>
             <a href="users.php" class="nav-item active">
@@ -40,6 +40,9 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
             </a>
             <a href="trips.php" class="nav-item">
                 <i class="ri-map-pin-line"></i> Viagens
+            </a>
+            <a href="reviews.php" class="nav-item">
+                <i class="ri-star-line"></i> Avaliações
             </a>
             <a href="../index.php" class="nav-item">
                 <i class="ri-arrow-left-line"></i> Voltar ao Site
@@ -135,34 +138,43 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
 
             users.forEach(user => {
                 const tr = document.createElement('tr');
-                // Fix avatar path if we were showing it, but we are not in the table. 
-                // Wait, the user said "carregamento de imagens está falho na users.php".
-                // The table currently DOES NOT show images. 
-                // Maybe the user meant the profile avatar in the header?
-                // Or maybe they WANT images in the table?
-                // The prompt said "carregamento de imagens está falho na users.php".
-                // Let's look at users.php again. 
-                // Line 58: <img src="<?php echo htmlspecialchars($_SESSION['user_avatar']); ?>" ...>
-                // This is the admin's own avatar. If that's broken, it's because session has relative path.
-                // Also user_details.php has the user avatar.
-                
-                // Let's check the session avatar path in admin/users.php header.
-                // It uses PHP echo. I should fix it in PHP or JS. 
-                // But the user might be referring to user_details.php where the avatar is loaded via JS.
+                if (user.is_banned == 1) {
+                    tr.style.backgroundColor = 'rgba(255, 77, 77, 0.1)';
+                }
                 
                 tr.innerHTML = `
                     <td>#${user.id}</td>
-                    <td class="fw-bold">${user.nome_exibicao}</td>
+                    <td>
+                        <div class="user-info">
+                            <div class="user-details">
+                                <span class="user-name">
+                                    ${user.nome_exibicao}
+                                    ${user.is_banned == 1 ? '<span style="background:#ff4d4d;color:white;padding:2px 6px;border-radius:4px;font-size:0.7rem;margin-left:5px;">BANIDO</span>' : ''}
+                                </span>
+                            </div>
+                        </div>
+                    </td>
                     <td>${user.email}</td>
-                    <td><span class="badge ${user.tipo === 'admin' ? 'badge-admin' : 'badge-user'}">${user.tipo}</span></td>
+                    <td><span class="status-badge status-${user.tipo}">${user.tipo}</span></td>
                     <td>${new Date(user.data_criacao).toLocaleDateString('pt-BR')}</td>
-                    <td class="actions-cell">
-                        <a href="user_details.php?id=${user.id}" class="btn-icon" title="Ver Detalhes">
-                            <i class="ri-eye-line"></i>
-                        </a>
-                        <button class="btn-icon delete" onclick="deleteUser(${user.id})" title="Excluir">
-                            <i class="ri-delete-bin-line"></i>
-                        </button>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="user_details.php?id=${user.id}" class="btn-icon view" title="Ver Detalhes">
+                                <i class="ri-eye-line"></i>
+                            </a>
+                            
+                            ${user.is_banned == 0 ? `
+                            <button class="btn-icon delete" onclick="banUser(${user.id})" title="Banir Usuário">
+                                <i class="ri-prohibited-line"></i>
+                            </button>` : `
+                            <button class="btn-icon" onclick="unbanUser(${user.id})" title="Desbanir Usuário" style="color: #4CAF50;">
+                                <i class="ri-checkbox-circle-line"></i>
+                            </button>`}
+
+                            <button class="btn-icon delete" onclick="deleteUser(${user.id})" title="Excluir">
+                                <i class="ri-delete-bin-line"></i>
+                            </button>
+                        </div>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -185,22 +197,52 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
             try {
                 const response = await fetch('api/users.php', {
                     method: 'DELETE',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id })
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id: id })
                 });
+
                 const result = await response.json();
 
                 if (result.success) {
                     fetchUsers();
                 } else {
-                    alert('Erro ao excluir: ' + result.error);
+                    alert('Erro ao excluir usuário: ' + result.error);
                 }
             } catch (error) {
-                console.error('Error deleting:', error);
+                console.error('Error deleting user:', error);
+                alert('Erro ao excluir usuário');
             }
         }
 
-        // Export Functions
+        async function banUser(userId) {
+            if (!confirm('Tem certeza que deseja BANIR este usuário?')) return;
+            toggleBan(userId, 'ban');
+        }
+
+        async function unbanUser(userId) {
+            if (!confirm('Tem certeza que deseja DESBANIR este usuário?')) return;
+            toggleBan(userId, 'unban');
+        }
+
+        async function toggleBan(userId, action) {
+            try {
+                const response = await fetch('api/moderate_user.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user_id: userId, action })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    fetchUsers();
+                } else {
+                    alert('Erro: ' + result.error);
+                }
+            } catch (error) {
+                console.error('Error moderating user:', error);
+            }
+        } // Export Functions
         function exportToCSV() {
             let csvContent = "data:text/csv;charset=utf-8,ID,Nome,Email,Tipo,Data Criação\n";
             allUsers.forEach(user => {

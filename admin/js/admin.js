@@ -18,7 +18,6 @@ async function fetchStats() {
 
         updateDashboard(data);
         updateUserProfile(data.current_user);
-        renderCharts(data);
 
     } catch (error) {
         console.error('Network error:', error);
@@ -45,42 +44,4 @@ function updateDashboard(data) {
     document.getElementById('total-topics').textContent = data.total_topics;
 }
 
-function renderCharts(data) {
-    const ctx = document.getElementById('tripsChart').getContext('2d');
 
-    // Prepare data for chart
-    const labels = data.trips_by_continent.map(item => item.continente);
-    const counts = data.trips_by_continent.map(item => item.count);
-
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Viagens por Continente',
-                data: counts,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.7)',
-                    'rgba(54, 162, 235, 0.7)',
-                    'rgba(255, 206, 86, 0.7)',
-                    'rgba(75, 192, 192, 0.7)',
-                    'rgba(153, 102, 255, 0.7)',
-                    'rgba(255, 159, 64, 0.7)'
-                ],
-                borderColor: 'rgba(255, 255, 255, 0.1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        color: '#e0e0e0'
-                    }
-                }
-            }
-        }
-    });
-}

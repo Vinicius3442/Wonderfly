@@ -13,17 +13,16 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'GET') {
     try {
-        $stmt = $conn->query("SELECT id, nome_exibicao, email, is_admin, is_banned, data_criacao FROM usuarios ORDER BY data_criacao DESC");
-        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        // Map is_admin to 'tipo' for frontend compatibility if needed, or just send is_admin
-        // The frontend expects 'tipo' (admin/user). Let's process it.
-        $result = array_map(function($user) {
-            $user['tipo'] = $user['is_admin'] ? 'admin' : 'usuario';
-            return $user;
-        }, $users);
+        $stmt = $conn->query("
+            SELECT a.id, a.nota, a.mensagem, a.data_criacao, u.nome_exibicao, v.titulo as viagem_titulo
+            FROM avaliacoes a
+            LEFT JOIN usuarios u ON a.usuario_id = u.id
+            LEFT JOIN viagens v ON a.viagem_id = v.id
+            ORDER BY a.data_criacao DESC
+        ");
+        $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode($reviews);
 
-        echo json_encode($result);
     } catch (PDOException $e) {
         http_response_code(500);
         echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
@@ -38,23 +37,14 @@ if ($method === 'GET') {
         exit;
     }
 
-    // Prevent deleting self
-    if ($id == $_SESSION['user_id']) {
-        http_response_code(400);
-        echo json_encode(['error' => 'Cannot delete yourself']);
-        exit;
-    }
-
     try {
-        $stmt = $conn->prepare("DELETE FROM usuarios WHERE id = ?");
+        $stmt = $conn->prepare("DELETE FROM avaliacoes WHERE id = ?");
         $stmt->execute([$id]);
         echo json_encode(['success' => true]);
+
     } catch (PDOException $e) {
         http_response_code(500);
         echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
     }
-} else {
-    http_response_code(405);
-    echo json_encode(['error' => 'Method not allowed']);
 }
 ?>

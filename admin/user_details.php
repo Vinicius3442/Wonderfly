@@ -111,7 +111,7 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
             <a href="blog.php" class="nav-item">
                 <i class="ri-article-line"></i> Blog
             </a>
-            <a href="#" class="nav-item">
+            <a href="forum.php" class="nav-item">
                 <i class="ri-discuss-line"></i> Fórum
             </a>
             <a href="users.php" class="nav-item active">
@@ -119,6 +119,9 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
             </a>
             <a href="trips.php" class="nav-item">
                 <i class="ri-map-pin-line"></i> Viagens
+            </a>
+            <a href="reviews.php" class="nav-item">
+                <i class="ri-star-line"></i> Avaliações
             </a>
             <a href="../index.php" class="nav-item">
                 <i class="ri-arrow-left-line"></i> Voltar ao Site
@@ -210,30 +213,67 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
             }
         }
 
-        function fixImagePath(url) {
-            if (!url) return '../images/profile/avatar-default.jpg';
-            if (url.startsWith('http')) return url;
-            if (url.startsWith('./')) url = url.substring(2);
-            if (url.startsWith('/')) url = url.substring(1);
-            return '../' + url;
+        function fixImagePath(path) {
+            if (!path) return '../images/profile/default.jpg';
+            if (path.startsWith('./')) {
+                return '.' + path;
+            }
+            if (path.startsWith('/')) {
+                return '..' + path;
+            }
+            return path;
+        }
+
+        async function banUser(userId) {
+            if (!confirm('Tem certeza que deseja BANIR este usuário?')) return;
+            toggleBan(userId, 'ban');
+        }
+
+        async function unbanUser(userId) {
+            if (!confirm('Tem certeza que deseja DESBANIR este usuário?')) return;
+            toggleBan(userId, 'unban');
+        }
+
+        async function toggleBan(userId, action) {
+            try {
+                const response = await fetch('api/moderate_user.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user_id: userId, action })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    fetchUserDetails(); // Reload details
+                } else {
+                    alert('Erro: ' + result.error);
+                }
+            } catch (error) {
+                console.error('Error moderating user:', error);
+            }
         }
 
         function renderProfile(user) {
             document.getElementById('loading').style.display = 'none';
             document.getElementById('profileContent').style.display = 'block';
 
-            document.getElementById('userName').textContent = user.nome_exibicao;
+            // Update header info
+            document.getElementById('userName').innerHTML = `
+                ${user.nome_exibicao} 
+                ${user.is_banned == 1 ? '<span style="background:#ff4d4d;color:white;padding:2px 6px;border-radius:4px;font-size:0.8rem;vertical-align:middle;margin-left:5px;">BANIDO</span>' : ''}
+            `;
             document.getElementById('userEmail').textContent = user.email;
             document.getElementById('userDate').textContent = new Date(user.data_criacao).toLocaleDateString('pt-BR');
             document.getElementById('userBio').textContent = user.bio || 'Nenhuma biografia disponível.';
             
+            // Update avatar
+            const avatarImg = document.getElementById('userAvatar');
             let avatar = user.avatar_url;
             if (!avatar) {
                 avatar = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.nome_exibicao);
             } else {
                 avatar = fixImagePath(avatar);
             }
-            document.getElementById('userAvatar').src = avatar;
+            avatarImg.src = avatar;
 
             const typeBadge = document.getElementById('userType');
             typeBadge.textContent = user.tipo;
