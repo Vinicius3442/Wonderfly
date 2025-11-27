@@ -83,11 +83,11 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>Tipo</th>
-                        <th>Data Criação</th>
+                        <th data-sort="id">ID</th>
+                        <th data-sort="nome_exibicao">Nome</th>
+                        <th data-sort="email">Email</th>
+                        <th data-sort="is_admin">Tipo</th>
+                        <th data-sort="data_criacao">Data Criação</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -99,26 +99,115 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
 
     </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', fetchUsers);
+        <!-- Pagination Controls -->
+        <div class="pagination-controls">
+            <div class="page-info">
+                Mostrando <span id="startItem">0</span> - <span id="endItem">0</span> de <span id="totalItems">0</span>
+            </div>
+            <div class="page-buttons">
+                <button id="prevPage" disabled><i class="ri-arrow-left-s-line"></i> Anterior</button>
+                <span id="currentPage">1</span>
+                <button id="nextPage" disabled>Próximo <i class="ri-arrow-right-s-line"></i></button>
+            </div>
+            <div class="limit-selector">
+                <select id="limitSelect">
+                    <option value="10">10 por página</option>
+                    <option value="20">20 por página</option>
+                    <option value="50">50 por página</option>
+                </select>
+            </div>
+        </div>
 
-        let allUsers = [];
+    </main>
+
+    <script>
+        let currentPage = 1;
+        let limit = 10;
+        let sort = 'data_criacao';
+        let order = 'DESC';
+        let allUsers = []; // Keep for export if needed, but pagination makes this tricky. We might export only current page or need a separate export API.
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchUsers();
+            setupPaginationListeners();
+        });
+
+        function setupPaginationListeners() {
+            document.getElementById('prevPage').addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    fetchUsers();
+                }
+            });
+            document.getElementById('nextPage').addEventListener('click', () => {
+                currentPage++;
+                fetchUsers();
+            });
+            document.getElementById('limitSelect').addEventListener('change', (e) => {
+                limit = parseInt(e.target.value);
+                currentPage = 1;
+                fetchUsers();
+            });
+            
+            // Add sorting listeners to headers
+            const headers = document.querySelectorAll('th[data-sort]');
+            headers.forEach(th => {
+                th.style.cursor = 'pointer';
+                th.addEventListener('click', () => {
+                    const newSort = th.dataset.sort;
+                    if (sort === newSort) {
+                        order = order === 'ASC' ? 'DESC' : 'ASC';
+                    } else {
+                        sort = newSort;
+                        order = 'ASC'; // Default to ASC for new column
+                    }
+                    // Update icons
+                    headers.forEach(h => h.querySelector('i')?.remove());
+                    const icon = document.createElement('i');
+                    icon.className = order === 'ASC' ? 'ri-arrow-up-s-fill' : 'ri-arrow-down-s-fill';
+                    th.appendChild(icon);
+                    
+                    fetchUsers();
+                });
+            });
+        }
 
         async function fetchUsers() {
             try {
-                const response = await fetch('api/users.php');
-                const data = await response.json();
+                const response = await fetch(`api/users.php?page=${currentPage}&limit=${limit}&sort=${sort}&order=${order}`);
+                const result = await response.json();
                 
-                if (data.error) {
-                    alert(data.error);
+                if (result.error) {
+                    alert(result.error);
                     return;
                 }
 
-                allUsers = data;
-                renderTable(allUsers);
+                const users = result.data;
+                const pagination = result.pagination;
+
+                renderTable(users);
+                updatePaginationUI(pagination);
+                
+                // Update global for export (Note: this only exports current page now)
+                allUsers = users; 
+
             } catch (error) {
                 console.error('Error fetching users:', error);
             }
+        }
+
+        function updatePaginationUI(pagination) {
+            document.getElementById('currentPage').textContent = pagination.current_page;
+            document.getElementById('totalItems').textContent = pagination.total_items;
+            
+            const start = (pagination.current_page - 1) * pagination.limit + 1;
+            const end = Math.min(start + pagination.limit - 1, pagination.total_items);
+            
+            document.getElementById('startItem').textContent = pagination.total_items > 0 ? start : 0;
+            document.getElementById('endItem').textContent = end;
+
+            document.getElementById('prevPage').disabled = pagination.current_page <= 1;
+            document.getElementById('nextPage').disabled = pagination.current_page >= pagination.total_pages;
         }
 
         function fixImagePath(url) {

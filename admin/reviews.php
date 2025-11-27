@@ -87,23 +87,118 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
             </div>
         </div>
 
+        <!-- Sorting Controls -->
+        <div class="actions-bar" style="margin-bottom: 20px;">
+            <div class="search-box">
+                <label for="sortSelect" style="margin-right: 10px;">Ordenar por:</label>
+                <select id="sortSelect" onchange="changeSort()">
+                    <option value="data_criacao">Data</option>
+                    <option value="nota">Nota</option>
+                </select>
+                <button id="orderBtn" class="btn-icon" onclick="toggleOrder()" title="Inverter Ordem" style="margin-left: 10px;">
+                    <i class="ri-arrow-down-line" id="orderIcon"></i>
+                </button>
+            </div>
+        </div>
+
         <div id="reviewsList">
             <p>Carregando...</p>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination-controls">
+            <div class="page-info">
+                Mostrando <span id="startItem">0</span> - <span id="endItem">0</span> de <span id="totalItems">0</span>
+            </div>
+            <div class="page-buttons">
+                <button id="prevPage" disabled><i class="ri-arrow-left-s-line"></i> Anterior</button>
+                <span id="currentPage">1</span>
+                <button id="nextPage" disabled>Próximo <i class="ri-arrow-right-s-line"></i></button>
+            </div>
+            <div class="limit-selector">
+                <select id="limitSelect" onchange="changeLimit()">
+                    <option value="10">10 por página</option>
+                    <option value="20">20 por página</option>
+                    <option value="50">50 por página</option>
+                </select>
+            </div>
         </div>
 
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', fetchReviews);
+        let currentPage = 1;
+        let limit = 10;
+        let sort = 'data_criacao';
+        let order = 'DESC';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchReviews();
+            setupPaginationListeners();
+        });
+
+        function setupPaginationListeners() {
+            document.getElementById('prevPage').addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    fetchReviews();
+                }
+            });
+            document.getElementById('nextPage').addEventListener('click', () => {
+                currentPage++;
+                fetchReviews();
+            });
+        }
+
+        function changeSort() {
+            sort = document.getElementById('sortSelect').value;
+            currentPage = 1;
+            fetchReviews();
+        }
+
+        function toggleOrder() {
+            order = order === 'ASC' ? 'DESC' : 'ASC';
+            const icon = document.getElementById('orderIcon');
+            icon.className = order === 'ASC' ? 'ri-arrow-up-line' : 'ri-arrow-down-line';
+            fetchReviews();
+        }
+
+        function changeLimit() {
+            limit = parseInt(document.getElementById('limitSelect').value);
+            currentPage = 1;
+            fetchReviews();
+        }
 
         async function fetchReviews() {
             try {
-                const response = await fetch('api/reviews.php');
-                const data = await response.json();
-                renderReviews(data);
+                const response = await fetch(`api/reviews.php?page=${currentPage}&limit=${limit}&sort=${sort}&order=${order}`);
+                const result = await response.json();
+                
+                if (result.error) {
+                    alert(result.error);
+                    return;
+                }
+
+                renderReviews(result.data);
+                updatePaginationUI(result.pagination);
+
             } catch (error) {
                 console.error('Error fetching reviews:', error);
             }
+        }
+
+        function updatePaginationUI(pagination) {
+            document.getElementById('currentPage').textContent = pagination.current_page;
+            document.getElementById('totalItems').textContent = pagination.total_items;
+            
+            const start = (pagination.current_page - 1) * pagination.limit + 1;
+            const end = Math.min(start + pagination.limit - 1, pagination.total_items);
+            
+            document.getElementById('startItem').textContent = pagination.total_items > 0 ? start : 0;
+            document.getElementById('endItem').textContent = end;
+
+            document.getElementById('prevPage').disabled = pagination.current_page <= 1;
+            document.getElementById('nextPage').disabled = pagination.current_page >= pagination.total_pages;
         }
 
         function renderReviews(reviews) {

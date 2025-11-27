@@ -1,15 +1,58 @@
 document.addEventListener('DOMContentLoaded', () => {
     fetchPosts();
-    fetchCurrentUser(); // Reuse logic or create a shared utility? For now, I'll duplicate simple fetch
-
-    document.getElementById('searchInput').addEventListener('input', filterTable);
+    fetchCurrentUser();
+    setupPaginationListeners();
+    document.getElementById('searchInput').addEventListener('input', filterGrid);
 });
 
+let currentPage = 1;
+let limit = 10;
+let sort = 'data_publicacao';
+let order = 'DESC';
 let allPosts = [];
+
+function setupPaginationListeners() {
+    const prevBtn = document.getElementById('prevPage');
+    const nextBtn = document.getElementById('nextPage');
+    const limitSelect = document.getElementById('limitSelect');
+
+    if (prevBtn) prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            fetchPosts();
+        }
+    });
+
+    if (nextBtn) nextBtn.addEventListener('click', () => {
+        currentPage++;
+        fetchPosts();
+    });
+
+    if (limitSelect) limitSelect.addEventListener('change', (e) => {
+        limit = parseInt(e.target.value);
+        currentPage = 1;
+        fetchPosts();
+    });
+
+    // Sorting is now handled by changeSort() and toggleOrder()
+}
+
+function changeSort() {
+    sort = document.getElementById('sortSelect').value;
+    currentPage = 1;
+    fetchPosts();
+}
+
+function toggleOrder() {
+    order = order === 'ASC' ? 'DESC' : 'ASC';
+    const icon = document.getElementById('orderIcon');
+    icon.className = order === 'ASC' ? 'ri-arrow-up-line' : 'ri-arrow-down-line';
+    fetchPosts();
+}
 
 async function fetchCurrentUser() {
     try {
-        const response = await fetch('api/stats.php'); // Reusing stats endpoint for user info
+        const response = await fetch('api/stats.php');
         const data = await response.json();
         if (data.current_user) {
             updateUserProfile(data.current_user);
@@ -32,54 +75,94 @@ function updateUserProfile(user) {
 
 async function fetchPosts() {
     try {
-        const response = await fetch('api/blog_posts.php');
-        const data = await response.json();
+        const response = await fetch(`api/blog_posts.php?page=${currentPage}&limit=${limit}&sort=${sort}&order=${order}`);
+        const result = await response.json();
 
-        if (data.error) {
-            console.error('Error:', data.error);
-            if (data.error === 'Unauthorized') window.location.href = '../Login/login.php';
+        if (result.error) {
+            console.error('Error:', result.error);
+            if (result.error === 'Unauthorized') window.location.href = '../Login/login.php';
             return;
         }
 
-        allPosts = data;
-        renderTable(allPosts);
+        const posts = result.data;
+        const pagination = result.pagination;
+
+        allPosts = posts; // Update for export (current page only)
+        renderGrid(posts);
+        updatePaginationUI(pagination);
 
     } catch (error) {
         console.error('Network error:', error);
     }
 }
 
-function renderTable(posts) {
-    const tbody = document.getElementById('blogTableBody');
-    tbody.innerHTML = '';
+function updatePaginationUI(pagination) {
+    document.getElementById('currentPage').textContent = pagination.current_page;
+    document.getElementById('totalItems').textContent = pagination.total_items;
+
+    const start = (pagination.current_page - 1) * pagination.limit + 1;
+    const end = Math.min(start + pagination.limit - 1, pagination.total_items);
+
+    document.getElementById('startItem').textContent = pagination.total_items > 0 ? start : 0;
+    document.getElementById('endItem').textContent = end;
+
+    document.getElementById('prevPage').disabled = pagination.current_page <= 1;
+    document.getElementById('nextPage').disabled = pagination.current_page >= pagination.total_pages;
+}
+
+function renderGrid(posts) {
+    const container = document.getElementById('blogGrid');
+    container.innerHTML = '';
+
+    if (posts.length === 0) {
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">Nenhum artigo encontrado.</p>';
+        return;
+    }
 
     posts.forEach(post => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>#${post.id}</td>
-            <td class="fw-bold">${post.titulo}</td>
-            <td>${post.autor || 'Desconhecido'}</td>
-            <td>${new Date(post.data_publicacao).toLocaleDateString('pt-BR')}</td>
-            <td class="actions-cell">
-                <a href="blog_editor.php?id=${post.id}" class="btn-icon edit" title="Editar">
-                    <i class="ri-pencil-line"></i>
-                </a>
-                <button onclick="deletePost(${post.id})" class="btn-icon delete" title="Excluir">
-                    <i class="ri-delete-bin-line"></i>
-                </button>
-            </td>
+        const div = document.createElement('div');
+        div.className = 'blog-card';
+
+        // Use default image if none provided
+        const image = post.imagem_destaque_url || '../images/placeholder-blog.jpg';
+
+        div.innerHTML = `
+            <img src="${image}" alt="${post.titulo}" class="blog-card-image">
+            <div class="blog-card-content">
+                <div class="blog-card-meta">
+                    <span><i class="ri-calendar-line"></i> ${new Date(post.data_publicacao).toLocaleDateString('pt-BR')}</span>
+                    <span>#${post.id}</span>
+                </div>
+                <h3 class="blog-card-title">${post.titulo}</h3>
+                
+                <div class="blog-card-author">
+                    <div style="flex:1">
+                        <span style="display:block; font-size: 0.75rem; color: var(--text-muted);">Autor</span>
+                        <span style="color: var(--text-light); font-weight: 500;">${post.autor || 'Desconhecido'}</span>
+                    </div>
+                    
+                    <div class="blog-card-actions">
+                        <a href="blog_editor.php?id=${post.id}" title="Editar">
+                            <i class="ri-pencil-line"></i>
+                        </a>
+                        <button onclick="deletePost(${post.id})" class="delete" title="Excluir">
+                            <i class="ri-delete-bin-line"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
         `;
-        tbody.appendChild(tr);
+        container.appendChild(div);
     });
 }
 
-function filterTable(e) {
+function filterGrid(e) {
     const term = e.target.value.toLowerCase();
     const filtered = allPosts.filter(post =>
         post.titulo.toLowerCase().includes(term) ||
         (post.autor && post.autor.toLowerCase().includes(term))
     );
-    renderTable(filtered);
+    renderGrid(filtered);
 }
 
 async function deletePost(id) {

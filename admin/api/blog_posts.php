@@ -13,20 +13,54 @@ try {
     $method = $_SERVER['REQUEST_METHOD'];
 
     if ($method === 'GET') {
-        // Fetch all blog posts with author name
+        // Pagination & Sorting Parameters
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
+        $sort = isset($_GET['sort']) ? $_GET['sort'] : 'data_publicacao';
+        $order = isset($_GET['order']) && strtoupper($_GET['order']) === 'ASC' ? 'ASC' : 'DESC';
+
+        // Validate Sort Column
+        $allowed_sorts = ['id', 'titulo', 'data_publicacao'];
+        if (!in_array($sort, $allowed_sorts)) {
+            $sort = 'data_publicacao';
+        }
+
+        $offset = ($page - 1) * $limit;
+
+        // 1. Get Total Count
+        $countStmt = $conn->query("SELECT COUNT(*) FROM artigos_blog");
+        $total_items = $countStmt->fetchColumn();
+        $total_pages = ceil($total_items / $limit);
+
+        // 2. Get Data
         $sql = "
             SELECT 
                 b.id, 
                 b.titulo, 
                 b.data_publicacao, 
+                b.imagem_destaque_url,
                 u.nome_exibicao as autor
             FROM artigos_blog b
             LEFT JOIN usuarios u ON b.autor_id = u.id
-            ORDER BY b.data_publicacao DESC
+            ORDER BY b.$sort $order 
+            LIMIT :limit OFFSET :offset
         ";
-        $stmt = $conn->query($sql);
-        $posts = $stmt->fetchAll();
-        echo json_encode($posts);
+        
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo json_encode([
+            'data' => $posts,
+            'pagination' => [
+                'current_page' => $page,
+                'total_pages' => $total_pages,
+                'total_items' => $total_items,
+                'limit' => $limit
+            ]
+        ]);
     } 
     elseif ($method === 'DELETE') {
         // Delete a blog post

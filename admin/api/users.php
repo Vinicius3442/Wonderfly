@@ -13,17 +13,52 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'GET') {
     try {
-        $stmt = $conn->query("SELECT id, nome_exibicao, email, is_admin, is_banned, data_criacao FROM usuarios ORDER BY data_criacao DESC");
+        // Pagination & Sorting Parameters
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
+        $sort = isset($_GET['sort']) ? $_GET['sort'] : 'data_criacao';
+        $order = isset($_GET['order']) && strtoupper($_GET['order']) === 'ASC' ? 'ASC' : 'DESC';
+
+        // Validate Sort Column (Security)
+        $allowed_sorts = ['id', 'nome_exibicao', 'email', 'data_criacao', 'is_admin'];
+        if (!in_array($sort, $allowed_sorts)) {
+            $sort = 'data_criacao';
+        }
+
+        $offset = ($page - 1) * $limit;
+
+        // 1. Get Total Count
+        $countStmt = $conn->query("SELECT COUNT(*) FROM usuarios");
+        $total_items = $countStmt->fetchColumn();
+        $total_pages = ceil($total_items / $limit);
+
+        // 2. Get Data
+        $sql = "SELECT id, nome_exibicao, email, is_admin, is_banned, data_criacao 
+                FROM usuarios 
+                ORDER BY $sort $order 
+                LIMIT :limit OFFSET :offset";
+        
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        // Map is_admin to 'tipo' for frontend compatibility if needed, or just send is_admin
-        // The frontend expects 'tipo' (admin/user). Let's process it.
-        $result = array_map(function($user) {
+        $result_data = array_map(function($user) {
             $user['tipo'] = $user['is_admin'] ? 'admin' : 'usuario';
             return $user;
         }, $users);
 
-        echo json_encode($result);
+        echo json_encode([
+            'data' => $result_data,
+            'pagination' => [
+                'current_page' => $page,
+                'total_pages' => $total_pages,
+                'total_items' => $total_items,
+                'limit' => $limit
+            ]
+        ]);
+
     } catch (PDOException $e) {
         http_response_code(500);
         echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);

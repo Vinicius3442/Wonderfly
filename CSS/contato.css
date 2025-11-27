@@ -1,202 +1,229 @@
+/* =============================================
+   ARQUIVO: CSS/contato.css
+   Estilos para a página de contato.
+   ============================================= */
+
+/* --- 1. Hero da Página --- */
 .hero-contact {
     position: relative;
     text-align: center;
     color: #fff;
-    padding: 80px 20px;
-    background: linear-gradient(rgba(0, 0, 0, 0.664), rgba(0, 0, 0, 0.726)), url('https://amanha.com.br/images/u/171/Executivo-estendendo-a-mao-com-funcionarios-desfocados-ao-fundo.jpg') center/cover no-repeat;
-    filter: brightness(0.9);
-}
-.review-highlight.alt {
-    background-color: #f4f7f9; /* Mesmo cinza do .section.alt */
-}
-
-.reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
+    padding: 120px 20px 80px;
+    background: linear-gradient(135deg, rgba(11, 89, 139, 0.9), rgba(22, 124, 191, 0.8)),
+        url('https://amanha.com.br/images/u/171/Executivo-estendendo-a-mao-com-funcionarios-desfocados-ao-fundo.jpg') center/cover no-repeat;
+    background-attachment: fixed;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    margin-bottom: 40px;
 }
 
-.review-card {
-    background: #fff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    display: flex;
-    flex-direction: column;
-}
-
-.review-stars {
-    margin-bottom: 15px;
-    color: #f07913; /* Laranja WonderFly */
-}
-.review-stars i {
-    font-size: 1.2rem;
-}
-
-.review-text {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #444;
-    margin: 0;
-    flex-grow: 1; /* Empurra o autor para baixo */
-}
-
-.review-author {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #f0f0f0;
-}
-.review-author img {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-.review-author div {
-    line-height: 1.3;
-}
-.review-author strong {
-    display: block;
-    font-size: 0.9rem;
-    color: #333;
-}
-.review-author span {
-    font-size: 0.85rem;
-    color: #666;
-}
 .hero-contact-content {
     max-width: 800px;
     margin: 0 auto;
 }
 
 .hero-contact h1 {
-    font-size: 2.5rem;
-    margin-bottom: 12px;
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: -1px;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .hero-contact p {
-    max-width: 600px;
-    margin: 0 auto 24px;
-    font-size: 1.1rem;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    opacity: 0.95;
+    font-weight: 300;
 }
 
+/* --- 2. Cards de Contato --- */
 .contact-details {
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding-top: 40px;
+    padding-bottom: 80px;
 }
 
 .contact-grid {
     display: grid;
-    gap: 24px;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    text-align: center;
+    gap: 30px;
+    grid-template-columns: repeat(4, 1fr);
+    /* Force 4 columns as requested */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+@media (max-width: 992px) {
+    .contact-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .contact-card {
     background: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+    padding: 40px 30px;
+    border-radius: var(--radius-lg, 24px);
+    box-shadow: var(--shadow-sm);
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    height: 100%;
+}
+
+.contact-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
 }
 
 .contact-card i {
-    font-size: 2.2rem;
-    color: #167cbf;
-    margin-bottom: 15px;
+    font-size: 2.5rem;
+    color: var(--primary-blue);
+    margin-bottom: 20px;
+    background: rgba(11, 89, 139, 0.1);
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.contact-card:hover i {
+    background: var(--primary-blue);
+    color: #fff;
+    transform: scale(1.1);
 }
 
 .contact-card h4 {
-    font-size: 1.2rem;
-    margin-bottom: 8px;
-    color: #333;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: var(--text-main);
+    font-weight: 700;
 }
 
 .contact-card p {
-    font-size: 0.9rem;
-    color: #555;
-    margin-bottom: 10px;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    line-height: 1.6;
+    flex-grow: 1;
 }
 
 .contact-card .link {
-    color: #f07913; /* Cor secundária do seu gradiente */
+    color: var(--accent-orange);
     font-weight: 600;
-    transition: color 0.3s;
+    transition: all 0.3s;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 50px;
+    background: rgba(240, 121, 19, 0.1);
 }
 
 .contact-card .link:hover {
-    color: #0b598b; /* Uma cor intermediária do seu gradiente */
+    background: var(--accent-orange);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(240, 121, 19, 0.3);
 }
 
-/* Contact Form Section */
+/* --- 3. Formulário de Contato --- */
 .contact-form-section {
     padding-top: 60px;
-    padding-bottom: 80px;
-    background: #f9f9f9; /* Mantém o estilo "alt" */
+    padding-bottom: 100px;
+    background: var(--bg-body);
+}
+
+.contact-form-section .section-head {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.contact-form-section h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-main);
 }
 
 .contact-form {
     max-width: 700px;
     margin: 0 auto;
     background: #fff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    padding: 50px;
+    border-radius: var(--radius-lg, 24px);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-weight: 600;
-    color: #333;
+    color: var(--text-main);
+    font-size: 0.95rem;
 }
 
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group textarea {
     width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    padding: 15px 20px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md, 12px);
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
-    color: #333;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    color: var(--text-main);
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: #3f5efb;
-    box-shadow: 0 0 0 3px rgba(63, 94, 251, 0.2);
+    border-color: var(--primary-blue);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(11, 89, 139, 0.1);
     outline: none;
 }
 
 .contact-form button.btn.primary {
-    width: auto;
-    display: flex; /* Para centralizar o ícone e texto */
-    margin: 0 auto; /* Para centralizar o botão */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 16px;
+    font-size: 1.1rem;
 }
 
-/* Responsividade para a página de contato */
+/* Responsividade */
 @media (max-width: 768px) {
     .hero-contact h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
 
     .hero-contact p {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
 
     .contact-form {
-        padding: 30px;
+        padding: 30px 20px;
+        margin: 0 20px;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
     }
 }

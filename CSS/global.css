@@ -348,7 +348,20 @@ button {
 .grid.cards {
   display: grid;
   gap: 32px;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
+  /* Force 4 columns as requested */
+}
+
+@media (max-width: 1200px) {
+  .grid.cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid.cards {
+    grid-template-columns: 1fr;
+  }
 }
 
 .card {

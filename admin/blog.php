@@ -74,22 +74,42 @@
             </div>
         </div>
 
-        <!-- Data Table -->
-        <div class="table-container">
-            <table id="blogTable">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Título</th>
-                        <th>Autor</th>
-                        <th>Data Publicação</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="blogTableBody">
-                    <!-- Rows will be populated by JS -->
-                </tbody>
-            </table>
+        <!-- Sorting Controls -->
+        <div class="actions-bar" style="margin-bottom: 20px;">
+            <div class="search-box">
+                <label for="sortSelect" style="margin-right: 10px;">Ordenar por:</label>
+                <select id="sortSelect" onchange="changeSort()">
+                    <option value="data_publicacao">Data</option>
+                    <option value="titulo">Título</option>
+                </select>
+                <button id="orderBtn" class="btn-icon" onclick="toggleOrder()" title="Inverter Ordem" style="margin-left: 10px;">
+                    <i class="ri-arrow-down-line" id="orderIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Blog Grid -->
+        <div id="blogGrid" class="blog-grid">
+            <!-- Cards will be populated by JS -->
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination-controls">
+            <div class="page-info">
+                Mostrando <span id="startItem">0</span> - <span id="endItem">0</span> de <span id="totalItems">0</span>
+            </div>
+            <div class="page-buttons">
+                <button id="prevPage" disabled><i class="ri-arrow-left-s-line"></i> Anterior</button>
+                <span id="currentPage">1</span>
+                <button id="nextPage" disabled>Próximo <i class="ri-arrow-right-s-line"></i></button>
+            </div>
+            <div class="limit-selector">
+                <select id="limitSelect">
+                    <option value="10">10 por página</option>
+                    <option value="20">20 por página</option>
+                    <option value="50">50 por página</option>
+                </select>
+            </div>
         </div>
 
     </main>

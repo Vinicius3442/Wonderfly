@@ -13,11 +13,46 @@ try {
     $method = $_SERVER['REQUEST_METHOD'];
 
     if ($method === 'GET') {
-        // Fetch all trips
-        $sql = "SELECT id, titulo, continente, preco, duracao, imagem_url FROM viagens ORDER BY titulo ASC";
-        $stmt = $conn->query($sql);
-        $trips = $stmt->fetchAll();
-        echo json_encode($trips);
+        // Pagination & Sorting Parameters
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
+        $sort = isset($_GET['sort']) ? $_GET['sort'] : 'titulo';
+        $order = isset($_GET['order']) && strtoupper($_GET['order']) === 'DESC' ? 'DESC' : 'ASC';
+
+        // Validate Sort Column
+        $allowed_sorts = ['id', 'titulo', 'continente', 'preco', 'duracao'];
+        if (!in_array($sort, $allowed_sorts)) {
+            $sort = 'titulo';
+        }
+
+        $offset = ($page - 1) * $limit;
+
+        // 1. Get Total Count
+        $countStmt = $conn->query("SELECT COUNT(*) FROM viagens");
+        $total_items = $countStmt->fetchColumn();
+        $total_pages = ceil($total_items / $limit);
+
+        // 2. Get Data
+        $sql = "SELECT id, titulo, continente, preco, duracao, imagem_url 
+                FROM viagens 
+                ORDER BY $sort $order 
+                LIMIT :limit OFFSET :offset";
+        
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        $trips = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo json_encode([
+            'data' => $trips,
+            'pagination' => [
+                'current_page' => $page,
+                'total_pages' => $total_pages,
+                'total_items' => $total_items,
+                'limit' => $limit
+            ]
+        ]);
     } 
     elseif ($method === 'DELETE') {
         // Delete a trip

@@ -1,81 +1,98 @@
 /* =============================================
-   ARQUIVO: CSS/avaliacoes.css (Versão Completa e Redefinida)
+   ARQUIVO: CSS/avaliacoes.css
    Estilos para a página de avaliações.
    ============================================= */
 
 /* --- 1. Hero da Página --- */
 .hero-avaliacoes {
-  padding: 80px 5%;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)),
-    url("https://wallpapers.com/images/hd/4k-beach-background-1lz5nyyjf5rgjv15.jpg") 
-      center/cover no-repeat;
-  background-attachment: fixed; /* Efeito parallax */
-  color: #fff;
+  position: relative;
   text-align: center;
+  color: #fff;
+  padding: 120px 20px 80px;
+  background: linear-gradient(135deg, rgba(11, 89, 139, 0.9), rgba(22, 124, 191, 0.8)),
+    url("https://wallpapers.com/images/hd/4k-beach-background-1lz5nyyjf5rgjv15.jpg") center/cover no-repeat;
+  background-attachment: fixed;
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  margin-bottom: 40px;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .hero-avaliacoes h1 {
-  font-size: 2.8rem;
+  font-size: 3.5rem;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  letter-spacing: -1px;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .hero-avaliacoes p {
-  font-size: 1.1rem;
-  opacity: 0.9;
-  max-width: 600px;
-  margin: 0 auto;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  opacity: 0.95;
+  font-weight: 300;
 }
 
 
 /* --- 2. Seção do Formulário de Avaliação --- */
-/* (Esta section engloba o formulário ou o aviso de login) */
+#criar-avaliacao {
+  padding-top: 20px;
+}
+
 #criar-avaliacao .section-head {
-  margin-bottom: 25px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+#criar-avaliacao .section-head h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-main);
 }
 
 /* O container do formulário */
 .form-container {
-  max-width: 750px;
+  max-width: 700px;
   margin: 0 auto;
   background: #fff;
-  padding: 30px 40px;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  padding: 40px;
+  border-radius: var(--radius-lg, 24px);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 /* O container do aviso de "Faça Login" */
 .form-container-login {
-  max-width: 750px;
+  max-width: 600px;
   margin: 0 auto;
   text-align: center;
   background: #fff;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  padding: 50px 30px;
+  border-radius: var(--radius-lg, 24px);
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .form-container-login p {
-  font-size: 1.15rem;
-  color: #333;
-  margin-bottom: 25px;
-}
-
-.form-container-login .btn {
-  font-size: 1rem;
-  padding: 12px 24px;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-bottom: 30px;
 }
 
 /* Campos do formulário */
 .form-container .form-group {
-  margin-bottom: 22px;
+  margin-bottom: 25px;
 }
 
 .form-container label {
   display: block;
   font-weight: 600;
-  margin-bottom: 8px;
-  color: #333;
+  margin-bottom: 10px;
+  color: var(--text-main);
+  font-size: 0.95rem;
 }
 
 /* Estilo unificado para inputs, textareas e selects */
@@ -83,153 +100,238 @@
 .form-container textarea,
 .form-container select {
   width: 100%;
-  padding: 12px 14px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  padding: 15px 20px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md, 12px);
   font-family: 'Poppins', sans-serif;
-  font-size: 0.95rem;
-  transition: border-color 0.3s, box-shadow 0.3s;
-  background-color: #fcfcfc;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9;
+  color: var(--text-main);
 }
 
 /* Seta para o <select> */
 .form-container select {
   appearance: none;
-  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-13%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2013l128%20128c3.6%203.6%207.8%205.4%2013%205.4s9.4-1.8%2013-5.4l128-128c3.6-3.6%205.4-7.8%205.4-13%200-5-1.8-9.4-5.4-13z%22%2F%3E%3C%2Fsvg%3E');
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z' fill='rgba(102,102,102,1)'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 14px top 50%;
-  background-size: 10px auto;
-  padding-right: 40px; 
+  background-position: right 15px center;
+  background-size: 20px;
+  padding-right: 45px;
 }
 
-.form-container input[type="text"]:focus,
+.form-container input:focus,
 .form-container textarea:focus,
 .form-container select:focus {
   outline: none;
-  border-color: var(--color-primary); /* Laranja */
-  box-shadow: 0 0 0 3px rgba(255, 103, 1, 0.2);
+  border-color: var(--primary-blue);
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(11, 89, 139, 0.1);
 }
 
 .form-container .btn {
   width: 100%;
   justify-content: center;
+  margin-top: 10px;
 }
 
 /* --- 3. Sistema de Estrelas (Rating) --- */
 .rating-stars {
   display: flex;
-  flex-direction: row-reverse; 
-  justify-content: flex-end; 
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 5px;
 }
 
 .rating-stars input[type="radio"] {
-  display: none; 
+  display: none;
 }
 
 .rating-stars label {
-  font-size: 1.8rem;
-  color: #ddd; 
+  font-size: 2rem;
+  color: #e0e0e0;
   cursor: pointer;
-  margin: 0 2px;
-  transition: color 0.2s;
+  margin: 0;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.rating-stars label:hover {
+  transform: scale(1.1);
 }
 
 /* Lógica de :hover para acender as estrelas */
-.rating-stars:not(:hover) input[type="radio"]:checked ~ label,
-.rating-stars:hover input[type="radio"] ~ label:hover,
-.rating-stars:hover input[type="radio"] ~ label:hover ~ label {
-  color: var(--color-primary); /* Laranja */
+.rating-stars:not(:hover) input[type="radio"]:checked~label,
+.rating-stars:hover input[type="radio"]~label:hover,
+.rating-stars:hover input[type="radio"]~label:hover~label {
+  color: #FFD700;
+  /* Gold */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 
 /* --- 4. Seção da Lista de Avaliações --- */
 .section.alt {
-  padding-bottom: 60px;
+  padding-bottom: 80px;
+  background: var(--bg-body);
 }
 
 /* Abas de Filtro (Todas / Minhas) */
 .profile-tabs-nav {
   display: flex;
-  gap: 10px;
-  border-bottom: 2px solid #eee;
-  max-width: 900px;
-  margin: -10px auto 30px auto;
-  padding: 0 20px;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 50px;
+  border-bottom: none;
 }
 
 .tab-link {
   text-decoration: none;
-  background: none;
-  border: none;
-  padding: 12px 20px;
-  font-size: 1.1rem;
+  background: #fff;
+  border: 1px solid var(--border-light);
+  padding: 10px 25px;
+  font-size: 1rem;
   font-weight: 600;
-  color: #777;
+  color: var(--text-muted);
   cursor: pointer;
-  border-bottom: 3px solid transparent;
-  transition: 0.3s;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
 }
 
 .tab-link:hover {
-  color: #333;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  color: var(--primary-blue);
 }
 
 .tab-link.active {
-  color: var(--color-primary);
-  border-bottom-color: var(--color-primary);
+  background: var(--primary-blue);
+  color: #fff;
+  border-color: var(--primary-blue);
+  box-shadow: 0 4px 15px rgba(11, 89, 139, 0.3);
 }
 
 /* Grid de Avaliações */
-/* (O .testimonial-grid já vem do global.css) */
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
 /* Botão de Excluir no Card */
 .testimonial-card {
-  position: relative; 
+  position: relative;
+  background: #fff;
+  border-radius: var(--radius-lg, 16px);
+  padding: 30px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
 }
 
 .btn-delete-review {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
+  top: 15px;
+  right: 15px;
+  background: #fff;
+  border: 1px solid #eee;
   color: #aaa;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   cursor: pointer;
-  padding: 5px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.2s ease;
   z-index: 2;
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-delete-review:hover {
-  color: #e63946; /* Vermelho */
-  background-color: #fce8e8;
+  color: #e63946;
+  background-color: #fff0f0;
+  border-color: #ffcccc;
+  transform: scale(1.1);
 }
 
-.btn-delete-review i {
+.testimonial-card .stars {
+  color: #FFD700;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.testimonial-card .quote {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-main);
+  font-style: italic;
+  margin-bottom: 25px;
+  flex-grow: 1;
+}
+
+.testimonial-card .profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light);
+}
+
+.testimonial-card .profile img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-card .profile h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 2px;
+}
+
+.testimonial-card .profile span {
+  font-size: 0.85rem;
+  color: var(--text-muted);
   display: block;
 }
 
+.testimonial-card .profile span strong {
+  color: var(--primary-blue);
+}
 
 /* --- 5. Responsividade --- */
 @media (max-width: 768px) {
   .hero-avaliacoes h1 {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
   }
-  .hero-avaliacoes p {
-    font-size: 1rem;
-  }
+
   .form-container,
   .form-container-login {
-    padding: 25px 20px;
+    padding: 30px 20px;
   }
+
   .profile-tabs-nav {
-    padding: 0 5px;
-    gap: 5px;
+    flex-wrap: wrap;
   }
+
   .tab-link {
-    padding: 10px 12px;
-    font-size: 1rem;
+    width: 100%;
+    text-align: center;
   }
 }

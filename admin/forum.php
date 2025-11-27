@@ -115,6 +115,12 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
                 <div id="topicsList">
                     <p>Carregando...</p>
                 </div>
+                <!-- Topics Pagination -->
+                <div class="pagination-controls small-controls">
+                    <button id="prevPageTopics" disabled><i class="ri-arrow-left-s-line"></i></button>
+                    <span id="currentPageTopics">1</span>
+                    <button id="nextPageTopics" disabled><i class="ri-arrow-right-s-line"></i></button>
+                </div>
             </div>
 
             <!-- Replies Column -->
@@ -122,6 +128,12 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
                 <h2>Respostas Recentes</h2>
                 <div id="repliesList">
                     <p>Carregando...</p>
+                </div>
+                <!-- Replies Pagination -->
+                <div class="pagination-controls small-controls">
+                    <button id="prevPageReplies" disabled><i class="ri-arrow-left-s-line"></i></button>
+                    <span id="currentPageReplies">1</span>
+                    <button id="nextPageReplies" disabled><i class="ri-arrow-right-s-line"></i></button>
                 </div>
             </div>
         </div>
@@ -132,18 +144,70 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
         // Simple list of offensive words for demonstration
         const offensiveWords = ['palavrão', 'idiota', 'burro', 'estúpido', 'imbecil', 'merda', 'porra', 'caralho'];
 
-        document.addEventListener('DOMContentLoaded', fetchForumContent);
+        let pageTopics = 1;
+        let pageReplies = 1;
+        const limit = 10;
 
-        async function fetchForumContent() {
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchTopics();
+            fetchReplies();
+            setupPaginationListeners();
+        });
+
+        function setupPaginationListeners() {
+            // Topics
+            document.getElementById('prevPageTopics').addEventListener('click', () => {
+                if (pageTopics > 1) {
+                    pageTopics--;
+                    fetchTopics();
+                }
+            });
+            document.getElementById('nextPageTopics').addEventListener('click', () => {
+                pageTopics++;
+                fetchTopics();
+            });
+
+            // Replies
+            document.getElementById('prevPageReplies').addEventListener('click', () => {
+                if (pageReplies > 1) {
+                    pageReplies--;
+                    fetchReplies();
+                }
+            });
+            document.getElementById('nextPageReplies').addEventListener('click', () => {
+                pageReplies++;
+                fetchReplies();
+            });
+        }
+
+        async function fetchTopics() {
             try {
-                const response = await fetch('api/forum.php');
-                const data = await response.json();
+                const response = await fetch(`api/forum.php?type=topics&page=${pageTopics}&limit=${limit}`);
+                const result = await response.json();
                 
-                renderTopics(data.topics);
-                renderReplies(data.replies);
+                renderTopics(result.data);
+                updatePaginationUI('Topics', result.pagination);
             } catch (error) {
-                console.error('Error fetching forum content:', error);
+                console.error('Error fetching topics:', error);
             }
+        }
+
+        async function fetchReplies() {
+            try {
+                const response = await fetch(`api/forum.php?type=replies&page=${pageReplies}&limit=${limit}`);
+                const result = await response.json();
+                
+                renderReplies(result.data);
+                updatePaginationUI('Replies', result.pagination);
+            } catch (error) {
+                console.error('Error fetching replies:', error);
+            }
+        }
+
+        function updatePaginationUI(type, pagination) {
+            document.getElementById(`currentPage${type}`).textContent = pagination.current_page;
+            document.getElementById(`prevPage${type}`).disabled = pagination.current_page <= 1;
+            document.getElementById(`nextPage${type}`).disabled = pagination.current_page >= pagination.total_pages;
         }
 
         function highlightOffensive(text) {

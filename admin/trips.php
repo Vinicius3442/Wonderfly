@@ -79,11 +79,11 @@
             <table id="tripsTable">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Título</th>
-                        <th>Continente</th>
-                        <th>Preço</th>
-                        <th>Duração</th>
+                        <th data-sort="id">ID</th>
+                        <th data-sort="titulo">Título</th>
+                        <th data-sort="continente">Continente</th>
+                        <th data-sort="preco">Preço</th>
+                        <th data-sort="duracao">Duração</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -91,6 +91,25 @@
                     <!-- Rows will be populated by JS -->
                 </tbody>
             </table>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination-controls">
+            <div class="page-info">
+                Mostrando <span id="startItem">0</span> - <span id="endItem">0</span> de <span id="totalItems">0</span>
+            </div>
+            <div class="page-buttons">
+                <button id="prevPage" disabled><i class="ri-arrow-left-s-line"></i> Anterior</button>
+                <span id="currentPage">1</span>
+                <button id="nextPage" disabled>Próximo <i class="ri-arrow-right-s-line"></i></button>
+            </div>
+            <div class="limit-selector">
+                <select id="limitSelect">
+                    <option value="10">10 por página</option>
+                    <option value="20">20 por página</option>
+                    <option value="50">50 por página</option>
+                </select>
+            </div>
         </div>
 
     </main>

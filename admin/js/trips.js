@@ -1,11 +1,60 @@
 document.addEventListener('DOMContentLoaded', () => {
     fetchTrips();
     fetchCurrentUser();
-
-    document.getElementById('searchInput').addEventListener('input', filterTable);
+    setupPaginationListeners();
 });
 
+let currentPage = 1;
+let limit = 10;
+let sort = 'titulo';
+let order = 'ASC';
 let allTrips = [];
+
+function setupPaginationListeners() {
+    const prevBtn = document.getElementById('prevPage');
+    const nextBtn = document.getElementById('nextPage');
+    const limitSelect = document.getElementById('limitSelect');
+
+    if (prevBtn) prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            fetchTrips();
+        }
+    });
+
+    if (nextBtn) nextBtn.addEventListener('click', () => {
+        currentPage++;
+        fetchTrips();
+    });
+
+    if (limitSelect) limitSelect.addEventListener('change', (e) => {
+        limit = parseInt(e.target.value);
+        currentPage = 1;
+        fetchTrips();
+    });
+
+    // Sorting
+    const headers = document.querySelectorAll('th[data-sort]');
+    headers.forEach(th => {
+        th.style.cursor = 'pointer';
+        th.addEventListener('click', () => {
+            const newSort = th.dataset.sort;
+            if (sort === newSort) {
+                order = order === 'ASC' ? 'DESC' : 'ASC';
+            } else {
+                sort = newSort;
+                order = 'ASC';
+            }
+            // Update icons
+            headers.forEach(h => h.querySelector('i')?.remove());
+            const icon = document.createElement('i');
+            icon.className = order === 'ASC' ? 'ri-arrow-up-s-fill' : 'ri-arrow-down-s-fill';
+            th.appendChild(icon);
+
+            fetchTrips();
+        });
+    });
+}
 
 async function fetchCurrentUser() {
     try {
@@ -32,21 +81,39 @@ function updateUserProfile(user) {
 
 async function fetchTrips() {
     try {
-        const response = await fetch('api/trips.php');
-        const data = await response.json();
+        const response = await fetch(`api/trips.php?page=${currentPage}&limit=${limit}&sort=${sort}&order=${order}`);
+        const result = await response.json();
 
-        if (data.error) {
-            console.error('Error:', data.error);
-            if (data.error === 'Unauthorized') window.location.href = '../Login/login.php';
+        if (result.error) {
+            console.error('Error:', result.error);
+            if (result.error === 'Unauthorized') window.location.href = '../Login/login.php';
             return;
         }
 
-        allTrips = data;
-        renderTable(allTrips);
+        const trips = result.data;
+        const pagination = result.pagination;
+
+        allTrips = trips; // Update for export (current page only)
+        renderTable(trips);
+        updatePaginationUI(pagination);
 
     } catch (error) {
         console.error('Network error:', error);
     }
+}
+
+function updatePaginationUI(pagination) {
+    document.getElementById('currentPage').textContent = pagination.current_page;
+    document.getElementById('totalItems').textContent = pagination.total_items;
+
+    const start = (pagination.current_page - 1) * pagination.limit + 1;
+    const end = Math.min(start + pagination.limit - 1, pagination.total_items);
+
+    document.getElementById('startItem').textContent = pagination.total_items > 0 ? start : 0;
+    document.getElementById('endItem').textContent = end;
+
+    document.getElementById('prevPage').disabled = pagination.current_page <= 1;
+    document.getElementById('nextPage').disabled = pagination.current_page >= pagination.total_pages;
 }
 
 function renderTable(trips) {
