@@ -14,7 +14,39 @@
             display: flex;
             gap: 20px;
             height: calc(100vh - 100px);
+            position: relative;
         }
+        
+        /* Fullscreen Styles */
+        .editor-container.fullscreen .editor-form {
+            display: none;
+        }
+        .editor-container.fullscreen .editor-preview {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            border-radius: 0;
+            padding: 40px;
+        }
+        .fullscreen-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 100;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .fullscreen-btn:hover {
+            background: rgba(0,0,0,0.8);
+        }
+
         .editor-form {
             flex: 1;
             background: var(--glass-bg);
@@ -75,10 +107,10 @@
 <body>
 
     <!-- Sidebar -->
-    <aside class="sidebar">
+    <aside class="admin-sidebar">
         <div class="sidebar-header">
-            <img src="../images/logo.png" alt="WonderFly" style="height: 30px; margin-right: 10px;">
-            WonderFly Admin
+            <img src="../assets/img/logo.png" alt="WonderFly Logo" style="height: 40px; margin-right: 10px;">
+            <span>WonderFly</span>
         </div>
         <nav class="sidebar-nav">
             <a href="index.php" class="nav-item">
@@ -90,10 +122,10 @@
             <a href="#" class="nav-item">
                 <i class="ri-discuss-line"></i> Fórum
             </a>
-            <a href="#" class="nav-item">
+            <a href="users.php" class="nav-item">
                 <i class="ri-user-line"></i> Usuários
             </a>
-            <a href="#" class="nav-item">
+            <a href="trips.php" class="nav-item">
                 <i class="ri-map-pin-line"></i> Viagens
             </a>
             <a href="../index.php" class="nav-item">
@@ -120,6 +152,10 @@
                 <div class="form-group">
                     <label>Título</label>
                     <input type="text" id="postTitle" placeholder="Título do artigo">
+                </div>
+                <div class="form-group">
+                    <label>Autor (Manual)</label>
+                    <input type="text" id="postAuthor" placeholder="Nome do Autor (ex: Admin)">
                 </div>
                 <div class="form-group">
                     <label>Resumo</label>

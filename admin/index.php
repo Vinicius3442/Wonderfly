@@ -11,10 +11,10 @@
 <body>
 
     <!-- Sidebar -->
-    <aside class="sidebar">
+    <aside class="admin-sidebar">
         <div class="sidebar-header">
-            <img src="../images/logo.png" alt="WonderFly" style="height: 30px; margin-right: 10px;">
-            WonderFly Admin
+            <img src="../assets/img/logo.png" alt="WonderFly Logo" style="height: 40px; margin-right: 10px;">
+            <span>WonderFly</span>
         </div>
         <nav class="sidebar-nav">
             <a href="#" class="nav-item active">
@@ -26,10 +26,10 @@
             <a href="#" class="nav-item">
                 <i class="ri-discuss-line"></i> Fórum
             </a>
-            <a href="#" class="nav-item">
+            <a href="users.php" class="nav-item">
                 <i class="ri-user-line"></i> Usuários
             </a>
-            <a href="#" class="nav-item">
+            <a href="trips.php" class="nav-item">
                 <i class="ri-map-pin-line"></i> Viagens
             </a>
             <a href="../index.php" class="nav-item">

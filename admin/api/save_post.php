@@ -24,12 +24,21 @@ try {
     $content = $input['content'];
     $authorId = $_SESSION['user_id'];
 
-    // Insert new post
-    $sql = "INSERT INTO artigos_blog (titulo, resumo, conteudo_html, imagem_destaque_url, autor_id) VALUES (?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute([$title, $summary, $content, $image, $authorId]);
+    $id = $input['id'] ?? null;
 
-    echo json_encode(['success' => true, 'id' => $conn->lastInsertId()]);
+    if ($id) {
+        // Update existing post
+        $sql = "UPDATE artigos_blog SET titulo = ?, resumo = ?, conteudo_html = ?, imagem_destaque_url = ? WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$title, $summary, $content, $image, $id]);
+        echo json_encode(['success' => true, 'id' => $id]);
+    } else {
+        // Insert new post
+        $sql = "INSERT INTO artigos_blog (titulo, resumo, conteudo_html, imagem_destaque_url, autor_id) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$title, $summary, $content, $image, $authorId]);
+        echo json_encode(['success' => true, 'id' => $conn->lastInsertId()]);
+    }
 
 } catch (PDOException $e) {
     http_response_code(500);

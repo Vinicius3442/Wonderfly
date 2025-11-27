@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciar Blog - WonderFly Admin</title>
+    <title>Gerenciar Viagens - WonderFly Admin</title>
     <link rel="stylesheet" href="css/admin.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <!-- Libraries for Export -->
@@ -22,7 +22,7 @@
             <a href="index.php" class="nav-item">
                 <i class="ri-dashboard-line"></i> Dashboard
             </a>
-            <a href="#" class="nav-item active">
+            <a href="blog.php" class="nav-item">
                 <i class="ri-article-line"></i> Blog
             </a>
             <a href="#" class="nav-item">
@@ -31,7 +31,7 @@
             <a href="users.php" class="nav-item">
                 <i class="ri-user-line"></i> Usuários
             </a>
-            <a href="trips.php" class="nav-item">
+            <a href="trips.php" class="nav-item active">
                 <i class="ri-map-pin-line"></i> Viagens
             </a>
             <a href="../index.php" class="nav-item">
@@ -44,7 +44,7 @@
     <main class="main-content">
         <div class="header-bar">
             <div class="header-title">
-                <h1>Gerenciar Blog</h1>
+                <h1>Gerenciar Viagens</h1>
             </div>
             <div class="user-profile">
                 <span id="admin-name">Admin</span>
@@ -56,7 +56,7 @@
         <div class="actions-bar">
             <div class="search-box">
                 <i class="ri-search-line"></i>
-                <input type="text" id="searchInput" placeholder="Buscar artigos...">
+                <input type="text" id="searchInput" placeholder="Buscar viagens...">
             </div>
             <div class="action-buttons">
                 <button class="btn-export" onclick="exportCSV()">
@@ -65,25 +65,26 @@
                 <button class="btn-export" onclick="exportPDF()">
                     <i class="ri-file-pdf-line"></i> PDF
                 </button>
-                <a href="blog_editor.php" class="btn-add">
-                    <i class="ri-add-line"></i> Novo Artigo
+                <a href="trip_editor.php" class="btn-add">
+                    <i class="ri-add-line"></i> Nova Viagem
                 </a>
             </div>
         </div>
 
         <!-- Data Table -->
         <div class="table-container">
-            <table id="blogTable">
+            <table id="tripsTable">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Título</th>
-                        <th>Autor</th>
-                        <th>Data Publicação</th>
+                        <th>Continente</th>
+                        <th>Preço</th>
+                        <th>Duração</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody id="blogTableBody">
+                <tbody id="tripsTableBody">
                     <!-- Rows will be populated by JS -->
                 </tbody>
             </table>
@@ -91,6 +92,6 @@
 
     </main>
 
-    <script src="js/blog.js"></script>
+    <script src="js/trips.js"></script>
 </body>
 </html>
