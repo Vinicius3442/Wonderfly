@@ -110,7 +110,7 @@ Sistema que permite aos usuários compartilharem suas experiências.
       <br />
       <sub><b>Pietro Rennó</b></sub>
       <br />
-      <a href="URL_LINKEDIN_PIETRO" target="_blank">
+      <a href="https://www.linkedin.com/in/pietro-renn%C3%B3-8523b039b/" target="_blank">
         <img src="https://img.shields.io/badge/-LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn Pietro">
       </a>
       <a href="https://github.com/pietro-renno" target="_blank">
@@ -119,3 +119,4 @@ Sistema que permite aos usuários compartilharem suas experiências.
     </td>
   </tr>
 </table>
+
