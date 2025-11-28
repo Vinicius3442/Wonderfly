@@ -126,5 +126,3 @@ Wonderfly/
 ├── config.php                # Configuração de conexão com MySQL
 └── db_connect.php            # Conexão com o banco de dados
 
-<table align="center"> <tr> <td align="center"> <a href="https://github.com/Vinicius3442"> <img src="https://github.com/Vinicius3442.png" width="100px;" style="border-radius: 50%;" /> </a> <br /> <sub><b>Vinícius Montuani</b></sub> <br /> <small>Desenvolvimento & Estrutura do Sistema</small> <br /> <a href="https://www.linkedin.com/in/vinicius-montuani"> <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white" /> </a> <a href="https://github.com/Vinicius3442"> <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white" /> </a> </td> </tr> </table>
-```
