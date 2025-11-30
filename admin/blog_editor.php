@@ -144,6 +144,10 @@
                 <h1>Novo Artigo</h1>
             </div>
             <div class="action-buttons">
+                <input type="file" id="contentUpload" accept=".txt,.pdf,.docx" style="display: none;">
+                <button class="btn-export" onclick="document.getElementById('contentUpload').click()">
+                    <i class="ri-upload-cloud-line"></i> Importar Arquivo
+                </button>
                 <button class="btn-export" onclick="history.back()">Cancelar</button>
                 <button class="btn-add" onclick="savePost()">Salvar Artigo</button>
             </div>
@@ -208,5 +212,47 @@
     </main>
 
     <script src="js/blog_editor.js"></script>
+    <script>
+        document.getElementById('contentUpload').addEventListener('change', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const btn = document.querySelector('.btn-export[onclick*="contentUpload"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="ri-loader-4-line ri-spin"></i> Processando...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('../api/parse_content.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    if (result.title) document.getElementById('postTitle').value = result.title;
+                    if (result.content) {
+                        // For Blog, we want HTML content if possible, but the API returns nl2br-ed content.
+                        // The textarea placeholder suggests HTML tags are allowed.
+                        // So we can use the content as is (with <br>).
+                        document.getElementById('postContent').value = result.content;
+                    }
+                    alert('Conteúdo importado com sucesso!');
+                } else {
+                    alert('Erro ao importar: ' + result.message);
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Erro na requisição.');
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                e.target.value = ''; // Reset input
+            }
+        });
+    </script>
 </body>
 </html>

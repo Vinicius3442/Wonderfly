@@ -162,7 +162,7 @@ include ROOT_PATH . 'templates/header.php';
                           <img 
                             src="<?php 
                                 echo $review['avatar_url'] 
-                                    ? BASE_URL . htmlspecialchars($review['avatar_url']) 
+                                    ? (filter_var($review['avatar_url'], FILTER_VALIDATE_URL) ? htmlspecialchars($review['avatar_url']) : BASE_URL . htmlspecialchars($review['avatar_url']))
                                     : BASE_URL . 'images/profile/default.jpg';
                             ?>" 
                             alt="Foto do Autor" 

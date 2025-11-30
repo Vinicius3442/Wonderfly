@@ -1,0 +1,4 @@
+Meu Primeiro Post do Blog
+Este é um post de exemplo importado de um arquivo de texto.
+O conteúdo é simples mas eficaz.
+HTML tags como <b>negrito</b> podem funcionar se o editor permitir.

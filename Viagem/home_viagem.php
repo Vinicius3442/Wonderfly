@@ -60,6 +60,7 @@ include ROOT_PATH . './templates/header.php';
                 <select id="continent-filter">
                     <option value="all">Todos os Continentes</option>
                     <option value="america-sul">América do Sul</option>
+                    <option value="america-norte">América do Norte</option>
                     <option value="europa">Europa</option>
                     <option value="asia">Ásia</option>
                     <option value="africa">África</option>

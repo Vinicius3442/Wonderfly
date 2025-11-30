@@ -259,6 +259,10 @@
                 <h1>Editor de Viagem</h1>
             </div>
             <div class="action-buttons">
+                <input type="file" id="contentUpload" accept=".txt,.pdf,.docx" style="display: none;">
+                <button class="btn-export" onclick="document.getElementById('contentUpload').click()">
+                    <i class="ri-upload-cloud-line"></i> Importar Arquivo
+                </button>
                 <button class="btn-export" onclick="history.back()">Cancelar</button>
                 <button class="btn-add" onclick="saveTrip()">Salvar Viagem</button>
             </div>
@@ -398,5 +402,49 @@
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="js/trip_editor.js"></script>
+    <script>
+        document.getElementById('contentUpload').addEventListener('change', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const btn = document.querySelector('.btn-export[onclick*="contentUpload"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="ri-loader-4-line ri-spin"></i> Processando...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('../api/parse_content.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    if (result.title) document.getElementById('tripTitle').value = result.title;
+                    if (result.content) {
+                        // For textarea, we might want to replace <br> back to newlines if it's a plain textarea
+                        // But since the API returns HTML-ready content (nl2br), let's see.
+                        // If the editor expects HTML, this is fine. If plain text, we might need to strip tags.
+                        // Assuming plain text for now based on placeholder.
+                        const plainContent = result.content.replace(/<br\s*\/?>/gi, '\n');
+                        document.getElementById('tripLongDesc').value = plainContent;
+                    }
+                    alert('Conteúdo importado com sucesso!');
+                } else {
+                    alert('Erro ao importar: ' + result.message);
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Erro na requisição.');
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                e.target.value = ''; // Reset input
+            }
+        });
+    </script>
 </body>
 </html>

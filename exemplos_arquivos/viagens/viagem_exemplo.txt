@@ -1,0 +1,5 @@
+Exemplo de Viagem Incrível
+Esta é uma viagem de exemplo criada a partir de um arquivo de texto.
+Ela possui várias linhas de descrição.
+Preço: R$ 5000
+Duração: 10 dias
