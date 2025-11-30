@@ -113,33 +113,47 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
         <script src="js/avatar.js"></script>
         </div>
 
-        <div class="moderation-grid">
-            <!-- Topics Column -->
-            <div class="moderation-column">
-                <h2>Tópicos Recentes</h2>
-                <div id="topicsList">
-                    <p>Carregando...</p>
-                </div>
-                <!-- Topics Pagination -->
-                <div class="pagination-controls small-controls">
+        <!-- Tabs Navigation -->
+        <div class="forum-tabs">
+            <button class="tab-btn active" onclick="switchTab('topics')">
+                <i class="ri-discuss-line"></i> Tópicos
+            </button>
+            <button class="tab-btn" onclick="switchTab('replies')">
+                <i class="ri-reply-line"></i> Respostas
+            </button>
+        </div>
+
+        <!-- Tab Content: Topics -->
+        <div id="topics-tab" class="tab-content active">
+            <div class="actions-bar">
+                <h2 style="margin: 0; font-size: 1.2rem; color: var(--text-light);">Tópicos Recentes</h2>
+                <!-- Pagination Controls (Topics) -->
+                <div class="pagination-controls small-controls" style="margin: 0; background: transparent; border: none; padding: 0;">
                     <button id="prevPageTopics" disabled><i class="ri-arrow-left-s-line"></i></button>
-                    <span id="currentPageTopics">1</span>
+                    <span id="currentPageTopics" style="margin: 0 10px;">1</span>
                     <button id="nextPageTopics" disabled><i class="ri-arrow-right-s-line"></i></button>
                 </div>
             </div>
+            
+            <div id="topicsList" class="moderation-list">
+                <p>Carregando...</p>
+            </div>
+        </div>
 
-            <!-- Replies Column -->
-            <div class="moderation-column">
-                <h2>Respostas Recentes</h2>
-                <div id="repliesList">
-                    <p>Carregando...</p>
-                </div>
-                <!-- Replies Pagination -->
-                <div class="pagination-controls small-controls">
+        <!-- Tab Content: Replies -->
+        <div id="replies-tab" class="tab-content">
+             <div class="actions-bar">
+                <h2 style="margin: 0; font-size: 1.2rem; color: var(--text-light);">Respostas Recentes</h2>
+                <!-- Pagination Controls (Replies) -->
+                <div class="pagination-controls small-controls" style="margin: 0; background: transparent; border: none; padding: 0;">
                     <button id="prevPageReplies" disabled><i class="ri-arrow-left-s-line"></i></button>
-                    <span id="currentPageReplies">1</span>
+                    <span id="currentPageReplies" style="margin: 0 10px;">1</span>
                     <button id="nextPageReplies" disabled><i class="ri-arrow-right-s-line"></i></button>
                 </div>
+            </div>
+
+            <div id="repliesList" class="moderation-list">
+                <p>Carregando...</p>
             </div>
         </div>
 
@@ -158,6 +172,17 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
             fetchReplies();
             setupPaginationListeners();
         });
+
+        function switchTab(tabName) {
+            // Update Tab Buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = document.querySelector(`.tab-btn[onclick="switchTab('${tabName}')"]`);
+            if(activeBtn) activeBtn.classList.add('active');
+
+            // Update Tab Content
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
 
         function setupPaginationListeners() {
             // Topics
@@ -245,17 +270,20 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
                 const div = document.createElement('div');
                 div.className = `moderation-card ${isFlagged ? 'flagged' : ''}`;
                 div.innerHTML = `
-                    <div class="card-header">
-                        <span>
-                            <i class="ri-user-line"></i> ${topic.nome_exibicao}
-                            ${topic.is_banned == 1 ? '<span class="banned-badge">BANIDO</span>' : ''}
-                        </span>
-                        <span>${new Date(topic.data_criacao).toLocaleDateString('pt-BR')}</span>
+                    <div class="card-user-info">
+                        <div class="card-user-icon">
+                            <i class="ri-user-line"></i>
+                        </div>
+                        <span class="card-user-name">${topic.nome_exibicao}</span>
+                        <span class="card-date">${new Date(topic.data_criacao).toLocaleDateString('pt-BR')}</span>
+                        ${topic.is_banned == 1 ? '<span class="banned-badge">BANIDO</span>' : ''}
                     </div>
-                    <div class="card-content">
+
+                    <div class="card-main-content">
                         <strong>${subjectHtml}</strong>
                         <p>${msgHtml}</p>
                     </div>
+
                     <div class="card-actions">
                         ${topic.is_banned == 0 ? `
                         <button class="btn-icon delete" onclick="banUser(${topic.usuario_id})" title="Banir Usuário">
@@ -289,16 +317,19 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
                 const div = document.createElement('div');
                 div.className = `moderation-card ${isFlagged ? 'flagged' : ''}`;
                 div.innerHTML = `
-                    <div class="card-header">
-                        <span>
-                            <i class="ri-user-line"></i> ${reply.nome_exibicao}
-                            ${reply.is_banned == 1 ? '<span class="banned-badge">BANIDO</span>' : ''}
-                        </span>
-                        <span>${new Date(reply.data_criacao).toLocaleDateString('pt-BR')}</span>
+                    <div class="card-user-info">
+                        <div class="card-user-icon">
+                            <i class="ri-user-line"></i>
+                        </div>
+                        <span class="card-user-name">${reply.nome_exibicao}</span>
+                        <span class="card-date">${new Date(reply.data_criacao).toLocaleDateString('pt-BR')}</span>
+                        ${reply.is_banned == 1 ? '<span class="banned-badge">BANIDO</span>' : ''}
                     </div>
-                    <div class="card-content">
+
+                    <div class="card-main-content">
                         <p>${html}</p>
                     </div>
+
                     <div class="card-actions">
                         ${reply.is_banned == 0 ? `
                         <button class="btn-icon delete" onclick="banUser(${reply.usuario_id})" title="Banir Usuário">
@@ -328,7 +359,8 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
                 });
                 const result = await response.json();
                 if (result.success) {
-                    fetchForumContent();
+                    if (type === 'topic') fetchTopics();
+                    else fetchReplies();
                 } else {
                     alert('Erro ao excluir: ' + result.error);
                 }
@@ -356,7 +388,8 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
                 });
                 const result = await response.json();
                 if (result.success) {
-                    fetchForumContent();
+                    fetchTopics();
+                    fetchReplies();
                 } else {
                     alert('Erro: ' + result.error);
                 }
