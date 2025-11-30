@@ -85,8 +85,7 @@ $banner_style = $user['banner_url']
     : 'background-color: #eee;';
 
 $avatar_src = $user['avatar_url']
-    ? BASE_URL .  htmlspecialchars($user['avatar_url'])
-    // CORRIGIDO: Removido o "./"
+    ? (filter_var($user['avatar_url'], FILTER_VALIDATE_URL) ? $user['avatar_url'] : BASE_URL . htmlspecialchars($user['avatar_url']))
     : BASE_URL . 'images/profile/default.jpg'; 
 
 $bio_text = $user['bio']

@@ -184,6 +184,15 @@
     box-shadow: var(--shadow-sm);
 }
 
+.tab-pane-secondary {
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.tab-pane-secondary.active {
+    display: block;
+}
+
 /* --- LISTA DE VIAGENS (GRID) --- */
 .trip-list {
     display: grid;

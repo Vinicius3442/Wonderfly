@@ -215,13 +215,15 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
 
         function fixImagePath(path) {
             if (!path) return '../images/profile/default.jpg';
-            if (path.startsWith('./')) {
-                return '.' + path;
-            }
-            if (path.startsWith('/')) {
-                return '..' + path;
-            }
-            return path;
+            if (path.startsWith('http')) return path;
+            
+            // Remove ./ if present
+            if (path.startsWith('./')) path = path.substring(2);
+            // Remove / if present at start
+            if (path.startsWith('/')) path = path.substring(1);
+            
+            // Prepend ../ to go back to root
+            return '../' + path;
         }
 
         async function banUser(userId) {

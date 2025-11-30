@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuários - WonderFly Admin</title>
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/admin.css?v=<?php echo time(); ?>">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <!-- jsPDF for PDF export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -106,9 +106,9 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
                 Mostrando <span id="startItem">0</span> - <span id="endItem">0</span> de <span id="totalItems">0</span>
             </div>
             <div class="page-buttons">
-                <button id="prevPage" disabled><i class="ri-arrow-left-s-line"></i> Anterior</button>
+                <button id="prevPage" disabled><i class="ri-arrow-left-s-line"></i></button>
                 <span id="currentPage">1</span>
-                <button id="nextPage" disabled>Próximo <i class="ri-arrow-right-s-line"></i></button>
+                <button id="nextPage" disabled><i class="ri-arrow-right-s-line"></i></button>
             </div>
             <div class="limit-selector">
                 <select id="limitSelect">
