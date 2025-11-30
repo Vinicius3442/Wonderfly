@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar Blog - WonderFly Admin</title>
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/admin.css?v=<?php echo time(); ?>">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <!-- Libraries for Export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -105,15 +105,15 @@
             </div>
             <div class="limit-selector">
                 <select id="limitSelect">
-                    <option value="10">10 por página</option>
-                    <option value="20">20 por página</option>
-                    <option value="50">50 por página</option>
+                    <option value="9">9 por página</option>
+                    <option value="18">18 por página</option>
+                    <option value="27">27 por página</option>
                 </select>
             </div>
         </div>
 
     </main>
 
-    <script src="js/blog.js"></script>
+    <script src="js/blog.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>

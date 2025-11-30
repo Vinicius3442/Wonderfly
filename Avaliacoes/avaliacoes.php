@@ -163,7 +163,7 @@ include ROOT_PATH . 'templates/header.php';
                             src="<?php 
                                 echo $review['avatar_url'] 
                                     ? BASE_URL . htmlspecialchars($review['avatar_url']) 
-                                    : BASE_URL . 'images/profile/avatar-default.jpg';
+                                    : BASE_URL . 'images/profile/default.jpg';
                             ?>" 
                             alt="Foto do Autor" 
                           />

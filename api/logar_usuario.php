@@ -49,6 +49,7 @@ try {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_nome'] = $user['nome_exibicao'];
         $_SESSION['is_admin'] = $user['is_admin'];
+        $_SESSION['user_avatar'] = $user['avatar_url'];
         
         // 6. Redireciona para a página de perfil
         // (O header.php agora vai ver o $_SESSION['user_id'] e mostrar "Meu Perfil")

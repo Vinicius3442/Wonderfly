@@ -27,12 +27,24 @@ try {
 
         $offset = ($page - 1) * $limit;
 
-        // 1. Get Total Count
-        $countStmt = $conn->query("SELECT COUNT(*) FROM artigos_blog");
+        // Search Parameter
+        $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+        // 1. Get Total Count (with search)
+        $countSql = "SELECT COUNT(*) FROM artigos_blog b LEFT JOIN usuarios u ON b.autor_id = u.id";
+        $countParams = [];
+        
+        if ($search) {
+            $countSql .= " WHERE b.titulo LIKE :search OR u.nome_exibicao LIKE :search";
+            $countParams[':search'] = "%$search%";
+        }
+        
+        $countStmt = $conn->prepare($countSql);
+        $countStmt->execute($countParams);
         $total_items = $countStmt->fetchColumn();
         $total_pages = ceil($total_items / $limit);
 
-        // 2. Get Data
+        // 2. Get Data (with search)
         $sql = "
             SELECT 
                 b.id, 
@@ -42,13 +54,20 @@ try {
                 u.nome_exibicao as autor
             FROM artigos_blog b
             LEFT JOIN usuarios u ON b.autor_id = u.id
-            ORDER BY b.$sort $order 
-            LIMIT :limit OFFSET :offset
         ";
+
+        if ($search) {
+            $sql .= " WHERE b.titulo LIKE :search OR u.nome_exibicao LIKE :search";
+        }
+
+        $sql .= " ORDER BY b.$sort $order LIMIT :limit OFFSET :offset";
         
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        if ($search) {
+            $stmt->bindValue(':search', "%$search%");
+        }
         $stmt->execute();
         $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

@@ -82,9 +82,12 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
                 <h1>Moderação de Avaliações</h1>
             </div>
             <div class="user-profile">
-                <span><?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
-                <img src="<?php echo str_replace('./', '../', htmlspecialchars($_SESSION['user_avatar'])); ?>" alt="Avatar" class="user-avatar">
+                <span id="admin-name">Admin</span>
+                <img id="admin-avatar" src="" alt="Admin" class="user-avatar">
             </div>
+        </div>
+
+        <script src="js/avatar.js"></script>
         </div>
 
         <!-- Sorting Controls -->

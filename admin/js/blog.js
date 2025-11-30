@@ -2,14 +2,22 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchPosts();
     fetchCurrentUser();
     setupPaginationListeners();
-    document.getElementById('searchInput').addEventListener('input', filterGrid);
+    // Debounce search input
+    let timeout = null;
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            currentPage = 1;
+            fetchPosts();
+        }, 300);
+    });
 });
 
 let currentPage = 1;
-let limit = 10;
+let limit = 9;
 let sort = 'data_publicacao';
 let order = 'DESC';
-let allPosts = [];
+let allPosts = []; // Still useful for export if needed, but fetchPosts updates it
 
 function setupPaginationListeners() {
     const prevBtn = document.getElementById('prevPage');
@@ -33,8 +41,6 @@ function setupPaginationListeners() {
         currentPage = 1;
         fetchPosts();
     });
-
-    // Sorting is now handled by changeSort() and toggleOrder()
 }
 
 function changeSort() {
@@ -74,8 +80,9 @@ function updateUserProfile(user) {
 }
 
 async function fetchPosts() {
+    const search = document.getElementById('searchInput').value;
     try {
-        const response = await fetch(`api/blog_posts.php?page=${currentPage}&limit=${limit}&sort=${sort}&order=${order}`);
+        const response = await fetch(`api/blog_posts.php?page=${currentPage}&limit=${limit}&sort=${sort}&order=${order}&search=${encodeURIComponent(search)}`);
         const result = await response.json();
 
         if (result.error) {
@@ -87,7 +94,7 @@ async function fetchPosts() {
         const posts = result.data;
         const pagination = result.pagination;
 
-        allPosts = posts; // Update for export (current page only)
+        allPosts = posts;
         renderGrid(posts);
         updatePaginationUI(pagination);
 
@@ -154,15 +161,6 @@ function renderGrid(posts) {
         `;
         container.appendChild(div);
     });
-}
-
-function filterGrid(e) {
-    const term = e.target.value.toLowerCase();
-    const filtered = allPosts.filter(post =>
-        post.titulo.toLowerCase().includes(term) ||
-        (post.autor && post.autor.toLowerCase().includes(term))
-    );
-    renderGrid(filtered);
 }
 
 async function deletePost(id) {

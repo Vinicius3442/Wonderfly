@@ -11,7 +11,8 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moderação do Fórum - WonderFly Admin</title>
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/admin.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="css/forum-style.css?v=<?php echo time(); ?>">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <style>
         .moderation-grid {
@@ -103,14 +104,18 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
                 <h1>Moderação do Fórum</h1>
             </div>
             <div class="user-profile">
-                <span><?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
-                <img src="<?php echo str_replace('./', '../', htmlspecialchars($_SESSION['user_avatar'])); ?>" alt="Avatar" class="user-avatar">
+                <span id="admin-name">Admin</span>
+                <img id="admin-avatar" src="" alt="Admin" class="user-avatar">
             </div>
+            </div>
+        </div>
+
+        <script src="js/avatar.js"></script>
         </div>
 
         <div class="moderation-grid">
             <!-- Topics Column -->
-            <div>
+            <div class="moderation-column">
                 <h2>Tópicos Recentes</h2>
                 <div id="topicsList">
                     <p>Carregando...</p>
@@ -124,7 +129,7 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
             </div>
 
             <!-- Replies Column -->
-            <div>
+            <div class="moderation-column">
                 <h2>Respostas Recentes</h2>
                 <div id="repliesList">
                     <p>Carregando...</p>
