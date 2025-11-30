@@ -276,11 +276,6 @@ include ROOT_PATH . 'templates/header.php';
                                 </div>
                             <?php endforeach; ?>
                         <?php endif; ?>
-                        <div class="moments-gallery-placeholder" id="gallery-placeholder" style="<?php echo empty($momentos) ? '' : 'display:none;'; ?>">
-                            <i class="ri-image-add-line"></i>
-                            <p>Você ainda não adicionou momentos.</p>
-                            <small>Clique no mapa para começar!</small>
-                        </div>
                     </div>
                 </div>
             </div>

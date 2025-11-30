@@ -115,6 +115,7 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
                     <option value="10">10 por página</option>
                     <option value="20">20 por página</option>
                     <option value="50">50 por página</option>
+                    <option value="1000">Todos</option>
                 </select>
             </div>
         </div>
