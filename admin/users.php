@@ -100,8 +100,6 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
             </table>
         </div>
 
-    </main>
-
         <!-- Pagination Controls -->
         <div class="pagination-controls">
             <div class="page-info">
@@ -126,8 +124,8 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
     <script>
         let currentPage = 1;
         let limit = 10;
-        let sort = 'data_criacao';
-        let order = 'DESC';
+        let sort = 'id';
+        let order = 'ASC';
         let allUsers = []; // Keep for export if needed, but pagination makes this tricky. We might export only current page or need a separate export API.
 
         document.addEventListener('DOMContentLoaded', () => {
