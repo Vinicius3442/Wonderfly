@@ -63,13 +63,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const markers = L.featureGroup();
 
+      const momentoIcon = L.icon({
+        iconUrl: `${baseUrl}images/logo.png`,
+        iconSize: [32, 37],
+        iconAnchor: [16, 37],
+        popupAnchor: [0, -38]
+      });
+
       tripLocations.forEach((loc) => {
         // Garante que latitude e longitude sejam números
         const lat = parseFloat(loc.latitude);
         const lng = parseFloat(loc.longitude);
 
         if (!isNaN(lat) && !isNaN(lng)) {
-          const marker = L.marker([lat, lng]);
+          const marker = L.marker([lat, lng], { icon: momentoIcon });
           marker.bindPopup(`<strong>${loc.nome}</strong>`);
           markers.addLayer(marker);
         }

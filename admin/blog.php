@@ -100,9 +100,9 @@
                 Mostrando <span id="startItem">0</span> - <span id="endItem">0</span> de <span id="totalItems">0</span>
             </div>
             <div class="page-buttons">
-                <button id="prevPage" disabled><i class="ri-arrow-left-s-line"></i> Anterior</button>
+                <button id="prevPage" disabled><i class="ri-arrow-left-s-line"></i></button>
                 <span id="currentPage">1</span>
-                <button id="nextPage" disabled>Próximo <i class="ri-arrow-right-s-line"></i></button>
+                <button id="nextPage" disabled><i class="ri-arrow-right-s-line"></i></button>
             </div>
             <div class="limit-selector">
                 <select id="limitSelect">

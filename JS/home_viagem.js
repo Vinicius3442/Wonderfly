@@ -21,6 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const markers = L.featureGroup();
 
+    // Define o ícone personalizado
+    const momentoIcon = L.icon({
+      iconUrl: `${baseUrl}images/logo.png`,
+      iconSize: [32, 37],
+      iconAnchor: [16, 37],
+      popupAnchor: [0, -38]
+    });
+
     allTrips.forEach(trip => {
       // Verifica se tem coordenadas (assumindo que 'latitude' e 'longitude' existem no objeto)
       // Se não existirem no objeto principal, talvez precisemos buscar de algum lugar.
@@ -34,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Se não tiver, o marcador não será adicionado.
 
       if (trip.latitude && trip.longitude) {
-        const marker = L.marker([trip.latitude, trip.longitude]);
+        const marker = L.marker([trip.latitude, trip.longitude], { icon: momentoIcon });
 
         // Popup com imagem e link
         const popupContent = `

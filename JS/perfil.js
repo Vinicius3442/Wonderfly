@@ -100,7 +100,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
 
                     closeModal();
-                    Swal.fire('Sucesso!', 'Seu perfil foi atualizado.', 'success');
+
+                    let message = 'Seu perfil foi atualizado.';
+                    let icon = 'success';
+
+                    if (result.warnings && result.warnings.length > 0) {
+                        message += '<br><br><strong>Atenção:</strong><br>' + result.warnings.join('<br>');
+                        icon = 'warning';
+                    }
+
+                    Swal.fire('Sucesso!', message, icon);
                 } else {
                     throw new Error(result.message || 'Erro ao salvar');
                 }
@@ -138,6 +147,13 @@ document.addEventListener('DOMContentLoaded', () => {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
+        const momentoIcon = L.icon({
+            iconUrl: `${baseUrl}images/logo.png`,
+            iconSize: [32, 37],
+            iconAnchor: [16, 37],
+            popupAnchor: [0, -38]
+        });
+
         // Carrega marcadores existentes (userMoments vem do PHP)
         if (typeof userMoments !== 'undefined' && Array.isArray(userMoments)) {
             userMoments.forEach(momento => {
@@ -155,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Cria novo marcador temporário
-            tempMarker = L.marker([lat, lng]).addTo(map);
+            tempMarker = L.marker([lat, lng], { icon: momentoIcon }).addTo(map);
 
             // Preenche o formulário
             latInput.value = lat;
@@ -221,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <small>${new Date(momento.data_criacao).toLocaleDateString()}</small>
                 </div>
             `;
-            const marker = L.marker([momento.latitude, momento.longitude])
+            const marker = L.marker([momento.latitude, momento.longitude], { icon: momentoIcon })
                 .addTo(map)
                 .bindPopup(popupContent);
 
