@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 28-Nov-2025 às 20:09
+-- Tempo de geração: 01-Dez-2025 às 12:26
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.2.0
 
@@ -239,6 +239,7 @@ CREATE TABLE `favoritos_viagens` (
 INSERT INTO `favoritos_viagens` (`usuario_id`, `viagem_id`, `data_favoritado`) VALUES
 (3, 1, '2025-11-28 15:17:59'),
 (3, 13, '2025-11-28 17:12:32'),
+(3, 14, '2025-12-01 10:55:50'),
 (3, 42, '2025-11-28 17:12:19');
 
 -- --------------------------------------------------------
@@ -441,7 +442,8 @@ INSERT INTO `topicos` (`id`, `assunto`, `mensagem`, `board`, `imagem_url`, `data
 (30, 'Seguro viagem: qual escolher? #27', 'Olá pessoal, gostaria de compartilhar/tirar dúvidas sobre este assunto. Seguro viagem: qual escolher? #27', 'Geral', NULL, '2025-01-04 14:45:45', 153),
 (31, 'Viagem solo: vale a pena? #28', 'Olá pessoal, gostaria de compartilhar/tirar dúvidas sobre este assunto. Viagem solo: vale a pena? #28', 'Relatos', NULL, '2024-11-29 02:13:46', 128),
 (32, 'Alguém já foi para o Japão? #29', 'Olá pessoal, gostaria de compartilhar/tirar dúvidas sobre este assunto. Alguém já foi para o Japão? #29', 'Companhia', NULL, '2025-06-16 17:34:36', 67),
-(33, 'Dicas de roteiro na Europa #30', 'Olá pessoal, gostaria de compartilhar/tirar dúvidas sobre este assunto. Dicas de roteiro na Europa #30', 'Relatos', NULL, '2025-01-30 14:33:13', 49);
+(33, 'Dicas de roteiro na Europa #30', 'Olá pessoal, gostaria de compartilhar/tirar dúvidas sobre este assunto. Dicas de roteiro na Europa #30', 'Relatos', NULL, '2025-01-30 14:33:13', 49),
+(35, 'Teste de detecção de bad Words', 'paralelepipedo', 'avaliacoes', NULL, '2025-12-01 11:08:58', 3);
 
 -- --------------------------------------------------------
 
@@ -705,7 +707,8 @@ INSERT INTO `viagem_locations` (`id`, `viagem_id`, `nome`, `latitude`, `longitud
 (63, 59, 'Santorini', '36.39320000', '25.46150000'),
 (64, 60, 'Veneza', '45.44080000', '12.31550000'),
 (65, 61, 'Florença', '43.76960000', '11.25580000'),
-(66, 62, 'Munique', '48.13510000', '11.58200000');
+(66, 62, 'Munique', '48.13510000', '11.58200000'),
+(67, 63, 'Se deu certo deu bom', '1.75753681', '-53.22656035');
 
 -- --------------------------------------------------------
 
@@ -797,7 +800,8 @@ INSERT INTO `viagens` (`id`, `titulo`, `descricao_curta`, `descricao_longa`, `in
 (59, 'Explorando Santorini', 'Descubra as maravilhas de Santorini, Grécia. Uma viagem inesquecível espera por você.', '<p>Bem-vindo a Santorini! Esta viagem foi planejada para você aproveitar o melhor que Grécia tem a oferecer. Cultura, gastronomia e paisagens deslumbrantes.</p><p>Prepare-se para dias de muita aventura e descobertas em um dos destinos mais procurados do mundo.</p>', '<ul><li>Passagem aérea</li><li>Hospedagem</li><li>Café da manhã</li><li>Guia local</li></ul>', '<ul><li>Almoço e Jantar</li><li>Despesas pessoais</li></ul>', '<ol><li>Chegada em Santorini</li><li>City Tour</li><li>Dia Livre</li><li>Passeio Cultural</li><li>Retorno</li></ol>', '<p>Hospedagem em hotéis 4 estrelas bem localizados em Santorini.</p>', '11833.00', '9 dias', 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80', 'europa', 'cultura lazer', 'santorini grécia europa viagem turismo'),
 (60, 'Explorando Veneza', 'Descubra as maravilhas de Veneza, Itália. Uma viagem inesquecível espera por você.', '<p>Bem-vindo a Veneza! Esta viagem foi planejada para você aproveitar o melhor que Itália tem a oferecer. Cultura, gastronomia e paisagens deslumbrantes.</p><p>Prepare-se para dias de muita aventura e descobertas em um dos destinos mais procurados do mundo.</p>', '<ul><li>Passagem aérea</li><li>Hospedagem</li><li>Café da manhã</li><li>Guia local</li></ul>', '<ul><li>Almoço e Jantar</li><li>Despesas pessoais</li></ul>', '<ol><li>Chegada em Veneza</li><li>City Tour</li><li>Dia Livre</li><li>Passeio Cultural</li><li>Retorno</li></ol>', '<p>Hospedagem em hotéis 4 estrelas bem localizados em Veneza.</p>', '8556.00', '6 dias', 'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=800&q=80', 'europa', 'cultura lazer', 'veneza itália europa viagem turismo'),
 (61, 'Explorando Florença', 'Descubra as maravilhas de Florença, Itália. Uma viagem inesquecível espera por você.', '<p>Bem-vindo a Florença! Esta viagem foi planejada para você aproveitar o melhor que Itália tem a oferecer. Cultura, gastronomia e paisagens deslumbrantes.</p><p>Prepare-se para dias de muita aventura e descobertas em um dos destinos mais procurados do mundo.</p>', '<ul><li>Passagem aérea</li><li>Hospedagem</li><li>Café da manhã</li><li>Guia local</li></ul>', '<ul><li>Almoço e Jantar</li><li>Despesas pessoais</li></ul>', '<ol><li>Chegada em Florença</li><li>City Tour</li><li>Dia Livre</li><li>Passeio Cultural</li><li>Retorno</li></ol>', '<p>Hospedagem em hotéis 4 estrelas bem localizados em Florença.</p>', '7248.00', '11 dias', 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=800&q=80', 'europa', 'cultura lazer', 'florença itália europa viagem turismo'),
-(62, 'Explorando Munique', 'Descubra as maravilhas de Munique, Alemanha. Uma viagem inesquecível espera por você.', '<p>Bem-vindo a Munique! Esta viagem foi planejada para você aproveitar o melhor que Alemanha tem a oferecer. Cultura, gastronomia e paisagens deslumbrantes.</p><p>Prepare-se para dias de muita aventura e descobertas em um dos destinos mais procurados do mundo.</p>', '<ul><li>Passagem aérea</li><li>Hospedagem</li><li>Café da manhã</li><li>Guia local</li></ul>', '<ul><li>Almoço e Jantar</li><li>Despesas pessoais</li></ul>', '<ol><li>Chegada em Munique</li><li>City Tour</li><li>Dia Livre</li><li>Passeio Cultural</li><li>Retorno</li></ol>', '<p>Hospedagem em hotéis 4 estrelas bem localizados em Munique.</p>', '4550.00', '14 dias', 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80', 'europa', 'cultura lazer', 'munique alemanha europa viagem turismo');
+(62, 'Explorando Munique', 'Descubra as maravilhas de Munique, Alemanha. Uma viagem inesquecível espera por você.', '<p>Bem-vindo a Munique! Esta viagem foi planejada para você aproveitar o melhor que Alemanha tem a oferecer. Cultura, gastronomia e paisagens deslumbrantes.</p><p>Prepare-se para dias de muita aventura e descobertas em um dos destinos mais procurados do mundo.</p>', '<ul><li>Passagem aérea</li><li>Hospedagem</li><li>Café da manhã</li><li>Guia local</li></ul>', '<ul><li>Almoço e Jantar</li><li>Despesas pessoais</li></ul>', '<ol><li>Chegada em Munique</li><li>City Tour</li><li>Dia Livre</li><li>Passeio Cultural</li><li>Retorno</li></ol>', '<p>Hospedagem em hotéis 4 estrelas bem localizados em Munique.</p>', '4550.00', '14 dias', 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80', 'europa', 'cultura lazer', 'munique alemanha europa viagem turismo'),
+(63, 'Teste de crud', 'Descrição', '<p>Olá <strong>Tudo bem?<strong><p><script>alert(\"ferrou\")</script>\n', '<h3>O que está incluso</h3><ul><li><i class=\"ri-check-line\"></i> Passagem interna</li></ul>', '<h3>Não incluso</h3><ul><li><i class=\"ri-close-line\"></i> Comida</li></ul>', '<h3>Itinerário detalhado</h3><ol class=\"itinerary-list\"><li class=\"day\"><h4>Dia 1: Dia 1</h4><p></p></li></ol>', '<h3>Hospedagem selecionada</h3>\n        <div class=\"hotel-card\">\n            <img src=\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmc1VVsDf6wpsXftHF30BsTn8BaDvj1v-rA&s\" alt=\"Hotel legal\">\n            <div class=\"hotel-info\">\n                <h4>Hotel legal</h4>\n                <p>Teste de hotel</p>\n                <ul><li><i class=\"ri-star-fill\"></i><i class=\"ri-star-fill\"></i><i class=\"ri-star-fill\"></i><i class=\"ri-star-fill\"></i> (4 estrelas)</li></ul>\n            </div>\n        </div>', '12222.00', '22 dias', 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISEhUSEhIVFRUXFxUWFRUVFRgVFhYWFRUWFhgVFRUYHSggGBolHRUXITEiJikrLi4uFyAzODMtNygtLisBCgoKDg0OGxAQGy0lICUuLy0wLSstLystLysrLy0tLS0tLS0tLS0vLS0tLS0tLS0tLy8tLS0tLS0tLS0tLS0tLf/AABEIALcBEwMBIgACEQEDEQH/', 'europa', 'aventura', NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -910,7 +914,7 @@ ALTER TABLE `avaliacoes`
 -- AUTO_INCREMENT de tabela `momentos`
 --
 ALTER TABLE `momentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `reservas`
@@ -934,7 +938,7 @@ ALTER TABLE `tags`
 -- AUTO_INCREMENT de tabela `topicos`
 --
 ALTER TABLE `topicos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
@@ -946,13 +950,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `viagem_locations`
 --
 ALTER TABLE `viagem_locations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT de tabela `viagens`
 --
 ALTER TABLE `viagens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- Restrições para despejos de tabelas

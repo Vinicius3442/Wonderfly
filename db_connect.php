@@ -2,8 +2,8 @@
 
 $host = 'localhost';     
 $db   = 'wonderfly';     
-$user = 'pma_user';          
-$pass = 'vinicius_sql';              
+$user = 'root';          
+$pass = '';              
 $charset = 'utf8mb4';    
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
@@ -20,4 +20,3 @@ try {
 } catch (\PDOException $e) {
      throw new \PDOException($e->getMessage(), (int)$e->getCode());
 }
-?>

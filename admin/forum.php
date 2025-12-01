@@ -161,7 +161,7 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
 
     <script>
         // Simple list of offensive words for demonstration
-        const offensiveWords = ['palavrão', 'idiota', 'burro', 'estúpido', 'imbecil', 'merda', 'porra', 'caralho'];
+        const offensiveWords = ['palavrão', 'idiota', 'burro', 'estúpido', 'imbecil', 'merda', 'porra', 'caralho', 'paralelepipedo'];
 
         let pageTopics = 1;
         let pageReplies = 1;
