@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // (Opcional) Adiciona um estilo ao cursor
       thumb.style.cursor = "pointer";
     });
-    
+
     // Adiciona transição na imagem principal
     mainGalleryImage.style.transition = "opacity 0.2s ease-in-out";
   }
@@ -46,17 +46,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- 2. LÓGICA DO MAPA (PÁGINA ÚNICA) ---
   function initSingleTripMap() {
     const mapDiv = document.getElementById("mapaDestinoUnico");
-    if (mapDiv) {
-      // Coordenadas para o Irã (Teerã, Isfahan, Shiraz)
-      const locations = [
-        { lat: 35.6892, lng: 51.3890, nome: "Teerã" },
-        { lat: 32.6546, lng: 51.6680, nome: "Isfahan" },
-        { lat: 29.6101, lng: 52.5311, nome: "Shiraz" }
-      ];
+
+    // Verifica se o elemento do mapa existe e se há localizações definidas
+    if (mapDiv && typeof tripLocations !== 'undefined' && Array.isArray(tripLocations) && tripLocations.length > 0) {
 
       // Encontra o centro (média)
-      const centerLat = locations.reduce((sum, loc) => sum + loc.lat, 0) / locations.length;
-      const centerLng = locations.reduce((sum, loc) => sum + loc.lng, 0) / locations.length;
+      const centerLat = tripLocations.reduce((sum, loc) => sum + parseFloat(loc.latitude), 0) / tripLocations.length;
+      const centerLng = tripLocations.reduce((sum, loc) => sum + parseFloat(loc.longitude), 0) / tripLocations.length;
 
       const map = L.map(mapDiv).setView([centerLat, centerLng], 6);
 
@@ -64,21 +60,33 @@ document.addEventListener("DOMContentLoaded", () => {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }).addTo(map);
-      
+
       const markers = L.featureGroup();
 
-      locations.forEach((loc) => {
-        const marker = L.marker([loc.lat, loc.lng]);
-        marker.bindPopup(`<strong>${loc.nome}</strong>`);
-        markers.addLayer(marker);
+      tripLocations.forEach((loc) => {
+        // Garante que latitude e longitude sejam números
+        const lat = parseFloat(loc.latitude);
+        const lng = parseFloat(loc.longitude);
+
+        if (!isNaN(lat) && !isNaN(lng)) {
+          const marker = L.marker([lat, lng]);
+          marker.bindPopup(`<strong>${loc.nome}</strong>`);
+          markers.addLayer(marker);
+        }
       });
-      
+
       markers.addTo(map);
 
       // Ajusta o zoom para mostrar todos os marcadores
       if (markers.getBounds().isValid()) {
         map.fitBounds(markers.getBounds().pad(0.5)); // 0.5 de padding
       }
+    } else if (mapDiv) {
+      // Fallback se não houver localizações: mostra um mapa padrão ou mensagem
+      mapDiv.innerHTML = '<p style="text-align:center; padding: 20px;">Localização não disponível.</p>';
+      // Ou inicializar um mapa vazio:
+      // const map = L.map(mapDiv).setView([0, 0], 2);
+      // L.tileLayer(...).addTo(map);
     }
   }
 
@@ -107,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
     burgerMenu.addEventListener("click", () => {
       mainNav.classList.toggle("show-mobile"); // Usar uma classe específica
       burgerMenu.classList.toggle("is-open");
-      
+
       const icon = burgerMenu.querySelector("i");
       if (icon.classList.contains("ri-menu-line")) {
         icon.classList.remove("ri-menu-line");
@@ -132,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //     padding: 20px 8%; 
   //   }
   // }
-  
+
 
   // --- 5. LÓGICA DO FORMULÁRIO NEWSLETTER ---
   if (newsletterForm) {
@@ -143,9 +151,9 @@ document.addEventListener("DOMContentLoaded", () => {
         newsletterMessage.textContent = "Obrigado por se inscrever!";
         newsletterMessage.style.color = "#28a745"; // Verde sucesso
         newsletterEmail.value = "";
-        
+
         setTimeout(() => {
-            newsletterMessage.textContent = "";
+          newsletterMessage.textContent = "";
         }, 3000);
       }
     });
