@@ -12,6 +12,7 @@ $usuario_id = $_SESSION['user_id'];
 // 2. Coleta os dados do formulário
 $viagem_id = $_POST['viagem_id'] ?? null;
 $data_viagem = $_POST['data_viagem'] ?? null;
+$payment_method = $_POST['payment_method'] ?? 'cartao';
 
 if (empty($viagem_id) || empty($data_viagem)) {
     $_SESSION['msg_erro'] = "Houve um erro. Tente novamente.";
@@ -35,8 +36,10 @@ try {
         ':data_viagem' => $data_viagem
     ]);
 
-    // 5. Redireciona para a página de Agradecimento
-    header("Location: " . BASE_URL . "Pagamento/Agradecimento/agradecimento.php");
+    // 5. Redireciona para a página de Agradecimento com o status correto
+    $status = ($payment_method === 'pix') ? 'pending' : 'confirmed';
+    
+    header("Location: " . BASE_URL . "Pagamento/Agradecimento/agradecimento.php?status=" . $status);
     exit;
 
 } catch (PDOException $e) {

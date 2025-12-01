@@ -99,25 +99,58 @@ include ROOT_PATH . 'templates/header.php';
                     <input type="date" id="data-viagem" name="data_viagem" required>
                 </div>
 
-                <h2>Endereço de Cobrança</h2>
-                <p style="padding: 10px; background: #f4f4f4; border-radius: 8px; text-align: center;">
-                    Usaremos o endereço de cobrança salvo no seu perfil.
-                </p>
-
                 <h2>Método de Pagamento</h2>
-                <div class="payment-options">
-                    <label class="payment-option">
-                        <input type="radio" name="payment-method" value="cartao" checked>
-                        <i class="ri-credit-card-line"></i> Cartão de Crédito
+                
+                <div class="payment-method-selector">
+                    <label class="payment-option-card selected" id="opt-card">
+                        <input type="radio" name="payment_method" value="cartao" checked>
+                        <i class="ri-credit-card-line"></i>
+                        <span>Cartão de Crédito</span>
                     </label>
-                    <label class="payment-option">
-                        <input type="radio" name="payment-method" value="pix">
-                        <i class="ri-qrcode-line"></i> PIX
+                    <label class="payment-option-card" id="opt-pix">
+                        <input type="radio" name="payment_method" value="pix">
+                        <i class="ri-qr-code-line"></i>
+                        <span>PIX</span>
                     </label>
                 </div>
 
-                <div class="secure-info">
-                    <i class="ri-lock-line"></i> Este é um ambiente de simulação.
+                <!-- SEÇÃO CARTÃO -->
+                <div id="section-cartao" class="payment-section-content">
+                    <h3>Dados do Cartão</h3>
+                    <div class="form-group">
+                        <label for="card-number">Número do Cartão</label>
+                        <input type="text" id="card-number" placeholder="0000 0000 0000 0000" maxlength="19">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="card-name">Nome no Cartão</label>
+                            <input type="text" id="card-name" placeholder="Como no cartão">
+                        </div>
+                        <div class="form-group">
+                            <label for="card-expiry">Validade</label>
+                            <input type="text" id="card-expiry" placeholder="MM/AA" maxlength="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="card-cvv">CVV</label>
+                            <input type="text" id="card-cvv" placeholder="123" maxlength="3">
+                        </div>
+                    </div>
+                    <div class="secure-info">
+                        <i class="ri-lock-line"></i> Ambiente seguro. Seus dados são criptografados.
+                    </div>
+                </div>
+
+                <!-- SEÇÃO PIX -->
+                <div id="section-pix" class="payment-section-content" style="display: none;">
+                    <div class="pix-info-box">
+                        <i class="ri-flashlight-fill"></i>
+                        <p>Aprovação imediata. O código QR será gerado na próxima tela.</p>
+                    </div>
+                    <ul class="pix-instructions">
+                        <li>1. Finalize o pedido para gerar o código PIX.</li>
+                        <li>2. Abra o app do seu banco e escolha "Pagar com Pix".</li>
+                        <li>3. Escaneie o QR Code ou cole o código.</li>
+                    </ul>
                 </div>
 
                 <button type="submit" class="btn primary lg pay-button" id="pay-button">
@@ -135,16 +168,50 @@ include ROOT_PATH . 'templates/footer.php';
 ?>
 
 <script>
-    // Script para simular o "carregando"
-    const form = document.getElementById('payment-form');
-    const btn = document.getElementById('pay-button');
+    document.addEventListener('DOMContentLoaded', () => {
+        const optCard = document.getElementById('opt-card');
+        const optPix = document.getElementById('opt-pix');
+        const sectionCard = document.getElementById('section-cartao');
+        const sectionPix = document.getElementById('section-pix');
+        const radioCard = optCard.querySelector('input');
+        const radioPix = optPix.querySelector('input');
 
-    if(form) {
-        form.addEventListener('submit', () => {
-            btn.innerHTML = '<i class="ri-loader-4-line ri-spin"></i> Processando...';
-            btn.disabled = true;
-        });
-    }
+        function togglePayment(method) {
+            if (method === 'cartao') {
+                sectionCard.style.display = 'block';
+                sectionPix.style.display = 'none';
+                optCard.classList.add('selected');
+                optPix.classList.remove('selected');
+                radioCard.checked = true;
+                
+                // Torna inputs do cartão obrigatórios (simulação)
+                document.getElementById('card-number').setAttribute('required', 'true');
+            } else {
+                sectionCard.style.display = 'none';
+                sectionPix.style.display = 'block';
+                optCard.classList.remove('selected');
+                optPix.classList.add('selected');
+                radioPix.checked = true;
+
+                // Remove obrigatoriedade do cartão
+                document.getElementById('card-number').removeAttribute('required');
+            }
+        }
+
+        optCard.addEventListener('click', () => togglePayment('cartao'));
+        optPix.addEventListener('click', () => togglePayment('pix'));
+
+        // Script para simular o "carregando"
+        const form = document.getElementById('payment-form');
+        const btn = document.getElementById('pay-button');
+
+        if(form) {
+            form.addEventListener('submit', () => {
+                btn.innerHTML = '<i class="ri-loader-4-line ri-spin"></i> Processando...';
+                // btn.disabled = true; // Comentado para permitir reenvio se der erro no back (simulação)
+            });
+        }
+    });
 </script>
 </body>
 </html>

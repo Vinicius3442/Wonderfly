@@ -301,7 +301,7 @@ include ROOT_PATH . 'templates/header.php';
                 <small>Deixe em branco para manter a atual.</small>
             </div>
             <div class="form-group">
-                <label for="edit-name">Nome</label>
+                <labe+l for="edit-name">Nome</label>
                 <input type="text" id="edit-name" name="nome" required value="<?php echo htmlspecialchars($user['nome_exibicao']); ?>">
             </div>
             <div class="form-group">
