@@ -79,11 +79,12 @@
             <div class="search-box">
                 <label for="sortSelect" style="margin-right: 10px;">Ordenar por:</label>
                 <select id="sortSelect" onchange="changeSort()">
+                    <option value="id" selected>ID</option>
                     <option value="data_publicacao">Data</option>
                     <option value="titulo">Título</option>
                 </select>
                 <button id="orderBtn" class="btn-icon" onclick="toggleOrder()" title="Inverter Ordem" style="margin-left: 10px;">
-                    <i class="ri-arrow-down-line" id="orderIcon"></i>
+                    <i class="ri-arrow-up-line" id="orderIcon"></i>
                 </button>
             </div>
         </div>

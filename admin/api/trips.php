@@ -16,13 +16,13 @@ try {
         // Pagination & Sorting Parameters
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
-        $sort = isset($_GET['sort']) ? $_GET['sort'] : 'titulo';
+        $sort = isset($_GET['sort']) ? $_GET['sort'] : 'id';
         $order = isset($_GET['order']) && strtoupper($_GET['order']) === 'DESC' ? 'DESC' : 'ASC';
 
         // Validate Sort Column
         $allowed_sorts = ['id', 'titulo', 'continente', 'preco', 'duracao'];
         if (!in_array($sort, $allowed_sorts)) {
-            $sort = 'titulo';
+            $sort = 'id';
         }
 
         $offset = ($page - 1) * $limit;

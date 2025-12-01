@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let currentPage = 1;
 let limit = 10;
-let sort = 'titulo';
+let sort = 'id';
 let order = 'ASC';
 let allTrips = [];
 
@@ -14,6 +14,7 @@ function setupPaginationListeners() {
     const prevBtn = document.getElementById('prevPage');
     const nextBtn = document.getElementById('nextPage');
     const limitSelect = document.getElementById('limitSelect');
+    const searchInput = document.getElementById('searchInput');
 
     if (prevBtn) prevBtn.addEventListener('click', () => {
         if (currentPage > 1) {
@@ -32,6 +33,17 @@ function setupPaginationListeners() {
         currentPage = 1;
         fetchTrips();
     });
+
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = allTrips.filter(trip =>
+                trip.titulo.toLowerCase().includes(term) ||
+                (trip.continente && trip.continente.toLowerCase().includes(term))
+            );
+            renderTable(filtered);
+        });
+    }
 
     // Sorting
     const headers = document.querySelectorAll('th[data-sort]');
@@ -81,6 +93,7 @@ function updateUserProfile(user) {
 
 async function fetchTrips() {
     try {
+        // Remove search param from server call
         const response = await fetch(`api/trips.php?page=${currentPage}&limit=${limit}&sort=${sort}&order=${order}`);
         const result = await response.json();
 
@@ -93,8 +106,21 @@ async function fetchTrips() {
         const trips = result.data;
         const pagination = result.pagination;
 
-        allTrips = trips; // Update for export (current page only)
-        renderTable(trips);
+        allTrips = trips; // Update global for client-side filtering
+
+        // Re-apply search filter if there is text in the input
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput && searchInput.value) {
+            const term = searchInput.value.toLowerCase();
+            const filtered = allTrips.filter(trip =>
+                trip.titulo.toLowerCase().includes(term) ||
+                (trip.continente && trip.continente.toLowerCase().includes(term))
+            );
+            renderTable(filtered);
+        } else {
+            renderTable(trips);
+        }
+
         updatePaginationUI(pagination);
 
     } catch (error) {
@@ -146,15 +172,6 @@ function renderTable(trips) {
 function capitalize(str) {
     if (!str) return '';
     return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-function filterTable(e) {
-    const term = e.target.value.toLowerCase();
-    const filtered = allTrips.filter(trip =>
-        trip.titulo.toLowerCase().includes(term) ||
-        (trip.continente && trip.continente.toLowerCase().includes(term))
-    );
-    renderTable(filtered);
 }
 
 async function deleteTrip(id) {

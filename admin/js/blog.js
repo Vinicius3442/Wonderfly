@@ -2,27 +2,22 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchPosts();
     fetchCurrentUser();
     setupPaginationListeners();
-    // Debounce search input
-    let timeout = null;
-    document.getElementById('searchInput').addEventListener('input', (e) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-            currentPage = 1;
-            fetchPosts();
-        }, 300);
-    });
+    // Ensure icon matches default ASC order
+    const icon = document.getElementById('orderIcon');
+    if (icon) icon.className = 'ri-arrow-up-line';
 });
 
 let currentPage = 1;
 let limit = 9;
-let sort = 'data_publicacao';
-let order = 'DESC';
+let sort = 'id';
+let order = 'ASC';
 let allPosts = []; // Still useful for export if needed, but fetchPosts updates it
 
 function setupPaginationListeners() {
     const prevBtn = document.getElementById('prevPage');
     const nextBtn = document.getElementById('nextPage');
     const limitSelect = document.getElementById('limitSelect');
+    const searchInput = document.getElementById('searchInput');
 
     if (prevBtn) prevBtn.addEventListener('click', () => {
         if (currentPage > 1) {
@@ -41,6 +36,17 @@ function setupPaginationListeners() {
         currentPage = 1;
         fetchPosts();
     });
+
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = allPosts.filter(post =>
+                post.titulo.toLowerCase().includes(term) ||
+                (post.autor && post.autor.toLowerCase().includes(term))
+            );
+            renderGrid(filtered);
+        });
+    }
 }
 
 function changeSort() {
@@ -80,9 +86,9 @@ function updateUserProfile(user) {
 }
 
 async function fetchPosts() {
-    const search = document.getElementById('searchInput').value;
     try {
-        const response = await fetch(`api/blog_posts.php?page=${currentPage}&limit=${limit}&sort=${sort}&order=${order}&search=${encodeURIComponent(search)}`);
+        // Remove search param from server call
+        const response = await fetch(`api/blog_posts.php?page=${currentPage}&limit=${limit}&sort=${sort}&order=${order}`);
         const result = await response.json();
 
         if (result.error) {
@@ -94,8 +100,21 @@ async function fetchPosts() {
         const posts = result.data;
         const pagination = result.pagination;
 
-        allPosts = posts;
-        renderGrid(posts);
+        allPosts = posts; // Update global for client-side filtering
+
+        // Re-apply search filter if there is text in the input
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput && searchInput.value) {
+            const term = searchInput.value.toLowerCase();
+            const filtered = allPosts.filter(post =>
+                post.titulo.toLowerCase().includes(term) ||
+                (post.autor && post.autor.toLowerCase().includes(term))
+            );
+            renderGrid(filtered);
+        } else {
+            renderGrid(posts);
+        }
+
         updatePaginationUI(pagination);
 
     } catch (error) {
