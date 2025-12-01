@@ -19,7 +19,17 @@
 
 .success-icon {
   font-size: 5rem;
-  color: #28a745; /* Um verde de sucesso */
+  color: #28a745;
+  /* Um verde de sucesso */
+  margin-bottom: 25px;
+  display: inline-block;
+  animation: bounceIn 0.8s ease-out;
+}
+
+.warning-icon {
+  font-size: 5rem;
+  color: #f0ad4e;
+  /* Amarelo/Laranja de aviso */
   margin-bottom: 25px;
   display: inline-block;
   animation: bounceIn 0.8s ease-out;
@@ -30,13 +40,16 @@
     transform: scale(0.3);
     opacity: 0;
   }
+
   50% {
     transform: scale(1.1);
     opacity: 1;
   }
+
   70% {
     transform: scale(0.9);
   }
+
   100% {
     transform: scale(1);
   }
@@ -44,7 +57,8 @@
 
 .thank-you-content h1 {
   font-size: 3rem;
-  color: #0b598b; /* Cor primária do global.css */
+  color: #0b598b;
+  /* Cor primária do global.css */
   margin-bottom: 20px;
   line-height: 1.2;
 }
@@ -59,7 +73,8 @@
 }
 
 .details-box {
-  background-color: #f8fbfd; /* Fundo azul claro para destaque */
+  background-color: #f8fbfd;
+  /* Fundo azul claro para destaque */
   border: 1px solid #e0e7eb;
   border-radius: 10px;
   padding: 30px;
@@ -92,10 +107,12 @@
 
 .details-box ul li i {
   font-size: 1.6rem;
-  color: #f07913; /* Laranja do global.css */
+  color: #f07913;
+  /* Laranja do global.css */
   margin-right: 15px;
   flex-shrink: 0;
-  margin-top: 2px; /* Pequeno ajuste para alinhar com o texto */
+  margin-top: 2px;
+  /* Pequeno ajuste para alinhar com o texto */
 }
 
 .details-box ul li strong {
@@ -120,7 +137,8 @@
 .thank-you-ctas .btn {
   padding: 14px 28px;
   font-size: 1.1rem;
-  min-width: 240px; /* Garante que os botões tenham um tamanho mínimo */
+  min-width: 240px;
+  /* Garante que os botões tenham um tamanho mínimo */
 }
 
 /* Responsividade */
@@ -130,7 +148,8 @@
     padding: 20px;
   }
 
-  .success-icon {
+  .success-icon,
+  .warning-icon {
     font-size: 4rem;
   }
 
@@ -138,7 +157,8 @@
     font-size: 2.2rem;
   }
 
-  .main-message, .secondary-message {
+  .main-message,
+  .secondary-message {
     font-size: 1rem;
   }
 
