@@ -13,8 +13,10 @@
 
 .profile-banner {
     height: 280px;
-    background: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1770') center/cover no-repeat;
     background-color: #f0f0f0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     position: relative;
 }
 

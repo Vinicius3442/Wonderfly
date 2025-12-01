@@ -96,7 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         avatarImg.src = result.avatar_url + `?v=${Date.now()}`;
                     }
                     if (result.banner_url && bannerEl) {
-                        bannerEl.style.backgroundImage = `url(${result.banner_url}?v=${Date.now()})`;
+                        // CORRIGIDO: Adicionado aspas simples em volta da URL
+                        bannerEl.style.backgroundImage = `url('${result.banner_url}?v=${Date.now()}')`;
                     }
 
                     closeModal();

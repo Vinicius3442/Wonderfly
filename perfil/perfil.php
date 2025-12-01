@@ -80,9 +80,13 @@ try {
 }
 
 // 4. Prepara variáveis para o HTML
-$banner_style = $user['banner_url'] 
-    ? 'background-image: url(' . BASE_URL . htmlspecialchars($user['banner_url']) . ');'
-    : 'background-color: #eee;';
+$default_banner = 'https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1770';
+$banner_url = $user['banner_url'] 
+    ? (filter_var($user['banner_url'], FILTER_VALIDATE_URL) ? $user['banner_url'] : BASE_URL . htmlspecialchars($user['banner_url']))
+    : $default_banner;
+
+// CORRIGIDO: Adicionado aspas simples em volta da URL para suportar espaços
+$banner_style = 'background-image: url(\'' . $banner_url . '\');';
 
 $avatar_src = $user['avatar_url']
     ? (filter_var($user['avatar_url'], FILTER_VALIDATE_URL) ? $user['avatar_url'] : BASE_URL . htmlspecialchars($user['avatar_url']))
